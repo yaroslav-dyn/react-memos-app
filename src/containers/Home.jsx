@@ -1,5 +1,5 @@
 import React from 'react';
-const greetingMessage = false;
+const greetingMessage = true;
 import {
   Link
 } from "react-router-dom";

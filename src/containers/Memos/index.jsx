@@ -1,28 +1,25 @@
 import React from 'react';
 
-const MemosIndex = () => (
-   
-   <main className="main_area main-column">
+const MemosIndex = () => {
 
-        <article>
+  const testMethod = (e) => {
+    console.log(
+        'fired', e.target
+    );
+  }
 
-            <div className="memos_controls">
+  return (
+    <main className="main_area main-column">
+      <article>
+        <div className="memos_controls">
+          <div className="memos_list">
+            <button className="action-btn mobile100" onClick={testMethod}>Click</button>
+          </div>
+        </div>
 
-
-                <div className="memos_list">
-
-                    Some content
-                </div>
-
-            </div>
-
-
-
-        </article>
-
-   </main>
-   
-
-)//;
+      </article>
+    </main >
+  )
+}//;
 
 export default MemosIndex;
