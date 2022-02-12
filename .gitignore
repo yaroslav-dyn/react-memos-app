@@ -5,6 +5,7 @@ npm-debug.log*
 coverage
 /.idea
 /.lh
+/workspace.code
 
 # Dependency directories
 node_modules
