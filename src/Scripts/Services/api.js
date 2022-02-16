@@ -1,11 +1,11 @@
 const serverUrl = "https://memo-silver-app.herokuapp.com/api/";
 const localUrl = "http://localhost:4000/api/";
 const apiUrl = serverUrl || localUrl; //serverUrl
-const defaultHeaders: HeadersInit = new Headers();
+const defaultHeaders = new Headers();
 defaultHeaders.set('Content-Type', 'application/json');
 
 
-const responseHandler = (response, clearResponse?) => {
+const responseHandler = (response, clearResponse) => {
   if (!response.ok) {
     console.error(response);
   }
@@ -14,11 +14,10 @@ const responseHandler = (response, clearResponse?) => {
 
 
 export const getApiResponse = async (
-    currentUrl: string,
-    reqType: string,
-    params?: any | null,
-    clearResponse?: boolean):
-    Promise<any> => {
+    currentUrl,
+    reqType,
+    params,
+    clearResponse) => {
   try {
     let paramsObj = {
       method: reqType,

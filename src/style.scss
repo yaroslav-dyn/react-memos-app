@@ -1,5 +1,4 @@
-@import './scss/vars';
-
+@import "./scss/vars";
 
 /** General Styles **/
 :root {
@@ -9,7 +8,8 @@
   --main-success-color: limegreen;
   --special-black: #444;
 }
-html, body {
+html,
+body {
   position: relative;
   width: 100%;
   height: 100%;
@@ -25,10 +25,14 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-size: 1.6rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
+    sans-serif;
 }
 
-div, header, footer, .main_area {
+div,
+header,
+footer,
+.main_area {
   box-sizing: border-box;
 }
 
@@ -49,7 +53,10 @@ label {
   display: block;
 }
 
-input, button, select, textarea {
+input,
+button,
+select,
+textarea {
   font-family: inherit;
   font-size: inherit;
   padding: 0.4em;
@@ -120,24 +127,28 @@ div {
   color: inherit;
 }
 
-.action-btn.default, .action-btn:focus {
+.action-btn.default,
+.action-btn:focus {
   background-color: #eee;
 }
 
-.action-btn.warn, .action-btn.warn:focus,
-.action-btn.warn[disabled], .action-btn.warn[disabled]:hover{
+.action-btn.warn,
+.action-btn.warn:focus,
+.action-btn.warn[disabled],
+.action-btn.warn[disabled]:hover {
   background-color: var(--main-warn-color);
   color: #fff;
 }
-.action-btn.success, .action-btn.success:focus,
-.action-btn.success[disabled], .action-btn.success[disabled]:hover {
-  background-color: var( --main-success-color);
+.action-btn.success,
+.action-btn.success:focus,
+.action-btn.success[disabled],
+.action-btn.success[disabled]:hover {
+  background-color: var(--main-success-color);
   color: #fff;
 }
 .action-btn.slave {
   background-color: var(--main-slave-color);
 }
-
 
 .action-btn:hover {
   background-color: #444;
@@ -175,12 +186,12 @@ div {
 }
 
 .status.complete {
-   color: var(--main-success-color);
- }
+  color: var(--main-success-color);
+}
 
 .status.pending {
-   color: var(--main-warn-color);
- }
+  color: var(--main-warn-color);
+}
 
 /*Main parts*/
 .header {
@@ -201,7 +212,7 @@ div {
   background-color: #f6f6f6;
 }
 
-.base_modal{
+.base_modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -210,7 +221,7 @@ div {
   z-index: 100;
   padding: 1.2rem;
   border-radius: 6px;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 .base_modal__content {
   display: flex;
@@ -218,7 +229,7 @@ div {
   padding: 2rem;
   position: absolute;
   background: #fff;
-  box-shadow: 0 0 2px rgba(0,0,0,0.6);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
   top: 0;
   left: calc(50% - 200px);
   width: 400px;
@@ -232,73 +243,72 @@ div {
   min-height: 100vh;
 }
 
-
 .app-wrapper > .main-column {
   flex: 1;
 }
 
-
-
 // Header
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .logo {
-    max-width: 80px;
-    height: auto;
-  }
-  .logo > img {
-    width: 100%;
-    height: auto;
-    display: inline-block;
-  }
-  .api_status {
-    font-size: 12px;
-    font-weight: 100;
-    background-color: #f8f8f8;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-    display: inline-block;
-    padding: 8px 14px;
-    border-radius: 8px;
-  }
-  .api_status__container {
-    display: flex;
-    justify-content: flex-end;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  max-width: 80px;
+  height: auto;
+}
+.logo > img,
+.container__image {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+.api_status {
+  font-size: 12px;
+  font-weight: 100;
+  background-color: #f8f8f8;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+.api_status__container {
+  display: flex;
+  justify-content: flex-end;
+}
 
-  .api_status.error {
-    color: darkred;
-  }
+.api_status.error {
+  color: darkred;
+}
 
-  .api_status.success {
-    color: green;
-  }
-
+.api_status.success {
+  color: green;
+}
 
 //Footer
 .footer {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    &_nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  &_nav {
     display: flex;
     align-items: center;
     justify-content: space-around;
     flex: 1;
     &__link {
-        display: inline-block;
-        margin-right: 10px;
-        padding: 2px;
-        &.active {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 2px;
+      &.active {
         border: 2px solid;
         border-radius: 6px;
-        }
+      }
     }
     &__icon {
-        font-size: 2.8rem;
+      font-size: 2.8rem;
     }
-    }
+  }
 }
+
+

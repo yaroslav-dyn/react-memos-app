@@ -1,0 +1,41 @@
+@import './vars.scss';
+
+.personal-cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  padding: 1.4rem;
+  margin-bottom: 6px;
+
+  > div {
+    margin-right: 10px;
+  }
+  & > div:first-child {
+    flex-basis: 40%;
+  }
+  & > div:not(:first-child) {
+    flex-basis: 20%;
+  }
+  & > div:last-child {
+    text-align: right;
+  }
+}
+.header_cart {
+  cursor: pointer;
+}
+@media screen and (max-width: $medium-device) {
+  .personal-cart {
+    & > div:first-child {
+      flex-basis: 90%;
+    }
+    & > div:not(:first-child) {
+      flex-basis: 5%;
+    }
+    & > div:last-child {
+      text-align: right;
+    }
+  }
+}
