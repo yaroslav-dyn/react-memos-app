@@ -14,7 +14,7 @@ const MemosSingle = (props) => {
   }
 
   return (
-    <div className="personal-cart">
+    <div className="personal-cart" onClick={() => props.onPress(props.memo._id)}>
       <div className="header_cart" > {props.memo.name} </div>
       <div className="hide-mobile">{props.memo.description}</div>
       <div className={statusLabelClasses}>

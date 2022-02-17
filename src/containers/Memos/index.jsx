@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { getApiResponse } from '../../Scripts/Services/api';
-import MemosSingle from './parts/memo-single';
-import '../../scss/memos.scss';
+import { useHistory } from "react-router-dom";
+import { getApiResponse } from '@/Scripts/Services/api';
+import MemosSingle from '@/containers/Memos/parts/memo-single';
+import '@/scss/memos.scss';
 
 
 const MemosIndex = () => {
+
+  const navigate = useHistory();
 
   const [memos, setMemos] = useState([
     { id: 0, title: '' }
   ]);
 
-  const testMethod = (e) => {
-    console.log(
-      'fired', e.target
-    );
+  const addMemo = () => {
+
+  }
+
+  const goToSingle = (e) => {
+      navigate.push(`/memo/${e}`);
   }
 
   useEffect(() => {
@@ -32,7 +37,7 @@ const MemosIndex = () => {
 
             {memos.map((memo, index) =>
           
-              <MemosSingle key={index} memo={memo} />
+              <MemosSingle key={index} memo={memo} onPress={goToSingle} />
 
             )}
 
@@ -40,7 +45,7 @@ const MemosIndex = () => {
 
           <div className="memos_controls">
             <div className="memos_list">
-              <button className="action-btn mobile100" onClick={testMethod}>Add</button>
+              <button className="action-btn mobile100" onClick={addMemo}>Add</button>
             </div>
           </div>
 

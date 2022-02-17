@@ -7,3 +7,7 @@ export { default as Footer} from './_Common/_Footer';
 
 //Memos
 export { default as MemosIndex } from './Memos';
+export { default as MemosSingleFull } from './Memos/MemosSingleFull';
+
+//System
+export { default as NotFound } from './System/NotFound';

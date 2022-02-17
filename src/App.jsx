@@ -5,7 +5,6 @@ import { Header, Footer } from './containers';
 import Routes from './Routes';
 
 
-
 const App = () => (
   <BrowserRouter>
     <main className="app-wrapper">
