@@ -1,0 +1,36 @@
+@import "./helpers";
+//preview
+.memo_preview {
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+}
+.memo_preview__inner {
+  background: #fff;
+  padding: 1.4rem;
+  border-radius: 4px;
+}
+.memo_preview__controls {
+  > .action-btn {
+    margin-bottom: 8px;
+    @include reset-link(#fff);
+    text-align: center;
+  }
+}
+.memo_status-box {
+  display: flex;
+  align-items: center;
+  &__label {
+    margin-right: 10px;
+    display: inline-block;
+  }
+  &__input {
+    margin: 0;
+  }
+  &__time-edit {
+    padding: 14px 0;
+  }
+}
+.m_preview-label {
+  margin-bottom: 0.8rem;
+  opacity: 0.9;
+}

@@ -5,7 +5,7 @@ import '@/scss/header.scss';
 
 const Header = () => (
     
-    <header className="header">
+    <header className="header main-column">
         <div className="logo">
         <Link to="/">
             <img className="container__image" alt="react logo" src={memoLogo} />

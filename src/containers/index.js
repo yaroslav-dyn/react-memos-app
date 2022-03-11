@@ -6,7 +6,7 @@ export { default as Header } from './_Common/_Header';
 export { default as Footer} from './_Common/_Footer';
 
 //Memos
-export { default as MemosIndex } from './Memos';
+export { default as MemosIndex } from './Memos/MemoIndex';
 export { default as MemosSingleFull } from './Memos/MemosSingleFull';
 
 //System

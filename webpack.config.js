@@ -22,9 +22,10 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    contentBase: './',
     historyApiFallback: true,
   },
-  entry: ['@babel/polyfill', 'whatwg-fetch', 'react-hot-loader/patch', path.join(__dirname, '/src/index.jsx')],
+  entry: ['@babel/polyfill', 'whatwg-fetch', 'react-hot-loader/patch', path.join(__dirname, '/src/MemoIndex.jsx')],
   module: {
     rules: [
       {
@@ -54,6 +55,7 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.join(__dirname, '/build'),
+    publicPath: '/'
   },
   mode: dev ? 'development' : 'production',
   plugins: dev

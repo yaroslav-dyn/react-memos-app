@@ -1,67 +1,100 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getApiResponse } from '@/Scripts/Services/api';
+import MemoStatusesView   from '@/containers/Memos/parts/memo-status-view';
+import '@/scss/memos-preview.scss'
+
 import {
-    useParams
-} from "react-router-dom";
+  Link,
+  useParams
+} from 'react-router-dom';
 
 const MemosSingleFull = () => {
 
-    let { ids } = useParams();
+  const { ids } = useParams();
 
-    return (
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [noteStatus, setStatus] = useState(false);
+  const [formatedDate, setFormatedDate] = useState('');
+
+  const updateNote = () => {
+
+  };
+
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    console.log(
+      'submit', { name, description },
+    );
+  };
+
+  useEffect(() => {
+    getApiResponse(`memo/${ids}`, 'GET', null, false).then((res) => {
+      setName(res.name);
+      setDescription(res.description);
+      setStatus(res.status);
+      setFormatedDate(res.updatedAt);
+    });
+  }, []);
+
+  return (
+    <form onSubmit={handleSubmit} className="memo_preview main-column">
+
+      <div className="memo_preview__inner">
         <div>
-            this page id is {ids}
-
-            {/* <div class="memo_preview">
-                <div class="memo_preview__inner">
-                    <div>
-                        <label class="custom-label m_preview-label" for="memo-name"><b>Title:</b></label>
-                        <input
-                            id="memo-name"
-                            type="text"
-                            class="custom-input"
-                            bind:value={note.name}
-                        />
-                    </div>
-
-                    <div>
-                        <label class="custom-label m_preview-label" for="memo-description"><b>Description:</b></label>
-                        <textarea
-                            class="custom-input area description_field"
-                            rows="4"
-                            id="memo-description"
-                            name="description"
-                            bind:value={note.description}
-                        />
-                    </div>
-
-                    <div>
-                        <div class="flex-grid adjust-center justify-s-side-in memo_status-box__time-edit">
-                            <div class="memo_status-box">
-                                <MemoStatusesView
-                                    statusMemo="{note.status}"
-                                    on:changeStatusInput={onChangeStatusMemo} />
-                            </div>
-                            <div class="flex-grid adjust-center">
-                                <i class="material-icons">schedule</i>
-                                {formatedDate}
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="action-btn warn w100" on:click={() => dispatch('closeView')}>
-                        Close
-                    </button>
-                    <button class="action-btn success w100" on:click={updateNote}>
-                        Update
-                    </button>
-
-                </div>
-            </div> */}
-
-
+          <label className="custom-label m_preview-label" htmlFor="memo-name"><b>Title:</b></label>
+          {name}
+          <input
+            id="memo-name"
+            type="text"
+            className="custom-input"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
         </div>
-    )
-}
+
+        <div>
+          <label className="custom-label m_preview-label" htmlFor="memo-description"><b>Description:</b></label>
+          <textarea
+            className="custom-input area description_field"
+            rows="4"
+            id="memo-description"
+            name="description"
+            value={description || ''}
+            onChange={e => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <div className="flex-grid adjust-center justify-s-side-in memo_status-box__time-edit">
+             <div className="memo_status-box">
+                <MemoStatusesView
+                  statusMemo={noteStatus}
+                  />
+              </div>
+            <div className="flex-grid adjust-center">
+              <i className="material-icons">schedule</i>
+               { formatedDate }
+            </div>
+          </div>
+        </div>
+
+        <div className="memo_preview__controls">
+          <Link className="action-btn warn w100" to="/memos">
+            Close
+          </Link>
+
+          <button type="button" className="action-btn success w100" onClick={updateNote}>
+            Update
+          </button>
+        </div>
+
+      </div>
+
+    </form>
+  );
+};
 
 
-export default MemosSingleFull
+export default MemosSingleFull;

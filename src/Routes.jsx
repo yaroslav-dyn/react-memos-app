@@ -5,8 +5,8 @@ import { Home, MemosIndex, MemosSingleFull, NotFound } from './containers';
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
-    <Route  path="/memos" component={MemosIndex} />
-    <Route  path="/memo/:ids" component={MemosSingleFull} />
+    <Route path="/memos" component={MemosIndex} />
+    <Route exact path="/memo/:ids" component={MemosSingleFull} />
     <Route component={NotFound} />
   </Switch>
 );

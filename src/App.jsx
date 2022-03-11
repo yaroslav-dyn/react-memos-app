@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Header, Footer } from './containers';
 
 import Routes from './Routes';
@@ -10,8 +10,8 @@ const App = () => (
     <main className="app-wrapper">
 
       <Header className="main-column" />
-      <Routes className="main-column"/>
-      <Footer className="main-column"/>
+      <Routes className="main-column" />
+      <Footer className="main-column" />
 
     </main>
 

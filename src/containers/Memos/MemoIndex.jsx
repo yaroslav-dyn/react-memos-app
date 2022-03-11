@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import { getApiResponse } from '@/Scripts/Services/api';
 import MemosSingle from '@/containers/Memos/parts/memo-single';
 import '@/scss/memos.scss';
@@ -10,21 +10,25 @@ const MemosIndex = () => {
   const navigate = useHistory();
 
   const [memos, setMemos] = useState([
-    { id: 0, title: '' }
+    {
+      id: 0,
+      title: ''
+    }
   ]);
 
   const addMemo = () => {
 
-  }
+  };
 
   const goToSingle = (e) => {
-      navigate.push(`/memo/${e}`);
-  }
+    navigate.push(`/memo/${e}`);
+  };
 
   useEffect(() => {
-    getApiResponse('memos', "GET", null, false).then((res) => {
-      setMemos(res)
-    });
+    getApiResponse('memos', 'GET', null, false)
+      .then((res) => {
+        setMemos(res);
+      });
   }, []);
 
   return (
@@ -36,9 +40,7 @@ const MemosIndex = () => {
           <div className="memos_list">
 
             {memos.map((memo, index) =>
-          
               <MemosSingle key={index} memo={memo} onPress={goToSingle} />
-
             )}
 
           </div>
@@ -53,7 +55,7 @@ const MemosIndex = () => {
 
       </section>
     </main>
-  )
-}//;
+  );
+};//
 
 export default MemosIndex;

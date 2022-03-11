@@ -28,7 +28,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
     sans-serif;
   // TODO: Theming
-  //background-color: #f7c8c4;  
+  //background-color: #f7c8c4;
 }
 
 div,
@@ -119,6 +119,7 @@ div {
   background-color: #dedede;
   cursor: pointer;
   color: var(--main-blue-color);
+  box-sizing: border-box;
   // TODO: Theming
   //background: #e87650;
   //color: #51002a;
@@ -258,61 +259,22 @@ div {
   color: green;
 }
 
-//Footer
-.footer {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
 
-  &_nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex: 1;
-    &__link {
-      display: inline-block;
-      margin-right: 10px;
-      padding: 2px;
-      &.active {
-        border: 2px solid;
-        border-radius: 6px;
-      }
-    }
-    &__icon {
-      font-size: 2.8rem;
-      //TODO: Theming
-      //color: #51002a; 
-    }
-  }
-}
+//TODO: move to single file
+.status_input {
+   display: none;
+ }
+ .status-label {
+   display: inline-block;
+   margin-left: 4px;
+   font-size: 14px;
 
+   &.––complete {
+     color: $success-text
+   }
 
-//preview
-.memo_preview {
-    border-radius: 3px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
-  }
-  .memo_preview__inner {
-    background: #fff;
-    padding: 1.4rem;
-    border-radius: 4px;
-  }
-  .memo_status-box {
-    display: flex;
-    align-items: center;
-    &__label {
-      margin-right: 10px;
-      display: inline-block;
-    }
-    &__input {
-      margin: 0;
-    }
-    &__time-edit {
-      padding: 14px 0;
-    }
-  }
-  .m_preview-label {
-    margin-bottom: 0.8rem;
-    opacity: 0.9;
-  }
+   &.––pending {
+     color: $warning-text
+   }
+ }
+
