@@ -69,7 +69,7 @@ The boilerplate structure and files are the same as this repo minus the *bin* fo
 │   ├── *App.jsx* main layout
 │   ├── *Routes.jsx* front-end routes
 │   ├── *index.html* entry point
-│   ├── *MemoIndex.jsx* javascript entry point
+│   ├── *index.jsx* javascript entry point
 │   ├── *style.scss* styling
 │   └── */tests/* contains test environment (Jest + Enzyme)
 │       ├── */__mock__/* contains setup to provide a valid path for imports

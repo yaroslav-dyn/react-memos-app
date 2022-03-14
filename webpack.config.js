@@ -25,7 +25,7 @@ module.exports = {
     contentBase: './',
     historyApiFallback: true,
   },
-  entry: ['@babel/polyfill', 'whatwg-fetch', 'react-hot-loader/patch', path.join(__dirname, '/src/MemoIndex.jsx')],
+  entry: ['@babel/polyfill', 'whatwg-fetch', 'react-hot-loader/patch', path.join(__dirname, '/src/index.jsx')],
   module: {
     rules: [
       {

@@ -6,7 +6,8 @@ const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/memos" component={MemosIndex} />
-    <Route exact path="/memo/:ids" component={MemosSingleFull} />
+    <Route path="/memo/:ids" component={MemosSingleFull} />
+    <Route path="/memo/add" component={MemosSingleFull} />
     <Route component={NotFound} />
   </Switch>
 );

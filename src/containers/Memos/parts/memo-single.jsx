@@ -5,7 +5,7 @@ const MemosSingle = (props) => {
   /**  TODO: Rewrite this with 'statusIconClasses' **/
   let statusLabelClasses = 'status hide-mobile';
   let statusIconClasses = 'material-icons status';
-  if(props.memo.status) {
+  if (props.memo.status) {
     statusLabelClasses += ' complete';
     statusIconClasses += ' complete';
   } else {
@@ -14,8 +14,9 @@ const MemosSingle = (props) => {
   }
 
   return (
-    <div className="personal-cart" onClick={() => props.onPress(props.memo._id)}>
-      <div className="header_cart" > {props.memo.name} </div>
+    <div className="personal-cart"
+      onClick={(e) => props.onPress(props.memo._id)}>
+      <div className="header_cart"> {props.memo.name} </div>
       <div className="hide-mobile">{props.memo.description}</div>
       <div className={statusLabelClasses}>
         {props.memo.status}
@@ -26,7 +27,11 @@ const MemosSingle = (props) => {
         </i>
       </div>
       <div>
-        <i className="material-icons memo-icons icon_close attention">
+        <i className="material-icons memo-icons icon_close attention" onClick={(e) => {
+          if (e.defaultPrevented) return  // Exits here if event has been handled
+          e.stopPropagation()
+          props.onDelete(props.memo._id)
+        }}>
           clear
         </i>
       </div>

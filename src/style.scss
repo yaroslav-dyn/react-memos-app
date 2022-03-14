@@ -1,4 +1,5 @@
 @import "./scss/vars";
+@import "./scss/helpers";
 
 /** General Styles **/
 :root {
@@ -110,7 +111,7 @@ div {
   box-sizing: border-box;
 }
 
-.action-btn {
+.action-btn, a.action-btn {
   font-size: 1.8rem;
   border: none;
   display: inline-block;
@@ -120,9 +121,11 @@ div {
   cursor: pointer;
   color: var(--main-blue-color);
   box-sizing: border-box;
+  text-align: center;
   // TODO: Theming
   //background: #e87650;
   //color: #51002a;
+  @include reset-link(var(--main-blue-color));
 }
 .action-btn[disabled] {
   opacity: 0.6;
