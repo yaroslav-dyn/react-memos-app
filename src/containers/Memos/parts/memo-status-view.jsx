@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+const classNames = require('classnames');
 
 const MemoStatusView = ({
   onUpdateStatus,
@@ -6,7 +7,7 @@ const MemoStatusView = ({
 }) => {
 
   const [noteStatus, setStatus] = useState(false);
-  const noteStatusClasses = `status ${noteStatus ? 'complete' : 'pending'}`;
+  const noteStatusClasses = classNames('status', noteStatus ? 'complete' : 'pending');
   const title = '';
   const statusHru = noteStatus ? '––Complete' : '––Pending';
 

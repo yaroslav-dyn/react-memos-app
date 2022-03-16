@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { getApiResponse } from '@/Scripts/Services/api';
 import MemoStatusesView from '@/containers/Memos/parts/memo-status-view';
-import '@/scss/memos-preview.scss'
+import '@/scss/memos-preview.scss';
 
 import {
   Link,
-  useParams
+  useParams,
 } from 'react-router-dom';
 
 const MemosSingleFull = () => {
-
   const { ids } = useParams();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -20,23 +19,13 @@ const MemosSingleFull = () => {
 
   const history = useHistory();
 
-
-  const createNote = () => {
-
-  };
-
-  const updateNote = () => {
-
-  };
-
-
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const submitData = { name, description, status: noteStatus };
     let response = null;
-    if (isAdd) response = await getApiResponse(`memo`, 'post', submitData, false);
+    if (isAdd) response = await getApiResponse('memo', 'post', submitData, false);
     else response = await getApiResponse(`memo/${ids}`, 'put', submitData, false);
-    if (response) history.push('/memos')
+    if (response) history.push('/memos');
   };
 
   useEffect(() => {
