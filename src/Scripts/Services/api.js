@@ -14,17 +14,22 @@ const responseHandler = (response, clearResponse) => {
 
 
 export const getApiResponse = async (
-    currentUrl,
-    reqType,
-    params,
-    clearResponse) => {
+  currentUrl,
+  reqType,
+  params,
+  clearResponse) => {
   try {
     let paramsObj = {
       method: reqType,
       headers: defaultHeaders,
       body: null
+    };
+    if (params) {
+      paramsObj = {
+        ...paramsObj,
+        body: JSON.stringify(params)
+      };
     }
-    if (params) paramsObj = { ...paramsObj, body: JSON.stringify(params) }
     const response = await window.fetch(apiUrl + currentUrl, paramsObj);
     return responseHandler(response, clearResponse);
   } catch (error) {

@@ -1,3 +1,4 @@
+@import "./vars";
 
 //reset links styles
 @mixin reset-link($color) {
@@ -5,4 +6,10 @@
   text-decoration: none;
   outline: none;
   &:hover, &:active, &:focus, &:visited {color: $color}
+}
+
+@mixin rewrite-mobile {
+  @media all and (max-width: $device-mobile-max) {
+    @content
+  }
 }

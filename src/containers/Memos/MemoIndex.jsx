@@ -3,40 +3,43 @@ import { useHistory, Link } from 'react-router-dom';
 import { getApiResponse } from '@/Scripts/Services/api';
 import MemosSingle from '@/containers/Memos/parts/memo-single';
 import '@/scss/memos.scss';
+import ConfirmModal from '@/containers/System/Services/ConfirmModal';
 
 
 const MemosIndex = () => {
-
   const navigate = useHistory();
 
   const [memos, setMemos] = useState([
     {
       id: 0,
-      title: ''
+      title: '',
     }
   ]);
 
-  const addMemo = () => {
-
-  };
+  const [confirmId, setConfirmId] = useState(null);
 
   const goToSingle = (e) => {
-    navigate.push(`/memo/${e}`);  
+    navigate.push(`/memo/${e}`);
   };
-
-  const deleteMemo = (id) => {
-    getApiResponse(`memo/${id}`, 'DELETE', null, false)
-      .then((res) => {
-        if(res) getDEfaultMemos();
-      });
-  }
 
   const getDEfaultMemos = () => {
     getApiResponse('memos', 'GET', null, false)
       .then((res) => {
         setMemos(res);
       });
-  }
+  };
+
+  const triggerConfirm = (status) => {
+    setConfirmId(status);
+  };
+
+  const deleteMemo = (id) => {
+    getApiResponse(`memo/${id}`, 'DELETE', null, false)
+      .then((res) => {
+        if (res) getDEfaultMemos();
+        triggerConfirm(false);
+      });
+  };
 
   useEffect(() => {
     getDEfaultMemos();
@@ -52,7 +55,7 @@ const MemosIndex = () => {
                 key={index}
                 memo={memo}
                 onPress={goToSingle}
-                onDelete={deleteMemo}
+                onDelete={triggerConfirm}
               />
             )}
           </div>
@@ -63,6 +66,19 @@ const MemosIndex = () => {
           </div>
         </article>
       </section>
+      {
+        confirmId
+        && <ConfirmModal
+          memoId={confirmId}
+          confirmHeading="Warning!"
+          confirmText="You want to delete note?"
+          cancelButtonText="cancel"
+          confirmButtonText="delete"
+          onCancel={() => triggerConfirm(false)}
+          onConfirm={deleteMemo}
+        />
+      }
+
     </main>
   );
 };//

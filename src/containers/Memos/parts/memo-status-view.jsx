@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
-const MemoStatusView = (props) => {
+const MemoStatusView = ({
+  onUpdateStatus,
+  statusMemo
+}) => {
 
   const [noteStatus, setStatus] = useState(false);
   const noteStatusClasses = `status ${noteStatus ? 'complete' : 'pending'}`;
   const title = '';
-  let statusHru = noteStatus ? '––Complete' : '––Pending';
-
-  const emitStatus = (e) => {
-    console.log(e.target.value);
-  };
+  const statusHru = noteStatus ? '––Complete' : '––Pending';
 
   useEffect(() => {
-    setStatus(props.statusMemo)
-  }, [props.statusMemo]);
+    setStatus(statusMemo);
+  }, [statusMemo]);
 
+  const changeStatus = (val) => {
+    setStatus(val.target.checked);
+    onUpdateStatus(val.target.checked);
+  };
 
- const changeStatus = (val) => {
-   setStatus(val.target.checked);
-   props.onUpdateStatus(val.target.checked);
-  }
- 
   return (
     <div>
       <label htmlFor="status">{title}</label>
@@ -30,19 +28,15 @@ const MemoStatusView = (props) => {
           id="status"
           type="checkbox"
           checked={noteStatus}
-          onChange={(e) => changeStatus(e)} />
-        <i className={'material-icons ' + noteStatusClasses}>
+          onChange={e => changeStatus(e)}
+        />
+        <i className={`material-icons ${noteStatusClasses}`}>
           radio_button_unchecked
         </i>
         <span className={`status-label ${noteStatusClasses}`}>{statusHru}</span>
       </label>
     </div>
-  )
-
+  );
 };
 
 export default MemoStatusView;
-
-
-
-
