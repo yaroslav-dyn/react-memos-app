@@ -1,6 +1,8 @@
 @import "./scss/vars";
 @import "./scss/helpers";
 
+//Import default styles for https://fkhadra.github.io/react-toastify
+@import 'react-toastify/scss/main.scss';
 /** General Styles **/
 :root {
   --main-blue-color: #1091cb;

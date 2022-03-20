@@ -1,0 +1,19 @@
+.greeting {
+  &-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 2.4rem;
+  }
+  &-heading {
+    font-size: 2.4rem;
+    font-weight: 500;
+    flex: 1;
+  }
+  &-text {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 2.4rem;
+    flex: 1;
+  }
+}

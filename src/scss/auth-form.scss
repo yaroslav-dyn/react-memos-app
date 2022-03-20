@@ -1,0 +1,24 @@
+@import './helpers.scss';
+
+.login-form {
+  padding: 1.2rem;
+  &__row {
+    margin-bottom: 1.2rem;
+  }
+}
+
+.auth-type {
+  &__label {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+  }
+  &__input {
+    font-size: 1.6rem;
+    width: 100%;
+    min-height: 4rem;
+    border-radius: 6px;
+    background-color: #f6f6f6;
+    border: none;
+  }
+}
