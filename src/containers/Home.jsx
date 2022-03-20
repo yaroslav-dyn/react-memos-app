@@ -1,28 +1,33 @@
 import React from 'react';
+import '@/scss/home.scss'
+
 const greetingMessage = true;
 import {
   Link
-} from "react-router-dom";
+} from 'react-router-dom';
 
 const Home = () => (
 
   <main className="main_area main-column">
 
-  <article>
-
-      {greetingMessage 
-        ? <h1> Hi Memo!</h1>
-        : <h1> Good buy Memo! </h1>
+    <article className="greeting-block">
+      {greetingMessage
+        ? 
+        <>
+          <h1 className="centered-text greeting-heading"> Hi memorian! <br /> Do you want to jump into a magic world</h1>
+          <p className="centered-text greeting-text">Please login and let's start</p>
+        </> 
+        : <h1 className="centered-text greeting-heading"> Good buy memorian! </h1>
       }
- 
       <Link
         className="action-btn mobile100 add_btn"
-        to="/memos">
-        Go to Memo
+        to="/login"
+      >
+        Enter the world
       </Link>
-    
 
-  </article>
+
+    </article>
 
   </main>
 

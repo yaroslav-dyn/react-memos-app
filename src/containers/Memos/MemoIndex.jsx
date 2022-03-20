@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { getApiResponse } from '@/Scripts/Services/api';
 import MemosSingle from '@/containers/Memos/parts/memo-single';
 import '@/scss/memos.scss';
 import ConfirmModal from '@/containers/System/Services/ConfirmModal';
+import ToastService from '@/containers/System/Services/ToastService';
 
 
 const MemosIndex = () => {
   const navigate = useHistory();
+  const toastRef = useRef();
 
   const [memos, setMemos] = useState([
     {
@@ -36,7 +38,10 @@ const MemosIndex = () => {
   const deleteMemo = (id) => {
     getApiResponse(`memo/${id}`, 'DELETE', null, false)
       .then((res) => {
-        if (res) getDEfaultMemos();
+        if (res) {
+          toastRef.current.notifyService('Note has been delete', 'success');
+          getDEfaultMemos();
+        } else toastRef.current.notifySuccess('Note hasn\'t been delete', 'error');
         triggerConfirm(false);
       });
   };
@@ -78,7 +83,7 @@ const MemosIndex = () => {
           onConfirm={deleteMemo}
         />
       }
-
+      <ToastService ref={toastRef} />
     </main>
   );
 };//
