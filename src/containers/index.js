@@ -3,6 +3,7 @@ export { default as About } from './About';
 
 //auth
 export {default as Login} from './authentication/Login';
+export { default as SignUp } from './authentication/Registration';
 
 // Regular parts
 export { default as Header } from './_Common/_Header';

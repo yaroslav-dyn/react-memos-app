@@ -62,7 +62,7 @@ const MemosSingleFull = () => {
 
   return (
     <div className="memo_preview main-column">
-      <form onSubmit={handleSubmit}>
+      <form className="container" onSubmit={handleSubmit}>
         <div className="memo_preview__inner">
           <div>
             <label className="custom-label m_preview-label"
@@ -108,7 +108,6 @@ const MemosSingleFull = () => {
           </div>
 
           <div className="memo_preview__controls">
-
             {!isAdd ?
               <button type="submit" className="action-btn success w100">
                 Update
@@ -121,10 +120,9 @@ const MemosSingleFull = () => {
             <Link className="action-btn warn w100" to="/memos">
               Close
             </Link>
-
           </div>
-
         </div>
+
       </form>
       <ToastService ref={toastRef} />
     </div>

@@ -1,4 +1,13 @@
 @import './vars.scss';
+@import './helpers.scss';
+
+.memos_list {
+  padding: 1.2rem 0;
+  @include rewrite-mobile {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+}
 
 .personal-cart {
   display: flex;

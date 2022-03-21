@@ -6,11 +6,15 @@ import '@/scss/header.scss';
 const Header = () => (
 
   <header className="header main-column">
-    <div className="logo">
-      <Link to="/">
-        <img className="container__image" alt="react logo" src={memoLogo}/>
-      </Link>
+
+    <div className="header__nav">
+      <div className="logo">
+        <Link to="/">
+          <img className="container__image" alt="react logo" src={memoLogo} />
+        </Link>
+      </div>
     </div>
+ 
     <div className="api_status__container">
 
     </div>

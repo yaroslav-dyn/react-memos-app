@@ -20,16 +20,35 @@
       margin-right: 10px;
       padding: 2px;
 
+      &.accent {
+          border: 3px solid;
+          border-radius: 50%;
+          color: var(--main-warn-color);
+        .footer_nav__icon {
+          font-size: 4rem;
+          color: inherit;
+          border: 3px solid;
+          border-radius: 50%;
+          
+        }
+      }
       &.active {
-        border: 2px solid;
-        border-radius: 6px;
+        color: var(--main-warn-color);
       }
     }
-
     &__icon {
       font-size: 2.8rem;
       //TODO: Theming
       //color: #51002a;
     }
+  }
+}
+
+.service-popover {
+  &__content {
+    position: absolute;
+    top: unset !important;
+    bottom: 0;
+    max-height: 60vh;
   }
 }

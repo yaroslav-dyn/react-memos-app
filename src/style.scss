@@ -2,7 +2,7 @@
 @import "./scss/helpers";
 
 //Import default styles for https://fkhadra.github.io/react-toastify
-@import 'react-toastify/scss/main.scss';
+@import "react-toastify/scss/main.scss";
 /** General Styles **/
 :root {
   --main-blue-color: #1091cb;
@@ -30,7 +30,7 @@ body {
   box-sizing: border-box;
   font-size: 1.6rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
-  sans-serif;
+    sans-serif;
   // TODO: Theming
   //background-color: #f7c8c4;
 }
@@ -204,12 +204,13 @@ a.action-btn {
   text-align: right;
 }
 
-.status.complete {
-  color: var(--main-success-color);
-}
-
-.status.pending {
-  color: var(--main-warn-color);
+.status {
+  &.complete {
+    color: var(--main-success-color);
+  }
+  &.pending {
+    color: var(--main-warn-color);
+  }
 }
 
 /*Main parts*/
@@ -307,10 +308,11 @@ a.action-btn {
     flex-direction: column;
     padding: 2rem;
     background: #fff;
-    box-shadow: 0 0 2px rgba(0, 0, 0, .6);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
     top: 0;
     left: calc(50% - 200px);
     width: 400px;
+    margin: 0 auto;
     @include rewrite-mobile {
       width: 100%;
     }

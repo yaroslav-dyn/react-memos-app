@@ -22,12 +22,17 @@ const LoginComponent = () => {
         <input className="auth-type__input" type="text" id="password" />
       </div>
 
-      <button className="action-btn mobile100" type="submit">Login</button>
+      <div className="login-form__row">
+        <label className="auth-type__label" htmlFor="password"> Repeat your password </label>
+        <input className="auth-type__input" type="text" id="password" />
+      </div>
+
+      <button className="action-btn mobile100" type="submit">Sign up</button>
 
       <p className="centered-text">
-        Don't have an account?
+        Have an account?
         <br />
-        <Link to="/signup">Sign Up</Link>
+        <Link to="/login">Go to login</Link>
       </p>
 
     </form>

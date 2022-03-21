@@ -51,7 +51,7 @@ const MemosIndex = () => {
   }, []);
 
   return (
-    <main className="main_area main-column">
+    <main className="container main_area main-column">
       <section className="section_item">
         <article>
           <div className="memos_list">
