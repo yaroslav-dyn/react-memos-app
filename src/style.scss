@@ -315,6 +315,7 @@ a.action-btn {
     margin: 0 auto;
     @include rewrite-mobile {
       width: 100%;
+      left: 0;
     }
     min-height: 30vh;
   }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import ServicePopover from '@/containers/System/Services/ServicePopover';
+import AccountContent from '@/containers/System/Contents/AccountContent';
 import '@/scss/footer.scss';
 
 const Footer = () => {
@@ -35,7 +36,11 @@ const Footer = () => {
       </nav>
 
       {showPopover &&
-        <ServicePopover hidePopover={triggerPopover} />
+        <ServicePopover
+          isOpen={showPopover}
+          hidePopover={triggerPopover}
+          popoverContent={<AccountContent />}
+        />
       }
 
     </footer>
