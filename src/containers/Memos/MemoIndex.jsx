@@ -25,7 +25,7 @@ const MemosIndex = () => {
   };
 
   const getDEfaultMemos = () => {
-    getApiResponse('memos', 'GET', null, false)
+    getApiResponse('user/memos', 'GET', null, false, false, true)
       .then((res) => {
         setMemos(res);
       });
@@ -36,12 +36,12 @@ const MemosIndex = () => {
   };
 
   const deleteMemo = (id) => {
-    getApiResponse(`memo/${id}`, 'DELETE', null, false)
+    getApiResponse(`memo/${id}`, 'DELETE', null, false, false, true)
       .then((res) => {
         if (res) {
           toastRef.current.notifyService('Note has been delete', 'success');
           getDEfaultMemos();
-        } else toastRef.current.notifySuccess('Note hasn\'t been delete', 'error');
+        } else toastRef.current.notifyService('Note hasn\'t been delete', 'error');
         triggerConfirm(false);
       });
   };

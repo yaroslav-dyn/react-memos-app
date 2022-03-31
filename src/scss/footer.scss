@@ -14,6 +14,9 @@
     align-items: center;
     justify-content: space-around;
     flex: 1;
+    &.centered {
+      justify-content: center;
+    }
 
     &__link {
       display: inline-block;

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 const classNames = require('classnames');
 
 const ServicePopover = ({
@@ -6,7 +6,7 @@ const ServicePopover = ({
   popoverContent,
   hidePopover
 }) => {
-  const bottomPopoverState = classNames('base-modal__content service-popover__content ' , isOpen ? 'isOpen' : '')
+  const bottomPopoverState = classNames('base-modal__content service-popover__content ', isOpen ? 'isOpen' : '');
 
   return (
     <div className="base-modal service-popover">
@@ -14,8 +14,10 @@ const ServicePopover = ({
 
         <i className="material-icons centered-text hide-icon action-icon"
           onClick={() => hidePopover()}>expand_more</i>
-
-        { popoverContent }
+        
+        <div onClick={() => hidePopover()}>
+          {popoverContent}
+        </div>
 
       </div>
     </div>

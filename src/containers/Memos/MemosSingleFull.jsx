@@ -38,11 +38,11 @@ const MemosSingleFull = () => {
       status: noteStatus,
     };
     if (isAdd) {
-      getApiResponse('memo', 'post', submitData, false).then( response => {
+      getApiResponse('user/memo', 'post', submitData, false, false, true).then( response => {
         getSuccess(response && !response.hasOwnProperty('error'))
       });
     } else {
-      getApiResponse(`memo/${ids}`, 'put', submitData, false).then( response => {
+      getApiResponse(`user/memo/${ids}`, 'put', submitData, false, false, true).then( response => {
         getSuccess(response && !response.hasOwnProperty('error'))
       });
     }
