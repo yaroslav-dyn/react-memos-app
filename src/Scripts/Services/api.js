@@ -4,7 +4,9 @@ const serverUrl = 'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';
 const apiUrl =  localUrl //serverUrl || localUrl; //serverUrl
 const defaultHeaders = new Headers();
+const hasUSer = UserService.getUSerFromStorage();
 defaultHeaders.set('Content-Type', 'application/json');
+
 const reqHeaders = new Headers();
 reqHeaders.set('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -19,7 +21,7 @@ export const getApiResponse = async (
   currentUrl,
   reqType,
   params,
-  clearResponse, 
+  clearResponse,
   isSerialize,
   isPrivate) => {
   try {
@@ -33,15 +35,18 @@ export const getApiResponse = async (
         method: reqType,
         headers: reqHeaders,
         body: params
-      }     
+      }
     } else if (params) {
       paramsObj = {
         ...paramsObj,
-        body: JSON.stringify(params)
+        body: JSON.stringify(params),
       }
     }
-    const hasUSer = UserService.getUSerFromStorage();
-    const fullUrl = (hasUSer && isPrivate) ? `${apiUrl}${currentUrl}?secret_token=${hasUSer}` :  apiUrl + currentUrl;
+    let fullUrl;
+    if(hasUSer && isPrivate) {
+      defaultHeaders.set('Authorization', `Bearer ${hasUSer}`);
+      fullUrl = `${apiUrl}user${currentUrl}`;
+    } else fullUrl = `${apiUrl}${currentUrl}`;
     const response = await window.fetch(fullUrl, paramsObj);
     return responseHandler(response, clearResponse);
   } catch (error) {
