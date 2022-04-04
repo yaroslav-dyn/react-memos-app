@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef} from "react";
-import '@/scss/auth-form.scss'
-import { Link, useHistory } from 'react-router-dom'
+import '@/scss/auth-form.scss';
+import { Link, useHistory } from 'react-router-dom';
 import { getApiResponse } from "@/Scripts/Services/api";
 import ToastService from '@/containers/System/Services/ToastService';
-
+import UserService from "@/Scripts/Services/userService";
 
 const LoginComponent = () => {
   const toastRef = useRef();
@@ -12,19 +12,14 @@ const LoginComponent = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory();
 
-
-  const getUser = () => {
-    return localStorage.getItem('user');
-  };
-
-  const setUser = ({ token }) => {
-    localStorage.setItem('user', token);
-    setCurrentUser(token)
+  const setUser = ({token}) => {
+    UserService.setUserToStorage(token);
+    setCurrentUser(token);
   };
 
   useEffect(() => {
-    if (getUser()) history.push('/memos')
-  });
+    if (UserService.getUSerFromStorage()) history.push('/memos')
+  }, [currentUser]);
 
   const sendLoginForm = (e) => {
     e.preventDefault();

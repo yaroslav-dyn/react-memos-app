@@ -4,7 +4,6 @@ const serverUrl = 'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';
 const apiUrl =  localUrl //serverUrl || localUrl; //serverUrl
 const defaultHeaders = new Headers();
-const hasUSer = UserService.getUSerFromStorage();
 defaultHeaders.set('Content-Type', 'application/json');
 
 const reqHeaders = new Headers();
@@ -43,8 +42,9 @@ export const getApiResponse = async (
       }
     }
     let fullUrl;
-    if(hasUSer && isPrivate) {
-      defaultHeaders.set('Authorization', `Bearer ${hasUSer}`);
+    const hasUser = UserService.getUSerFromStorage();
+    if(hasUser && isPrivate) {
+      defaultHeaders.set('Authorization', `Bearer ${hasUser}`);
       fullUrl = `${apiUrl}user${currentUrl}`;
     } else fullUrl = `${apiUrl}${currentUrl}`;
     const response = await window.fetch(fullUrl, paramsObj);
