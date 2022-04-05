@@ -5,15 +5,21 @@ import AccountContent from '@/containers/System/Contents/AccountContent';
 import '@/scss/footer.scss';
 import UserService from '@/Scripts/Services/userService';
 import { connect } from 'react-redux';
+import { setUser } from "@/store/actions/index";
 const classNames = require('classnames');
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: user => dispatch(setUser(user))
+  };
+};
 
 const mapStateToProps = state => {
   return { currentUser: state.currentUser };
 };
 
 
-const FooterComponent = ({ currentUser}) => {
+const FooterComponent = ({ currentUser, setUser }) => {
 
   const [showPopover, setPopoverView] = useState(false);
   const footerNavClasses = classNames('container footer_nav', !currentUser ? 'centered' : '');
@@ -23,9 +29,10 @@ const FooterComponent = ({ currentUser}) => {
     setPopoverView(popStatus);
   }
 
-  useEffect(()=> {
-    console.log('state is changed', currentUser);
-  }, [currentUser])
+  useEffect( () => {
+    const currentUser =  UserService.getUSerFromStorage();
+    currentUser && setUser(currentUser)
+  });
 
   return (
     <footer className="footer main-column">
@@ -34,8 +41,6 @@ const FooterComponent = ({ currentUser}) => {
         <Link className="footer_nav__link" to="/">
           <span className="footer_nav__icon material-icons">window</span>
         </Link>
-
-        {currentUser}
 
         {currentUser &&
           <>
@@ -57,7 +62,6 @@ const FooterComponent = ({ currentUser}) => {
           <div className="footer_nav__link accent action-icon" onClick={triggerPopover}>
             <span className="footer_nav__icon material-icons">stream</span>
           </div>
-
         }
       </nav>
 
@@ -70,10 +74,10 @@ const FooterComponent = ({ currentUser}) => {
         />
       }
 
-    </footer >
+    </footer>
   );
 }
 
-const Footer = connect(mapStateToProps)(FooterComponent)
+const Footer = connect(mapStateToProps, mapDispatchToProps)(FooterComponent)
 
 export default Footer;

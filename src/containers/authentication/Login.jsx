@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef} from "react";
+import React, { useState, useRef} from "react";
 import '@/scss/auth-form.scss';
 import { Link, useHistory } from 'react-router-dom';
 import { getApiResponse } from "@/Scripts/Services/api";
@@ -7,28 +7,24 @@ import UserService from "@/Scripts/Services/userService";
 
 import { connect } from "react-redux";
 import { setUser } from "@/store/actions/index";
-import Footer from "../_Common/_Footer";
 
-
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     setUser: user => dispatch(setUser(user))
   };
 }
 
-const LoginComponent = (props) => {
+const LoginComponent = ({ setUser }) => {
   const toastRef = useRef();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-  //const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory();
 
   const setUserToken = ({token}) => {
     UserService.setUserToStorage(token);
-    props.setUser(token);
+    setUser(token);
     history.push('/memos')
   };
-
 
   const sendLoginForm = (e) => {
     e.preventDefault();

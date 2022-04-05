@@ -4,9 +4,16 @@ import { Link, useHistory } from 'react-router-dom';
 import { getApiResponse } from "@/Scripts/Services/api";
 import ToastService from '@/containers/System/Services/ToastService';
 import UserService from "@/Scripts/Services/userService";
+import { connect } from "react-redux";
+import { setUser } from "@/store/actions/index";
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: user => dispatch(setUser(user))
+  };
+}
 
-const RegisterComponent = () => {
+const RegisterComponent = ({ setUser }) => {
   const toastRef = useRef();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -15,14 +22,11 @@ const RegisterComponent = () => {
   
   const history = useHistory();
 
-  const setUser = ({ token }) => {
+  const setUserToken = ({ token }) => {
     UserService.setUserToStorage(token);
-    setCurrentUser(token);
+    setUser(token);
+    history.push('/memos')
   };
-
-  useEffect(() => {
-    if (UserService.getUSerFromStorage()) history.push('/memos')
-  }, [currentUser]);
 
   const sendLoginForm = (e) => {
     e.preventDefault();
@@ -35,7 +39,7 @@ const RegisterComponent = () => {
     );
     if (email && password && password === confirmPassword) {
       getApiResponse('signup', 'POST', serializeData, null, true).then(response => {
-        if (response) setUser(response);
+        if (response) setUserToken(response);
         else toastRef.current.notifyService('Registration hasn\'t been successful', 'error');
       })
     } else {
@@ -76,4 +80,6 @@ const RegisterComponent = () => {
   )
 };
 
-export default RegisterComponent
+const Registration = connect(null, mapDispatchToProps)(RegisterComponent)
+
+export default Registration

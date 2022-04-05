@@ -1,11 +1,20 @@
 import React from "react";
 import { Link, useHistory } from 'react-router-dom';
+import { connect } from "react-redux";
+import { setUser } from "@/store/actions/index";
 
-const AccountContent = () => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: user => dispatch(setUser(user))
+  };
+}
+
+const AccountContent = ({ setUser }) => {
   const history = useHistory();
 
   const signOut = () => {
     localStorage.removeItem('user');
+    setUser(null);
     history.push('login');
   }
 
@@ -23,4 +32,7 @@ const AccountContent = () => {
     </>
   )
 };
-export default AccountContent
+
+const AccountInnerContent = connect(null, mapDispatchToProps)(AccountContent)
+
+export default AccountInnerContent
