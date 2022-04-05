@@ -17,6 +17,7 @@ const MemosIndex = () => {
       title: '',
     }
   ]);
+  let timer = null;
 
   const [confirmId, setConfirmId] = useState(null);
 
@@ -46,6 +47,17 @@ const MemosIndex = () => {
       });
   };
 
+  const findMemo = (searchString) => {
+    console.log(searchString);
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      getApiResponse(`/memos?name=${searchString}`, 'GET', null, false, false, true).then( res => {
+        if (res) setMemos(res);
+      })   
+    }, 750);
+
+  }
+
   useEffect(() => {
     getDEfaultMemos();
   }, []);
@@ -53,6 +65,10 @@ const MemosIndex = () => {
   return (
     <main className="container main_area main-column">
       <section className="section_item">
+        <br />
+
+        <input type="text" className="auth-type__input" onChange={(e) => findMemo(e.target.value)} />
+
         <article>
           <div className="memos_list">
             {memos.map((memo, index) =>
