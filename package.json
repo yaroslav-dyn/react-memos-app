@@ -57,6 +57,8 @@
     "jest": "^24.9.0",
     "node-sass": "^4.14.1",
     "react-hot-loader": "^4.13.0",
+    "react-redux": "^7.2.8",
+    "redux": "^4.1.2",
     "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",

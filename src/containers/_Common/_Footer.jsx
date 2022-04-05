@@ -1,29 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import ServicePopover from '@/containers/System/Services/ServicePopover';
 import AccountContent from '@/containers/System/Contents/AccountContent';
 import '@/scss/footer.scss';
 import UserService from '@/Scripts/Services/userService';
+import { connect } from 'react-redux';
 const classNames = require('classnames');
 
-const Footer = () => {
+
+const mapStateToProps = state => {
+  return { currentUser: state.currentUser };
+};
+
+
+const FooterComponent = ({ currentUser}) => {
 
   const [showPopover, setPopoverView] = useState(false);
-  const [currentUser] = useState(UserService.getUSerFromStorage());
   const footerNavClasses = classNames('container footer_nav', !currentUser ? 'centered' : '');
   
-
   const triggerPopover = () => {
     const popStatus = showPopover ? false : true;
     setPopoverView(popStatus);
   }
 
+  useEffect(()=> {
+    console.log('state is changed', currentUser);
+  }, [currentUser])
+
   return (
     <footer className="footer main-column">
+   
       <nav className={footerNavClasses}>
         <Link className="footer_nav__link" to="/">
           <span className="footer_nav__icon material-icons">window</span>
         </Link>
+
+        {currentUser}
 
         {currentUser &&
           <>
@@ -61,5 +73,7 @@ const Footer = () => {
     </footer >
   );
 }
+
+const Footer = connect(mapStateToProps)(FooterComponent)
 
 export default Footer;

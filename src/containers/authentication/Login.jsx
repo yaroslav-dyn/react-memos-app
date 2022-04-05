@@ -5,21 +5,30 @@ import { getApiResponse } from "@/Scripts/Services/api";
 import ToastService from '@/containers/System/Services/ToastService';
 import UserService from "@/Scripts/Services/userService";
 
-const LoginComponent = () => {
+import { connect } from "react-redux";
+import { setUser } from "@/store/actions/index";
+import Footer from "../_Common/_Footer";
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setUser: user => dispatch(setUser(user))
+  };
+}
+
+const LoginComponent = (props) => {
   const toastRef = useRef();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  //const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory();
 
-  const setUser = ({token}) => {
+  const setUserToken = ({token}) => {
     UserService.setUserToStorage(token);
-    setCurrentUser(token);
+    props.setUser(token);
+    history.push('/memos')
   };
 
-  useEffect(() => {
-    if (UserService.getUSerFromStorage()) history.push('/memos')
-  }, [currentUser]);
 
   const sendLoginForm = (e) => {
     e.preventDefault();
@@ -29,8 +38,13 @@ const LoginComponent = () => {
     const serializeData = new URLSearchParams(formData).toString();
     if (serializeData) {
       getApiResponse('login', 'POST', serializeData, null, true).then(response => {
-        if (response) setUser(response);
-        else toastRef.current.notifyService('Can\'t be login', 'error')
+        if (response) {
+          setUserToken(response);
+        } 
+        else { 
+          setUser(null);
+          toastRef.current.notifyService('Can\'t be login', 'error')
+        }
       })
     }
   }
@@ -72,4 +86,6 @@ const LoginComponent = () => {
   )
 };
 
-export default LoginComponent
+const Login = connect(null, mapDispatchToProps)(LoginComponent)
+
+export default Login

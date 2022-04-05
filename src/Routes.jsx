@@ -9,9 +9,9 @@ const Routes = () => (
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
 
-    <RouterGuard path="/memos" component={MemosIndex} auth={true} />
-    <RouterGuard path="/memo/:ids" component={MemosSingleFull} auth={true} />
-    <RouterGuard path="/memo/add" component={MemosSingleFull} auth={true} />
+    <RouterGuard path="/memos" component={MemosIndex} auth={false} />
+    <RouterGuard path="/memo/:ids" component={MemosSingleFull} auth={false} />
+    <RouterGuard path="/memo/add" component={MemosSingleFull} auth={false} />
     <Route component={NotFound} />
   </Switch>
 );
