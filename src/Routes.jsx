@@ -11,7 +11,7 @@ const Routes = () => (
 
     <RouterGuard path="/memos" component={MemosIndex} auth={true} />
     <RouterGuard path="/memo/:ids" component={MemosSingleFull} auth={true} />
-    <RouterGuard path="//memo/add" component={MemosSingleFull} auth={true} />
+    <RouterGuard path="/memo/add" component={MemosSingleFull} auth={true} />
     <Route component={NotFound} />
   </Switch>
 );
