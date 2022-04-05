@@ -8,16 +8,15 @@ import { connect } from 'react-redux';
 import { setUser } from "@/store/actions/index";
 const classNames = require('classnames');
 
+const mapStateToProps = state => {
+  return { currentUser: state.currentUser };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setUser: user => dispatch(setUser(user))
   };
 };
-
-const mapStateToProps = state => {
-  return { currentUser: state.currentUser };
-};
-
 
 const FooterComponent = ({ currentUser, setUser }) => {
 

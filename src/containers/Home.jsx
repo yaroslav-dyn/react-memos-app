@@ -1,13 +1,19 @@
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux';
 import '@/scss/home.scss'
 
 const greetingMessage = true;
+
+const mapStateToProps = state => {
+  return { currentUser: state.currentUser };
+};
+
 import {
   Link
 } from 'react-router-dom';
 
-const Home = () => (
+const Home = ({currentUser}) => (
 
   <main className="container main_area main-column">
 
@@ -48,18 +54,18 @@ const Home = () => (
         </>
         : <h1 className="centered-text greeting-heading"> Good buy memorian! </h1>
       }
+
       <Link
         className="action-btn mobile100 add_btn"
-        to="/login"
+        to={!currentUser ? '/login' : '/memos'}
       >
         Enter the world
       </Link>
-
 
     </article>
 
   </main>
 
 );
-
-export default Home;
+const HomeComponent = connect(mapStateToProps)(Home)
+export default HomeComponent;
