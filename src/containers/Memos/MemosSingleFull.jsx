@@ -27,7 +27,7 @@ const MemosSingleFull = () => {
       toastRef.current.notifyService(`Note has been ${isAdd ? 'added' : 'updated'}`, 'success');
       setTimeout(() => history.push('/memos'), 1000);
     } else toastRef.current.notifyService(`Note hasn\'t been ${isAdd ? 'added' : 'updated'}`, 'error');
-  
+
   }
 
   const handleSubmit = (evt) => {
@@ -38,11 +38,11 @@ const MemosSingleFull = () => {
       status: noteStatus,
     };
     if (isAdd) {
-      getApiResponse('user/memo', 'post', submitData, false, false, true).then( response => {
+      getApiResponse('/memo', 'post', submitData, false, false, true).then( response => {
         getSuccess(response && !response.hasOwnProperty('error'))
       });
     } else {
-      getApiResponse(`user/memo/${ids}`, 'put', submitData, false, false, true).then( response => {
+      getApiResponse(`/memo/${ids}`, 'put', submitData, false, false, true).then( response => {
         getSuccess(response && !response.hasOwnProperty('error'))
       });
     }
@@ -50,7 +50,7 @@ const MemosSingleFull = () => {
 
   useEffect(() => {
     if (!isAdd) {
-      getApiResponse(`memo/${ids}`, 'GET', null, false)
+      getApiResponse(`/memo/${ids}`, 'GET', null, false, false, true)
         .then((res) => {
           setName(res.name);
           setDescription(res.description);
@@ -103,7 +103,7 @@ const MemosSingleFull = () => {
                 <i className="material-icons">schedule</i>
                 {formatedDate}
               </div>
-              }             
+              }
             </div>
           </div>
 
