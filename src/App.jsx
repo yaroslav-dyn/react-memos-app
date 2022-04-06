@@ -1,29 +1,21 @@
 import React from 'react';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Header, Footer } from './containers';
 
 import Routes from './Routes';
 
-import reactLogo from './assets/React-icon.png';
 
-const App = () => (
-  <BrowserRouter>
-    <main className="container">
-      <div>
-        <h1>hello world!</h1>
-        <img className="container__image" alt="react logo" src={reactLogo} />
-        <p>If you see this everything is working!</p>
-      </div>
-      <ul className="left">
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-      </ul>
-      <Routes />
-    </main>
-  </BrowserRouter>
+const App = () => { 
+  
+  return (
+    <BrowserRouter>
+      <main className="app-wrapper">
+        <Header className="main-column" />
+        <Routes className="main-column" />
+        <Footer className="main-column" />
+      </main>
+    </BrowserRouter>
 );
+}
 
 export default App;

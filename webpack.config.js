@@ -22,6 +22,7 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    contentBase: './',
     historyApiFallback: true,
   },
   entry: ['@babel/polyfill', 'whatwg-fetch', 'react-hot-loader/patch', path.join(__dirname, '/src/index.jsx')],
@@ -47,10 +48,14 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, 'src/')
+    }
   },
   output: {
     filename: 'index.js',
     path: path.join(__dirname, '/build'),
+    publicPath: '/'
   },
   mode: dev ? 'development' : 'production',
   plugins: dev

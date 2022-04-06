@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8rem;
+    background-color: #f6f6f6;
+    // background-image: linear-gradient(to bottom, #f896c8 0%, #faabd3 70%);
+    box-shadow: 0 -1px 0 #ccc;
+    max-height: 80px;
+    min-height: 80px;
+    position: sticky;
+    top: 0;
+}
+
+.logo {
+    max-width: 80px;
+    height: auto;
+}
+.logo > img,
+.container__image {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
