@@ -1,4 +1,4 @@
-import UserService from '@/scripts/services/userService';
+import UserService from '@/scripts/services/userService.js';
 
 const serverUrl = 'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';

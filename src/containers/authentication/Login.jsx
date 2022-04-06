@@ -3,7 +3,7 @@ import '@/scss/auth-form.scss';
 import { Link, useHistory } from 'react-router-dom';
 import { getApiResponse } from "@/Scripts/Services/api";
 import ToastService from '@/containers/System/Services/ToastService';
-import UserService from "@/scripts/services/userService";
+import UserService from "@/scripts/services/userService.js";
 
 import { connect } from "react-redux";
 import { setUser } from "@/store/actions/index";
