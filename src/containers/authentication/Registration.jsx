@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import '@/scss/auth-form.scss';
 import { Link, useHistory } from 'react-router-dom';
 import { getApiResponse } from "@/Scripts/Services/api";
 import ToastService from '@/containers/System/Services/ToastService';
-import UserService from "@/scripts/services/userService.js";
+import UserService from "@/Scripts/Services/userService";
 import { connect } from "react-redux";
-import { setUser } from "@/store/actions/index";
+import { setUser } from '@/store/actions';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -18,8 +18,7 @@ const RegisterComponent = ({ setUser }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
-  
+
   const history = useHistory();
 
   const setUserToken = ({ token }) => {
@@ -34,9 +33,6 @@ const RegisterComponent = ({ setUser }) => {
     formData.append('email', email);
     formData.append('password', password);
     const serializeData = new URLSearchParams(formData).toString();
-    console.log(
-      'data', serializeData, password, confirmPassword
-    );
     if (email && password && password === confirmPassword) {
       getApiResponse('signup', 'POST', serializeData, null, true).then(response => {
         if (response) setUserToken(response);
@@ -82,4 +78,4 @@ const RegisterComponent = ({ setUser }) => {
 
 const Registration = connect(null, mapDispatchToProps)(RegisterComponent)
 
-export default Registration
+export default Registration;

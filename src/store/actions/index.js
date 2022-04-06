@@ -1,5 +1,3 @@
-import { SET_USER } from "@/scripts/constants/action-types.js";
+import { SET_USER } from '@/Scripts/Constants/action-types';
 
-export const setUser = (payload) => {
-    return { type: SET_USER, payload };
-};
+export const setUser = payload => ({ type: SET_USER, payload });

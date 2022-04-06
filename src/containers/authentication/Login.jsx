@@ -3,7 +3,7 @@ import '@/scss/auth-form.scss';
 import { Link, useHistory } from 'react-router-dom';
 import { getApiResponse } from "@/Scripts/Services/api";
 import ToastService from '@/containers/System/Services/ToastService';
-import UserService from "@/scripts/services/userService.js";
+import UserService from "@/Scripts/Services/userService.js";
 
 import { connect } from "react-redux";
 import { setUser } from "@/store/actions/index";
@@ -36,8 +36,8 @@ const LoginComponent = ({ setUser }) => {
       getApiResponse('login', 'POST', serializeData, null, true).then(response => {
         if (response) {
           setUserToken(response);
-        } 
-        else { 
+        }
+        else {
           setUser(null);
           toastRef.current.notifyService('Can\'t be login', 'error')
         }

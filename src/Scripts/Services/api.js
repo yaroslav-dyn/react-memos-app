@@ -1,8 +1,10 @@
-import UserService from '@/scripts/services/userService.js';
+
+// eslint-disable-next-line import/extensions
+import UserService from '@/Scripts/Services/userService';
 
 const serverUrl = 'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';
-const apiUrl =  serverUrl || localUrl; 
+const apiUrl = serverUrl || localUrl;
 const defaultHeaders = new Headers();
 defaultHeaders.set('Content-Type', 'application/json');
 

@@ -3,9 +3,10 @@ import { Link, NavLink } from 'react-router-dom';
 import ServicePopover from '@/containers/System/Services/ServicePopover';
 import AccountContent from '@/containers/System/Contents/AccountContent';
 import '@/scss/footer.scss';
-import UserService from '@/scripts/services/userService.js';
+// eslint-disable-next-line import/extensions
+import UserService from '@/Scripts/Services/userService';
 import { connect } from 'react-redux';
-import { setUser } from "@/store/actions/index";
+import { setUser } from "@/store/actions";
 const classNames = require('classnames');
 
 const mapStateToProps = state => {
@@ -22,7 +23,7 @@ const FooterComponent = ({ currentUser, setUser }) => {
 
   const [showPopover, setPopoverView] = useState(false);
   const footerNavClasses = classNames('container footer_nav', !currentUser ? 'centered' : '');
-  
+
   const triggerPopover = () => {
     const popStatus = showPopover ? false : true;
     setPopoverView(popStatus);
@@ -35,7 +36,7 @@ const FooterComponent = ({ currentUser, setUser }) => {
 
   return (
     <footer className="footer main-column">
-   
+
       <nav className={footerNavClasses}>
         <Link className="footer_nav__link" to="/">
           <span className="footer_nav__icon material-icons">window</span>
