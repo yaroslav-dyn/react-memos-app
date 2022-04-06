@@ -5,6 +5,7 @@ import MemosSingle from '@/containers/Memos/parts/memo-single';
 import '@/scss/memos.scss';
 import ConfirmModal from '@/containers/System/Services/ConfirmModal';
 import ToastService from '@/containers/System/Services/ToastService';
+import SearchModule from '@/containers/System/Services/SearchModule';
 
 
 const MemosIndex = () => {
@@ -48,7 +49,6 @@ const MemosIndex = () => {
   };
 
   const findMemo = (searchString) => {
-    console.log(searchString);
     clearTimeout(timer);
     timer = setTimeout(() => {
       getApiResponse(`/memos?name=${searchString}`, 'GET', null, false, false, true).then( res => {
@@ -65,9 +65,13 @@ const MemosIndex = () => {
   return (
     <main className="container main_area main-column">
       <section className="section_item">
-        <br />
+       
+       <br />
 
-        <input type="text" className="auth-type__input" onChange={(e) => findMemo(e.target.value)} />
+        <SearchModule
+          placeholder="Search by name"
+          onInputText={findMemo}
+         />
 
         <article>
           <div className="memos_list">

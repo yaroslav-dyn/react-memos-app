@@ -2,7 +2,7 @@ import UserService from '@/Scripts/Services/UserService';
 
 const serverUrl = 'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';
-const apiUrl =  localUrl //serverUrl || localUrl; //serverUrl
+const apiUrl =  serverUrl || localUrl; 
 const defaultHeaders = new Headers();
 defaultHeaders.set('Content-Type', 'application/json');
 

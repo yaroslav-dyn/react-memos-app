@@ -13,5 +13,12 @@ export { default as Footer} from './_Common/_Footer';
 export { default as MemosIndex } from './Memos/MemoIndex';
 export { default as MemosSingleFull } from './Memos/MemosSingleFull';
 
+//Ideas
+export { default as Ideas } from './Ideas/IdeasIndex';
+
+//Settings
+
+export { default as Settings } from './Settings/SettingsIndex';
+
 //System
 export { default as NotFound } from './System/NotFound';
