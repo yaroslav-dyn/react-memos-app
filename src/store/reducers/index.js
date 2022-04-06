@@ -1,4 +1,4 @@
-import { SET_USER } from "@/scripts/constants/action-types";
+import { SET_USER } from "../../scripts/constants/action-types";
 
 const initialState = {
   currentUser: null

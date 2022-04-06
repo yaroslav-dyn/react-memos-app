@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import ServicePopover from '@/containers/System/Services/ServicePopover';
 import AccountContent from '@/containers/System/Contents/AccountContent';
 import '@/scss/footer.scss';
-import UserService from '@/Scripts/Services/userService';
+import UserService from '@/scripts/services/userService';
 import { connect } from 'react-redux';
 import { setUser } from "@/store/actions/index";
 const classNames = require('classnames');
