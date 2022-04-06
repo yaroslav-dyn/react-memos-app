@@ -35,7 +35,12 @@ const RegisterComponent = ({ setUser }) => {
     const serializeData = new URLSearchParams(formData).toString();
     if (email && password && password === confirmPassword) {
       getApiResponse('signup', 'POST', serializeData, null, true).then(response => {
-        if (response) setUserToken(response);
+        if (response) {
+          toastRef.current.notifyService('Registration has been successful!', 'success');
+          setTimeout(()=> {
+            history.push('/login');
+          }, 2000)
+        } 
         else toastRef.current.notifyService('Registration hasn\'t been successful', 'error');
       })
     } else {
