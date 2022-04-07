@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/extensions
 import Profile from '@/containers/Settings/parts/Profile';
 import '@/scss/Settings.scss';
 
