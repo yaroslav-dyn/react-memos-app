@@ -1,7 +1,8 @@
-import { SET_USER } from "@/Scripts/Constants/action-types.js";
+import { SET_USER, GET_PROFILE } from "@/Scripts/Constants/action-types.js";
 
 const initialState = {
-  currentUser: null
+  currentUser: null,
+  userProfile: null
 };
 
 function rootReducer(state = initialState, action) {
@@ -10,7 +11,13 @@ function rootReducer(state = initialState, action) {
       ...state,
       currentUser: action.payload
     }
-  } else return state;
+  } else if (action.type === GET_PROFILE) {
+    return {
+      ...state,
+      userProfile: action.payload
+    }
+  }
+  return state;
 };
 
 export default rootReducer;
