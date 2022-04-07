@@ -1,13 +1,18 @@
 import React from 'react';
+import Profile from '@/containers/Settings/parts/Profile';
+import '@/scss/Settings.scss';
 
-const SettingsIndex = () => (
-  <main className="container main_area main-column">
-    <section className="section_item">
-      <article>
-        <h2 className="centered-text">Coming soon... </h2>
-      </article>
-    </section>
-  </main>
-)
+const SettingsIndex = () => {
+
+  return (
+    <main className="container main_area main-column">
+      <section className="section_item">
+        <article>
+         <Profile />
+        </article>
+      </section>
+    </main>
+  )
+};
 
 export default SettingsIndex;
