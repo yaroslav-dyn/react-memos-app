@@ -1,6 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/extensions
 import Profile from '@/containers/Settings/parts/Profile';
+// eslint-disable-next-line import/extensions
 import '@/scss/Settings.scss';
 
 const SettingsIndex = () => {
