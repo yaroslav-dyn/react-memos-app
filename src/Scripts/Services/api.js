@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/extensions
 import UserService from '@/Scripts/Services/userService';
 
-const serverUrl =  undefined//'https://memo-silver-app.herokuapp.com/';
+const serverUrl =  'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';
 const apiUrl = serverUrl || localUrl;
 const defaultHeaders = new Headers();
