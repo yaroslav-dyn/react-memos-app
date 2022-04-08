@@ -8,6 +8,7 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: path.join(__dirname, '/src/index.html'),
   filename: 'index.html',
   inject: 'body',
+  favicon: "./src/assets/favicon.png"
 });
 
 const DefinePluginConfig = new webpack.DefinePlugin({
