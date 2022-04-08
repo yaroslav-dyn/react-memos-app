@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { getApiResponse } from '@/Scripts/Services/api';
 import MemoStatusesView from '@/containers/Memos/parts/memo-status-view';
-import ToastService from '@/containers/System/Services/ToastService';
+import { setToastData } from '@/store/actions';
 import '@/scss/memos-preview.scss';
 
 import {
@@ -10,9 +11,15 @@ import {
   useParams,
 } from 'react-router-dom';
 
-const MemosSingleFull = () => {
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setToastMessage: toastData => dispatch(setToastData(toastData))
+  };
+};
+
+const MemosSingleFull = ({ setToastMessage }) => {
   const { ids } = useParams();
-  const toastRef = useRef();
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -24,10 +31,11 @@ const MemosSingleFull = () => {
 
   const getSuccess = (success) => {
     if (success) {
-      toastRef.current.notifyService(`Note has been ${isAdd ? 'added' : 'updated'}`, 'success');
-      setTimeout(() => history.push('/memos'), 1000);
-    } else toastRef.current.notifyService(`Note hasn\'t been ${isAdd ? 'added' : 'updated'}`, 'error');
-
+      setToastMessage({ title: `Note has been ${isAdd ? 'added' : 'updated'}`, type: 'success' })
+      history.push('/memos');
+    } else  {
+      setToastMessage({ title: `Note hasn\'t been ${isAdd ? 'added' : 'updated'}`, type: 'error' });
+    } 
   }
 
   const handleSubmit = (evt) => {
@@ -124,9 +132,10 @@ const MemosSingleFull = () => {
         </div>
 
       </form>
-      <ToastService ref={toastRef} />
+      {/* <ToastService ref={toastRef} /> */}
     </div>
   );
 };
 
-export default MemosSingleFull;
+const MemoSingleComponent = connect(null, mapDispatchToProps)(MemosSingleFull);
+export default MemoSingleComponent;

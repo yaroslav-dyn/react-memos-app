@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getApiResponse } from '@/Scripts/Services/api';
 import { connect } from 'react-redux';
-import { getProfile } from '@/store/actions';
+import { getProfile, setToastData } from '@/store/actions';
 
 const mapStateToProps = state => {
   return { userProfile: state.userProfile };
@@ -9,11 +9,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProfile: user => dispatch(getProfile(user))
+    getProfile: user => dispatch(getProfile(user)),
+    setToastMessage: toastData => dispatch(setToastData(toastData))
   };
 };
 
-const ProfileComponent = ({ userProfile, getProfile }) => {
+const ProfileComponent = ({ userProfile, getProfile, setToastMessage}) => {
 
   const [profileEmail, setProfileEmail] = useState('');
   const [profileNickname, setNickname] = useState('');
@@ -24,7 +25,8 @@ const ProfileComponent = ({ userProfile, getProfile }) => {
     const submitData = { nickname: profileNickname }
     const userID = userProfile._id;
     getApiResponse(`/profile/${userID}`, 'put', submitData, false, false, true).then(response => {
-      console.log('profile response', response);
+      if (response) setToastMessage({title: 'Profile has been updated!', type: 'success'})
+      else setToastMessage({ title: 'Error! Profile hasn\'t been updated!', type: 'error' })
     });
   }
 
@@ -34,15 +36,16 @@ const ProfileComponent = ({ userProfile, getProfile }) => {
   }
 
   useEffect(() => {
-    if (!profileEmail) {
-      getApiResponse('/profile', 'GET', null, false, false, true).then(response => {
-        if (response) {
-          getProfile(response.user);
-          setProfileData(response.user);
-        }
-      })
+    getApiResponse('/profile', 'GET', null, false, false, true).then(response => {
+      if (response) {
+        getProfile(response.user);
+        setProfileData(response.user);
+      }
+    })
+    return () => {
+      setToastMessage(null);
     }
-  }, [userProfile]);
+  }, []);
 
   return (
     <div className="profile-page">
@@ -62,14 +65,16 @@ const ProfileComponent = ({ userProfile, getProfile }) => {
               value={profileEmail}
               onChange={(e) => { setProfileEmail(e.target.value) }} />
           </div>
+          <br />
           <div className="row">
             <label className="auth-type__label" htmlFor="email">Nickname</label>
             <input type="text"
               className="auth-type__input"
               value={profileNickname}
-            onChange={(e) => { setNickname(e.target.value) }} />
+              onChange={(e) => { setNickname(e.target.value) }} />
           </div>
 
+          <br />
           <button className="action-btn success mobile100">Save</button>
 
         </form>

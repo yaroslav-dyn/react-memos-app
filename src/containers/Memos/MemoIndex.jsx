@@ -1,17 +1,23 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { getApiResponse } from '@/Scripts/Services/api';
+import { setToastData } from '@/store/actions';
 import MemosSingle from '@/containers/Memos/parts/memo-single';
 import '@/scss/memos.scss';
 import ConfirmModal from '@/containers/System/Services/ConfirmModal';
-import ToastService from '@/containers/System/Services/ToastService';
 import SearchModule from '@/containers/System/Services/SearchModule';
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setToastMessage: toastData => dispatch(setToastData(toastData))
+  };
+};
 
-const MemosIndex = () => {
+
+const MemosIndex = ({ setToastMessage}) => {
+
   const navigate = useHistory();
-  const toastRef = useRef();
-
   const [memos, setMemos] = useState([
     {
       id: 0,
@@ -19,7 +25,6 @@ const MemosIndex = () => {
     }
   ]);
   let timer = null;
-
   const [confirmId, setConfirmId] = useState(null);
 
   const goToSingle = (e) => {
@@ -41,9 +46,9 @@ const MemosIndex = () => {
     getApiResponse(`/memo/${id}`, 'DELETE', null, false, false, true)
       .then((res) => {
         if (res) {
-          toastRef.current.notifyService('Note has been delete', 'success');
+          setToastMessage({ title: 'Note has been delete', type: 'warn' });
           getDEfaultMemos();
-        } else toastRef.current.notifyService('Note hasn\'t been delete', 'error');
+        } else setToastMessage({ title: 'Note hasn\'t been deleted', type: 'error' });
         triggerConfirm(false);
       });
   };
@@ -63,7 +68,7 @@ const MemosIndex = () => {
   }, []);
 
   return (
-    <main className="container main_area main-column">
+    <main className="container main_area main-column memo-page">
       <section className="section_item">
        
        <br />
@@ -103,9 +108,10 @@ const MemosIndex = () => {
           onConfirm={deleteMemo}
         />
       }
-      <ToastService ref={toastRef} />
     </main>
   );
 };//
 
-export default MemosIndex;
+const MemosMainComponent = connect(null, mapDispatchToProps)(MemosIndex)
+
+export default MemosMainComponent;
