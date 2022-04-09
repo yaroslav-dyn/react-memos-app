@@ -3,20 +3,16 @@ logs
 *.log
 npm-debug.log*
 coverage
-/.idea
-/.lh
-/workspace.code
-.DS_Store
 
 # Optional npm cache directory
 .npm
 
 # Prod Bundle
-build
+build/
 
 .DS_Store
-node_modules
-/dist
+node_modules/
+dist/
 
 # local env files
 .env.local
@@ -29,8 +25,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Editor directories and files
-.idea
-.vscode
+.idea/
+.vscode/
 *.suo
 *.ntvs*
 *.njsproj
@@ -38,4 +34,4 @@ yarn-error.log*
 *.sw*
 *.js.map
 *.vue.js
-/.lh
+.lh/
