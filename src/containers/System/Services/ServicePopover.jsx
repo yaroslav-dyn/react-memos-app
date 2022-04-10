@@ -8,6 +8,8 @@ const ServicePopover = ({
 }) => {
   const bottomPopoverState = classNames('base-modal__content service-popover__content ', isOpen ? 'isOpen' : '');
 
+
+  
   return (
     <div className="base-modal service-popover">
       <div className={bottomPopoverState}>

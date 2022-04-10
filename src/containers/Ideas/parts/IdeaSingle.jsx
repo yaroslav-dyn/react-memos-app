@@ -1,11 +1,13 @@
+import classNames from 'classnames'
 import React from 'react'
 
+const IdeaSingle = ({ idea, selected, onSelectGroup }) => {
 
-const IdeaSingle = ({ idea }) => {
+  const ideaGroupClass = classNames('ideas-page__groups--item', selected ? 'selected' : '');
 
   return (
-    <li className="ideas-groups__item">
-      {idea.group}
+    <li className={ideaGroupClass} onClick={() => onSelectGroup(idea)}>
+      {idea.group.substring(0, 2)}
     </li>
   )
 }

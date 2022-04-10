@@ -1,15 +1,40 @@
-.ideas-groups {
-  margin: 0;
-  display: flex;
-  overflow-x: auto;
-  margin: 1.2rem;
- &__item {
-    list-style: none;
-    justify-content: center;
+.ideas-page {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  &__controls {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    border: 2px solid #000;
-    border-radius: 6px;
-    padding: 1rem;
-    margin-right: 1.2rem;
- }
+  }
+  &__groups {
+    margin: 0;
+    display: flex;
+    overflow-x: auto;
+    margin: 1.2rem;
+    &--item {
+      list-style: none;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #000;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      &.selected {
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.add-modal {
+  .idea-text__area {
+    min-height: 30vh;
+  }
+  .idea-add__form {
+    .row {
+      margin-bottom: 1.2rem;
+    }
+  }
 }
