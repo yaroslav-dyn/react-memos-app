@@ -3,13 +3,20 @@ import { getApiResponse } from '@/Scripts/Services/api';
 import IdeaSingle from '@/containers/Ideas/parts/IdeaSingle';
 import IdeaSinglePreview from '@/containers/Ideas/parts/IdeaSinglePreview';
 import '@/scss/ideas.scss';
-import AddIdeaModal  from '@/containers/Ideas/_common/add-idea-modal';
+import AddIdeaModal from '@/containers/Ideas/_common/add-idea-modal';
+import ServicePopover from '@/containers/System/Services/ServicePopover';
+import IdeaPopoverControls from '@/containers/Ideas/_common/IdeaPopoverControls';
 
 const IdeasIndex = () => {
 
   const [ideasArray, setIdeasArray] = useState([]);
   const [currentGroup, setCurrentGroup] = useState(null);
   const [addModalSate, setAddModalSate] = useState(false);
+  const [showPopover, setPopoverState] = useState(false);
+
+  const onDeleteIdea = () => {
+    console.log('del');
+  }
 
   useEffect(() => {
     getApiResponse('/ideas', 'GET', null, false, false, true).then(response => {
@@ -41,15 +48,24 @@ const IdeasIndex = () => {
                 />
               )}
             </ul>
-            <span className="ideas-page__groups--item">
+            <span className="ideas-page__groups--item" onClick={() => setPopoverState(true)}>
               <i className="material-icons">more_vert</i>
             </span>
           </div>
         </article>
       </section>
-      {addModalSate && 
-        <AddIdeaModal 
-        onClose={() => setAddModalSate(false)}
+      {addModalSate &&
+        <AddIdeaModal
+          onClose={() => setAddModalSate(false)}
+        />
+      }
+      {
+        showPopover &&
+        <ServicePopover
+          isOpen={showPopover}
+          hidePopover={e => setPopoverState(false)}
+          onDeleteIdea={onDeleteIdea}
+          popoverContent={<IdeaPopoverControls />}
         />
       }
     </main>

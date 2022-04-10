@@ -5,13 +5,11 @@ const IdeaSinglePreview = ({ previewIdea }) => {
 
   const [currentIdea, updateCurrentIdea] = useState({ text: '', name: '', group: '' });
 
-
   const changeCurrentData = (val, key) => {
     updateCurrentIdea({
       ...currentIdea,
       [key]: val
     });
-
   }
 
   const updateIdeaContext = () => {
@@ -35,9 +33,9 @@ const IdeaSinglePreview = ({ previewIdea }) => {
   return (
     <div>
       <h3> {previewIdea.name} </h3>
-
       <form onBlur={updateIdeaContext}>
-        <textarea className="custom-input area" cols="30" rows="10"
+        <textarea 
+          className="custom-input area description_field"
           value={currentIdea.text}
           onChange={(e) => changeCurrentData(e.target.value, 'text')}>
         </textarea>
