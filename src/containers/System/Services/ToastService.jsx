@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-const { forwardRef, useImperativeHandle } = React;
 import { useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -26,6 +25,7 @@ const ToastService = () => {
   
   useEffect( ()=> {
     if (toastLocalData) {
+      //TODO: Del after all test
       console.log('fired', toastLocalData);
       notifyService(toastLocalData.title, toastLocalData.type);
     } 

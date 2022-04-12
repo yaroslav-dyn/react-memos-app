@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getApiResponse } from '@/Scripts/Services/api';
+import { getApiResponse } from '@/Scripts/Services/_common/api';
 import { setToastData } from '@/store/actions';
 import MemosSingle from '@/containers/Memos/parts/memo-single';
 import '@/scss/memos.scss';

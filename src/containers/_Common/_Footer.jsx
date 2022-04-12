@@ -4,7 +4,7 @@ import ServicePopover from '@/containers/System/Services/ServicePopover';
 import AccountContent from '@/containers/System/Contents/AccountContent';
 import '@/scss/footer.scss';
 // eslint-disable-next-line import/extensions
-import UserService from '@/Scripts/Services/userService';
+import UserService from '@/Scripts/Services/_common/userService';
 import { connect } from 'react-redux';
 import { setUser } from "@/store/actions";
 const classNames = require('classnames');

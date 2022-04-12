@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getApiResponse } from '@/Scripts/Services/api';
-import IdeaSingle from '@/containers/Ideas/parts/IdeaSingle';
+import { getApiResponse } from '@/Scripts/Services/_common/api';
+import IdeaSingle from '@/containers/Ideas/parts/IdeaSingle'
 import IdeaSinglePreview from '@/containers/Ideas/parts/IdeaSinglePreview';
 import '@/scss/ideas.scss';
 import AddIdeaModal from '@/containers/Ideas/_common/add-idea-modal';
@@ -64,8 +64,11 @@ const IdeasIndex = () => {
         <ServicePopover
           isOpen={showPopover}
           hidePopover={e => setPopoverState(false)}
+          popoverContent={
+          <IdeaPopoverControls 
+          previewIdea={currentGroup} 
           onDeleteIdea={onDeleteIdea}
-          popoverContent={<IdeaPopoverControls />}
+          />}
         />
       }
     </main>

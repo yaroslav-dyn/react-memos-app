@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { getApiResponse } from '@/Scripts/Services/api';
 import { setToastData } from '@/store/actions';
+import IdeasService from '@/Scripts/Services/units/IdeasService';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
+
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -12,7 +12,6 @@ const mapDispatchToProps = (dispatch) => {
 
 const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
 
-  const history = useHistory();
 
   const defaultIdeaFields = {
     group: '',
@@ -30,13 +29,13 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
     )
   };
 
-  const createIdea = () => {
-    getApiResponse('/idea', 'POST', ideaData, false, false, true).then(response => {
-      if (response) {
-        setToastMessage({ title: 'Idea has been added', type: 'success' });
-        history.push('/ideas');
-      } else setToastMessage({ title: 'Note hasn\'t been added', type: 'error' });
-    });
+  const createIdea = async (e) => {
+    e.preventDefault();
+    const response = await IdeasService.addIdeaService(ideaData);
+    if (response) {
+      setToastMessage({ title: 'Idea has been added', type: 'success' });
+      onClose();
+    } else setToastMessage({ title: 'Note hasn\'t been added', type: 'error' });
   };
 
   return (
@@ -47,7 +46,7 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
           <span className="material-icons" onClick={onClose}>close</span>
         </div>
 
-        <form className="idea-add__form">
+        <form className="idea-add__form" name="ideas" onSubmit={createIdea}>
 
           <div className="row">
             <label className="auth-type__label" htmlFor="group-name">Enter group name</label>
@@ -57,6 +56,7 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
               value={ideaData.group}
               onChange={e => setObjectField(e.target.value, 'group')}
               id="group-name"
+              name="group"
               required
             />
           </div>
@@ -69,6 +69,7 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
               type="text"
               id="group-title"
               value={ideaData.name}
+              name="name"
               onChange={e => setObjectField(e.target.value, 'name')}
             />
           </div>
@@ -79,21 +80,20 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
               className="auth-type__input area idea-text__area"
               type="text"
               value={ideaData.text}
+              name="text"
               onChange={e => setObjectField(e.target.value, 'text')}
             >
             </textarea>
           </div>
+          <div className="base-modal__controls">
+            <button
+              type="submit"
+              className="action-btn success mobile100">
+              Create Idea
+            </button>
+          </div>
         </form>
 
-        <div className="base-modal__controls">
-          <button
-            type="button"
-            className="action-btn success mobile100"
-            onClick={createIdea}
-          >
-            Create Idea
-          </button>
-        </div>
       </div>
     </div>
   )

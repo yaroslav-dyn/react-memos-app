@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getApiResponse } from '@/Scripts/Services/api';
+import { getApiResponse } from '@/Scripts/Services/_common/api';
 import MemoStatusesView from '@/containers/Memos/parts/memo-status-view';
 import { setToastData } from '@/store/actions';
 import '@/scss/memos-preview.scss';

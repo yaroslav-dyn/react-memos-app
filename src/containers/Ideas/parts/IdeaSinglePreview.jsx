@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getApiResponse } from '@/Scripts/Services/api';
+import { getApiResponse } from '@/Scripts/Services/_common/api';
 
 const IdeaSinglePreview = ({ previewIdea }) => {
 

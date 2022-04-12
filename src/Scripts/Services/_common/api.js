@@ -1,9 +1,7 @@
 
 // eslint-disable-next-line import/extensions
-import UserService from '@/Scripts/Services/userService';
-
+import UserService from '@/Scripts/Services/_common/userService';
 const dev = process.env.NODE_ENV !== 'production';
-
 const serverUrl =  'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';
 const apiUrl = !dev ? serverUrl : localUrl ;

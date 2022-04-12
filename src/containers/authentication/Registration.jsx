@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import '@/scss/auth-form.scss';
 import { Link, useHistory } from 'react-router-dom';
-import { getApiResponse } from "@/Scripts/Services/api";
+import { getApiResponse } from "@/Scripts/Services/_common/api";
 import ToastService from '@/containers/System/Services/ToastService';
-import UserService from "@/Scripts/Services/userService";
+import UserService from "@/Scripts/Services/_common/userService";
 import { connect } from "react-redux";
 import { setUser } from '@/store/actions';
 
