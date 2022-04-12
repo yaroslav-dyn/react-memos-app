@@ -35,6 +35,24 @@
 
 .action-icon {
   cursor: pointer;
+  &.--danger {color: $error-text};
+  &.--success {color: $success-text};
+}
+
+.w100 {
+  width: 100%;
+}
+
+.centered-text {
+  text-align: center;
+}
+
+.left-text {
+  text-align: left;
+}
+
+.right-text {
+  text-align: right;
 }
 
 // Mobile

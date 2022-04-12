@@ -1,3 +1,4 @@
+@import "./vars";
 @import "./helpers";
 //preview
 .memo_preview {
@@ -33,4 +34,20 @@
 .m_preview-label {
   margin-bottom: 0.8rem;
   opacity: 0.9;
+}
+
+.memo-icons {
+  display: inline-block;
+  font-size: 1.6rem;
+  color: #666;
+  cursor: pointer;
+}
+
+.memo-icons{
+  &.attention {
+    color:$error-text;
+  }
+  &.success {
+      color: $success-text;
+  }
 }

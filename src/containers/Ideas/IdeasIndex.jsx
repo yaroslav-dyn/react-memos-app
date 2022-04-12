@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getApiResponse } from '@/Scripts/Services/_common/api';
 import IdeaSingle from '@/containers/Ideas/parts/IdeaSingle'
 import IdeaSinglePreview from '@/containers/Ideas/parts/IdeaSinglePreview';
 import '@/scss/ideas.scss';
 import AddIdeaModal from '@/containers/Ideas/_common/add-idea-modal';
+import IdeasService from '@/Scripts/Services/units/IdeasService';
 import ServicePopover from '@/containers/System/Services/ServicePopover';
 import IdeaPopoverControls from '@/containers/Ideas/_common/IdeaPopoverControls';
 
@@ -14,17 +14,29 @@ const IdeasIndex = () => {
   const [addModalSate, setAddModalSate] = useState(false);
   const [showPopover, setPopoverState] = useState(false);
 
-  const onDeleteIdea = () => {
-    console.log('del');
+  const onCloneAddModal = (status) => {
+    if (status) getDEfaultIdeas();
+    setAddModalSate(false)
   }
 
-  useEffect(() => {
-    getApiResponse('/ideas', 'GET', null, false, false, true).then(response => {
+  const getDEfaultIdeas = () => {
+    IdeasService.getDEfaultIdeasService().then(response => {
       if (response) {
         setCurrentGroup(response[0]);
         setIdeasArray(response);
       }
     })
+  }
+
+  const cutchAction = (action) => {
+    if (action === 'delete_item') {
+      getDEfaultIdeas();
+    }
+    setPopoverState(false)
+  }
+
+  useEffect(() => {
+    getDEfaultIdeas();
   }, []);
 
   return (
@@ -35,7 +47,7 @@ const IdeasIndex = () => {
             <IdeaSinglePreview previewIdea={currentGroup} />
           }
           <div className="ideas-page__controls">
-            <span className="ideas-page__groups--item" onClick={() => setAddModalSate(true)}>
+            <span className="ideas-page__groups--item control--accent" onClick={() => setAddModalSate(true)}>
               <i className="material-icons">add</i>
             </span>
             <ul className="ideas-page__groups">
@@ -48,7 +60,7 @@ const IdeasIndex = () => {
                 />
               )}
             </ul>
-            <span className="ideas-page__groups--item" onClick={() => setPopoverState(true)}>
+            <span className="ideas-page__groups--item control--info" onClick={() => setPopoverState(true)}>
               <i className="material-icons">more_vert</i>
             </span>
           </div>
@@ -56,7 +68,7 @@ const IdeasIndex = () => {
       </section>
       {addModalSate &&
         <AddIdeaModal
-          onClose={() => setAddModalSate(false)}
+          onClose={(status) => onCloneAddModal(status)}
         />
       }
       {
@@ -65,10 +77,10 @@ const IdeasIndex = () => {
           isOpen={showPopover}
           hidePopover={e => setPopoverState(false)}
           popoverContent={
-          <IdeaPopoverControls 
-          previewIdea={currentGroup} 
-          onDeleteIdea={onDeleteIdea}
-          />}
+            <IdeaPopoverControls
+              previewIdea={currentGroup}
+              onClosePopover={action => cutchAction(action)}
+            />}
         />
       }
     </main>

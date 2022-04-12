@@ -1,10 +1,9 @@
 
 import { getApiResponse } from '@/Scripts/Services/_common/api';
 
-const defaultIdeaFields = {
-  group: '',
-  name: '',
-  text: ''
+const getDEfaultIdeasService = async () => { 
+  const response = await getApiResponse('/ideas', 'GET', null, false, false, true);
+  return response || undefined;
 }
 
 const addIdeaService = async (postData) => {
@@ -19,7 +18,21 @@ const addIdeaService = async (postData) => {
   return response || undefined
 };
 
+const deleteIdeaService = async (id) => {
+  const response = await getApiResponse(
+    `/idea/${id}`,
+    'DELETE',
+    null,
+    false,
+    false,
+    true
+  );
+  return response || undefined; 
+}
+
 const IdeasService = {
-  addIdeaService
+  addIdeaService,
+  deleteIdeaService,
+  getDEfaultIdeasService
 }
 export default IdeasService

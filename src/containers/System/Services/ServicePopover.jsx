@@ -8,22 +8,18 @@ const ServicePopover = ({
 }) => {
   const bottomPopoverState = classNames('base-modal__content service-popover__content ', isOpen ? 'isOpen' : '');
 
-
-  
   return (
+
     <div className="base-modal service-popover">
       <div className={bottomPopoverState}>
-
-        <i className="material-icons centered-text hide-icon action-icon"
-          onClick={() => hidePopover()}>expand_more</i>
-        
-        <div onClick={() => hidePopover()}>
-          {popoverContent}
-        </div>
-
+        <i className="material-icons centered-text hide-icon action-icon" onClick={hidePopover}>expand_more</i>
+          <div>
+            {popoverContent}
+          </div>
       </div>
     </div>
   )
-}
+
+};
 
 export default ServicePopover;

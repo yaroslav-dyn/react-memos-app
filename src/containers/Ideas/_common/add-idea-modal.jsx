@@ -34,7 +34,7 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
     const response = await IdeasService.addIdeaService(ideaData);
     if (response) {
       setToastMessage({ title: 'Idea has been added', type: 'success' });
-      onClose();
+      onClose(true);
     } else setToastMessage({ title: 'Note hasn\'t been added', type: 'error' });
   };
 
@@ -43,7 +43,7 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
       <div className="base-modal__content add-modal__content">
 
         <div className="flex-grid justify-right">
-          <span className="material-icons" onClick={onClose}>close</span>
+          <span className="material-icons" onClick={() => onClose(false)}>close</span>
         </div>
 
         <form className="idea-add__form" name="ideas" onSubmit={createIdea}>
@@ -61,7 +61,6 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
             />
           </div>
 
-
           <div className="row">
             <label className="auth-type__label" htmlFor="group-title">Enter an idea title</label>
             <input
@@ -71,6 +70,7 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
               value={ideaData.name}
               name="name"
               onChange={e => setObjectField(e.target.value, 'name')}
+              required
             />
           </div>
 

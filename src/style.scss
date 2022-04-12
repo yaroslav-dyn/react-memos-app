@@ -3,6 +3,7 @@
 
 //Import default styles for https://fkhadra.github.io/react-toastify
 @import "react-toastify/scss/main.scss";
+
 /** General Styles **/
 :root {
   --main-blue-color: #1091cb;
@@ -172,37 +173,8 @@ a.action-btn {
   color: var(--main-blue-color);
 }
 
-.memo-icons {
-  display: inline-block;
-  font-size: 1.6rem;
-  color: #666;
-  cursor: pointer;
-}
-
-.memo-icons.attention {
-  color: darkred;
-}
-
-.memo-icons.success {
-  color: forestgreen;
-}
 
 /*Helpers*/
-.w100 {
-  width: 100%;
-}
-
-.centered-text {
-  text-align: center;
-}
-
-.left-text {
-  text-align: left;
-}
-
-.right-text {
-  text-align: right;
-}
 
 .status {
   &.complete {
@@ -212,6 +184,7 @@ a.action-btn {
     color: var(--main-warn-color);
   }
 }
+
 
 /*Main parts*/
 
