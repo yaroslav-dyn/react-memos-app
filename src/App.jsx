@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Header, Footer } from './containers';
 import ToastService from '@/containers/System/Services/ToastService';
+import PreloaderService from '@/containers/System/Services/Preloader';
 
 import Routes from './Routes';
 
@@ -16,6 +17,8 @@ const App = () => {
         <Footer className="main-column" />
 
         <ToastService />
+        
+        <PreloaderService />
         
       </main>
     </BrowserRouter>
