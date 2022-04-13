@@ -1,24 +1,21 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
+import React from 'react';
 
 const PreloaderService = () => {
 
-
   return (
     <div className="preloader-service">
-      <div className="bubblingG">
-        <span id="bubblingG_1">
+      <div className="bullet">
+        <span id="bullet_one">
         </span>
-        <span id="bubblingG_2">
+        <span id="bullet_two">
         </span>
-        <span id="bubblingG_3">
+        <span id="bullet_three">
         </span>
       </div>
     </div>
   )
 
-}
+};
 
 
 export default PreloaderService;
