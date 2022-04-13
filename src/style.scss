@@ -222,6 +222,7 @@ a.action-btn {
 
 .app-wrapper > .main-column {
   flex: 1;
+  box-sizing: border-box;
 }
 
 .api_status {
@@ -319,4 +320,8 @@ Search module
 */ 
 .search-module {
   padding: 0 1.2rem;
+  .search-input {
+    min-height: 5rem;
+    padding: 0 2rem;
+  }
 }

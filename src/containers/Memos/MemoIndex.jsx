@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const MemosIndex = ({ setToastMessage}) => {
+const MemosIndex = ({ setToastMessage }) => {
 
   const navigate = useHistory();
   const [memos, setMemos] = useState([
@@ -55,9 +55,9 @@ const MemosIndex = ({ setToastMessage}) => {
   const findMemo = (searchString) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      getApiResponse(`/memos?name=${searchString}`, 'GET', null, false, false, true).then( res => {
+      getApiResponse(`/memos?name=${searchString}`, 'GET', null, false, false, true).then(res => {
         if (res) setMemos(res);
-      })   
+      })
     }, 750);
 
   }
@@ -69,15 +69,18 @@ const MemosIndex = ({ setToastMessage}) => {
   return (
     <main className="container main_area main-column memo-page">
       <section className="section_item">
-       
-       <br />
 
-        <SearchModule
-          placeholder="Search by name"
-          onInputText={findMemo}
-         />
+        <br />
+        <div className="memos_controls">
+          <SearchModule
+            placeholder="Search by name"
+            onInputText={findMemo}
+          />
+          <div className="memos_list">
+            <Link className="action-btn mobile100" to="/memo/add">Add</Link>
+          </div>
+        </div>
 
-        <article>
           <div className="memos_list">
             {memos.map((memo, index) =>
               <MemosSingle
@@ -88,12 +91,7 @@ const MemosIndex = ({ setToastMessage}) => {
               />
             )}
           </div>
-          <div className="memos_controls">
-            <div className="memos_list">
-              <Link className="action-btn mobile100" to="/memo/add">Add</Link>
-            </div>
-          </div>
-        </article>
+          
       </section>
       {
         confirmId

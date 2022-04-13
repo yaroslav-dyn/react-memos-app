@@ -1,5 +1,6 @@
 @import './vars.scss';
 
+
 .ideas-page {
   padding-left: 1.2rem;
   padding-right: 1.2rem;
@@ -31,6 +32,12 @@
         color: #fff;
       }
     }
+  }
+}
+
+.idea-popover__content {
+  .idea-group__name {
+    color: #1091cb;
   }
 }
 

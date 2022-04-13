@@ -99,3 +99,10 @@
     @content
   }
 }
+
+
+@mixin rewrite-desktop {
+  @media all and (min-width: $desktop-device) {
+    @content
+  }
+}

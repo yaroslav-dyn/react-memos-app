@@ -2,20 +2,19 @@ import React, { useState, useRef} from "react";
 import '@/scss/auth-form.scss';
 import { Link, useHistory } from 'react-router-dom';
 import { getApiResponse } from "@/Scripts/Services/_common/api";
-import ToastService from '@/containers/System/Services/ToastService';
 import UserService from "@/Scripts/Services/_common/userService.js";
 
 import { connect } from "react-redux";
-import { setUser } from "@/store/actions/index";
+import { setUser, setToastData } from "@/store/actions/index";
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUser: user => dispatch(setUser(user))
+    setUser: user => dispatch(setUser(user)),
+    setToastData: data => dispatch(setToastData(data))
   };
 }
 
-const LoginComponent = ({ setUser }) => {
-  const toastRef = useRef();
+const LoginComponent = ({ setUser, setToastData }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const history = useHistory();
@@ -39,15 +38,15 @@ const LoginComponent = ({ setUser }) => {
         }
         else {
           setUser(null);
-          toastRef.current.notifyService('Can\'t be login', 'error')
+          setToastData({ title: 'Can\'t be login', type: 'error' });
         }
       })
     }
   }
 
   return (
-    <>
-      <form className="login-form main-column" onSubmit={sendLoginForm}>
+    <div className="container main-column">
+      <form className="login-form" onSubmit={sendLoginForm}>
 
         <div className="login-form__row">
           <label className="auth-type__label" htmlFor="login"> Enter email </label>
@@ -77,8 +76,7 @@ const LoginComponent = ({ setUser }) => {
           <Link to="/signup">Sign Up</Link>
         </p>
       </form>
-      <ToastService ref={toastRef} />
-    </>
+    </div>
   )
 };
 

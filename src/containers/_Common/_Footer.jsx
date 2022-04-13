@@ -29,8 +29,8 @@ const FooterComponent = ({ currentUser, setUser }) => {
     setPopoverView(popStatus);
   }
 
-  useEffect( () => {
-    const currentUser =  UserService.getUSerFromStorage();
+  useEffect(() => {
+    const currentUser = UserService.getUSerFromStorage();
     currentUser && setUser(currentUser)
   });
 
@@ -70,7 +70,11 @@ const FooterComponent = ({ currentUser, setUser }) => {
         <ServicePopover
           isOpen={showPopover}
           hidePopover={triggerPopover}
-          popoverContent={<AccountContent />}
+          popoverContent={
+            <AccountContent
+              onItemAction={triggerPopover}
+            />
+          }
         />
       }
 

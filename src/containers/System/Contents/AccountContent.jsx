@@ -13,22 +13,28 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-const AccountContent = ({ currentUser, setUser }) => {
+const AccountContent = ({ currentUser, setUser, onItemAction }) => {
   const history = useHistory();
+
+  const goLogin = () => {
+    history.push('login');
+    onItemAction();
+  }
 
   const signOut = () => {
     localStorage.removeItem('user');
     setUser(null);
     history.push('login');
+    onItemAction();
   }
 
   return (
     <>
       {!currentUser ?
-        <Link to='/login' className="account-content__item">
+        <div className="account-content__item" onClick={goLogin}>
           <i className="material-icons">login</i>
           <span> Sign in </span>
-        </Link>
+        </div>
         :
         <div className="account-content__item" onClick={signOut}>
           <i className="material-icons">logout</i>

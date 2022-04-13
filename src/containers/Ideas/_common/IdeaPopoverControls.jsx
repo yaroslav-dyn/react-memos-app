@@ -33,10 +33,9 @@ const IdeaPopoverControls = ({ previewIdea, onClosePopover }) => {
 
   return (
     <>
-      <div className="account-content__item" onClick={onDeleteIdea}>
+      <div className="account-content__item idea-popover__content" onClick={onDeleteIdea}>
         <i className="material-icons action-icon --danger">delete</i>
-        <span> delete {previewIdea.group} </span>
-
+        <span> <span className="idea-group__name">{previewIdea.group} </span></span>
       </div>
       {
         confirmModalState

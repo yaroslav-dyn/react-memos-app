@@ -8,7 +8,7 @@ const SearchModule = ({
   return (
     <div className="search-module">
       <input type="text"
-        className="auth-type__input"
+        className="auth-type__input search-input"
         onChange={(e) => onInputText(e.target.value)}
         placeholder={placeholder} />
     </div>

@@ -25,8 +25,6 @@ const ToastService = () => {
   
   useEffect( ()=> {
     if (toastLocalData) {
-      //TODO: Del after all test
-      console.log('fired', toastLocalData);
       notifyService(toastLocalData.title, toastLocalData.type);
     } 
   }, [toastLocalData] )

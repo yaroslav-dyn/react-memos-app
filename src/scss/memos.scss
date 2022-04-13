@@ -1,11 +1,19 @@
-@import './vars.scss';
-@import './helpers.scss';
+@import "./vars.scss";
+@import "./helpers.scss";
 
-.memos_list {
-  padding: 1.2rem 0;
-  @include rewrite-mobile {
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
+.memos {
+  &_controls {
+    position: sticky;
+    top: 100px;
+  }
+  &_list {
+    padding: 1.2rem;
+    max-height: 70vh;
+    overflow-y: auto;
+    @include rewrite-mobile {
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+    }
   }
 }
 
@@ -16,11 +24,18 @@
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  max-height: 48px;
   padding: 1.4rem;
   margin-bottom: 6px;
 
   > div {
     margin-right: 10px;
+    max-height: 48px;
+    @include rewrite-desktop{
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
   & > div:first-child {
     flex-basis: 40%;
