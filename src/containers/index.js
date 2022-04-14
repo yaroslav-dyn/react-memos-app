@@ -11,7 +11,7 @@ export { default as Footer} from './_Common/_Footer';
 
 //Memos
 export { default as MemosIndex } from './Memos/MemoIndex';
-export { default as MemosSingleFull } from './Memos/MemosSingleFull';
+export { default as MemosSingleFull } from './Memos/_common/MemosSingleFull';
 
 //Ideas
 export { default as Ideas } from './Ideas/IdeasIndex';

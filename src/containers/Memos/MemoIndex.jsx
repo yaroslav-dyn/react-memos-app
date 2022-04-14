@@ -45,7 +45,7 @@ const MemosIndex = ({ setToastMessage }) => {
     getApiResponse(`/memo/${id}`, 'DELETE', null, false, false, true)
       .then((res) => {
         if (res) {
-          setToastMessage({ title: 'Note has been delete', type: 'warn' });
+          setToastMessage({ title: 'Note has been deleted', type: 'info' });
           getDEfaultMemos();
         } else setToastMessage({ title: 'Note hasn\'t been deleted', type: 'error' });
         triggerConfirm(false);

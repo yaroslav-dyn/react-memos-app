@@ -7,19 +7,20 @@ const localUrl = 'http://localhost:4000/';
 const apiUrl = !dev ? serverUrl : localUrl ;
 const defaultHeaders = new Headers();
 import store from '@/store';
-import { setLoadContent } from "@/store/actions";
+import { setLoadContent, setToastData } from "@/store/actions";
 defaultHeaders.set('Content-Type', 'application/json');
 
 const reqHeaders = new Headers();
 reqHeaders.set('Content-Type', 'application/x-www-form-urlencoded');
 
-const responseHandler = (response, clearResponse) => {
+const responseHandler = async (response, clearResponse) => {
   if (!response.ok) {
-    console.error(response);
+    const parsedRequest = await response.json();
+
+    if (parsedRequest.hasOwnProperty('error') && parsedRequest.error.hasOwnProperty('message'))
+      store.dispatch(setToastData({ title: parsedRequest.error.message, type: 'error' }));
   } else return clearResponse ? response : response.json();
 };
-
-
 
 
 export const getApiResponse = async (
@@ -57,12 +58,13 @@ export const getApiResponse = async (
       setLoadContent({ loading: true })
     )
     const response = await window.fetch(fullUrl, paramsObj);
-    store.dispatch(
-      setLoadContent({ loading: false })
-    )
+    store.dispatch(setLoadContent({ loading: false }))
     return responseHandler(response, clearResponse);
   } catch (error) {
-    new Error(error.statusText);
+    console.warn('error', error);
+   // return responseHandler(response, clearResponse);
+    //store.dispatch(setLoadContent({ loading: false }))
+    //store.dispatch(setToastData({ title: `Server error: ${error.message}`, type: 'error'}))   
   }
 }
 

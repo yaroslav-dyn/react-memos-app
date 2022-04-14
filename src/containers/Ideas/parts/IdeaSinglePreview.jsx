@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { getApiResponse } from '@/Scripts/Services/_common/api';
 
-const IdeaSinglePreview = ({ previewIdea }) => {
+const IdeaSinglePreview = ({ previewIdea, updateSingleIdea }) => {
 
   const [currentIdea, updateCurrentIdea] = useState({ text: '', name: '', group: '' });
 
   const changeCurrentData = (val, key) => {
+    console.log('onInput', val);
     updateCurrentIdea({
       ...currentIdea,
       [key]: val
     });
   }
 
-  const updateIdeaContext = () => {
+  const updateIdeaContext = async () => {
     const { _id, group, name, text } = currentIdea;
-    getApiResponse(
-      `/idea/${_id}`,
-      "PUT",
-      { group, name, text },
-      false,
-      false,
-      true
-    ).then(response => {
-      console.log(response);
-    })
+   const response =  await getApiResponse(`/idea/${_id}`,"PUT", { group, name, text }, false, false, true);
+    if (response) updateSingleIdea(response)
+
   }
 
   useEffect(() => {

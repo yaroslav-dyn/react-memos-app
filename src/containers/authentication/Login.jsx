@@ -33,13 +33,7 @@ const LoginComponent = ({ setUser, setToastData }) => {
     const serializeData = new URLSearchParams(formData).toString();
     if (serializeData) {
       getApiResponse('login', 'POST', serializeData, null, true).then(response => {
-        if (response) {
-          setUserToken(response);
-        }
-        else {
-          setUser(null);
-          setToastData({ title: 'Can\'t be login', type: 'error' });
-        }
+        response ? setUserToken(response) : setUser(null);
       })
     }
   }

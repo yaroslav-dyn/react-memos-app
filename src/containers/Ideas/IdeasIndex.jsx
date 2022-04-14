@@ -28,6 +28,15 @@ const IdeasIndex = () => {
     })
   }
 
+  const getCurrentGroupItem = () => currentGroup ? currentGroup._id === idea._id : idea._id === ideasArray[0]._id;
+
+  const updateSingleIdea = (idea) => {
+    var foundIndex = ideasArray.findIndex(x => x._id == idea._id);
+    const modifyArray = [...ideasArray];
+    modifyArray[foundIndex] = idea;
+    setIdeasArray(modifyArray);
+  }
+
   const cutchAction = (action) => {
     if (action === 'delete_item') {
       getDEfaultIdeas();
@@ -44,7 +53,7 @@ const IdeasIndex = () => {
       <section className="section_item">
         <article>
           {currentGroup &&
-            <IdeaSinglePreview previewIdea={currentGroup} />
+            <IdeaSinglePreview previewIdea={currentGroup} updateSingleIdea={updateSingleIdea} />
           }
           <div className="ideas-page__controls">
             <span className="ideas-page__groups--item control--accent" onClick={() => setAddModalSate(true)}>
@@ -54,15 +63,17 @@ const IdeasIndex = () => {
               {ideasArray && ideasArray.map((idea, index) =>
                 <IdeaSingle
                   key={index}
-                  selected={currentGroup ? currentGroup._id === idea._id : idea._id === ideasArray[0]._id}
+                  selected={getCurrentGroupItem}
                   idea={idea}
                   onSelectGroup={(group) => setCurrentGroup(group)}
                 />
               )}
             </ul>
-            <span className="ideas-page__groups--item control--info" onClick={() => setPopoverState(true)}>
-              <i className="material-icons">more_vert</i>
-            </span>
+            {currentGroup &&
+              <span className="ideas-page__groups--item control--info" onClick={() => setPopoverState(true)}>
+                <i className="material-icons">more_vert</i>
+              </span>
+            }
           </div>
         </article>
       </section>

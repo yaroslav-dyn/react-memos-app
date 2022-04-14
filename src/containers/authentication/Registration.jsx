@@ -1,20 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import '@/scss/auth-form.scss';
 import { Link, useHistory } from 'react-router-dom';
 import { getApiResponse } from "@/Scripts/Services/_common/api";
 import ToastService from '@/containers/System/Services/ToastService';
 import UserService from "@/Scripts/Services/_common/userService";
 import { connect } from "react-redux";
-import { setUser } from '@/store/actions';
+import { setUser, setToastData } from '@/store/actions';
+
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUser: user => dispatch(setUser(user))
+    setUser: user => dispatch(setUser(user)),
+    setToastData: data => dispatch(setToastData(data))
   };
 }
 
-const RegisterComponent = ({ setUser }) => {
-  const toastRef = useRef();
+const RegisterComponent = ({ setUser, setToastData }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
@@ -36,15 +37,13 @@ const RegisterComponent = ({ setUser }) => {
     if (email && password && password === confirmPassword) {
       getApiResponse('signup', 'POST', serializeData, null, true).then(response => {
         if (response) {
-          toastRef.current.notifyService('Registration has been successful!', 'success');
-          setTimeout(()=> {
-            history.push('/login');
-          }, 2000)
+          setToastData({ title: 'Registration has been successful!', type: 'success'})
+          history.push('/login')
         } 
-        else toastRef.current.notifyService('Registration hasn\'t been successful', 'error');
+        else setToastData('Registration hasn\'t been successful', 'error');
       })
     } else {
-      toastRef.current.notifyService('Invalid data', 'error');
+      setToastData('Invalid data', 'error');
     }
   }
 
@@ -76,7 +75,6 @@ const RegisterComponent = ({ setUser }) => {
         </p>
 
       </form>
-      <ToastService ref={toastRef} />
     </>
   )
 };

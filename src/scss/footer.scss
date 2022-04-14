@@ -72,7 +72,10 @@
     align-items: center;
     margin-bottom: 1rem;
     font-size: 2.2rem;
+    cursor: pointer;
     @include reset-link(#000);
-    > i { margin-right: 0.5rem;}
+    > i { 
+      margin-right: 0.5rem;
+    }
   }
 }
