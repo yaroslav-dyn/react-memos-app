@@ -16,7 +16,6 @@ reqHeaders.set('Content-Type', 'application/x-www-form-urlencoded');
 const responseHandler = async (response, clearResponse) => {
   if (!response.ok) {
     const parsedRequest = await response.json();
-
     if (parsedRequest.hasOwnProperty('error') && parsedRequest.error.hasOwnProperty('message'))
       store.dispatch(setToastData({ title: parsedRequest.error.message, type: 'error' }));
   } else return clearResponse ? response : response.json();
@@ -62,9 +61,8 @@ export const getApiResponse = async (
     return responseHandler(response, clearResponse);
   } catch (error) {
     console.warn('error', error);
-   // return responseHandler(response, clearResponse);
-    //store.dispatch(setLoadContent({ loading: false }))
-    //store.dispatch(setToastData({ title: `Server error: ${error.message}`, type: 'error'}))   
+    store.dispatch(setLoadContent({ loading: false }))
+    store.dispatch(setToastData({ title: `Server error: ${error.message}`, type: 'error'}))   
   }
 }
 

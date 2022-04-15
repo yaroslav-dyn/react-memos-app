@@ -28,7 +28,7 @@ const IdeasIndex = () => {
     })
   }
 
-  const getCurrentGroupItem = () => currentGroup ? currentGroup._id === idea._id : idea._id === ideasArray[0]._id;
+  const getCurrentGroupItem = (idea) => currentGroup ? currentGroup._id === idea._id : idea._id === ideasArray[0]._id;
 
   const updateSingleIdea = (idea) => {
     var foundIndex = ideasArray.findIndex(x => x._id == idea._id);
@@ -63,7 +63,7 @@ const IdeasIndex = () => {
               {ideasArray && ideasArray.map((idea, index) =>
                 <IdeaSingle
                   key={index}
-                  selected={getCurrentGroupItem}
+                  selected={getCurrentGroupItem(idea)}
                   idea={idea}
                   onSelectGroup={(group) => setCurrentGroup(group)}
                 />

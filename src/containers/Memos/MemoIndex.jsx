@@ -17,12 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 const MemosIndex = ({ setToastMessage }) => {
 
   const navigate = useHistory();
-  const [memos, setMemos] = useState([
-    {
-      id: 0,
-      title: '',
-    }
-  ]);
+  const [memos, setMemos] = useState(null);
   let timer = null;
   const [confirmId, setConfirmId] = useState(null);
 
@@ -82,7 +77,8 @@ const MemosIndex = ({ setToastMessage }) => {
         </div>
 
           <div className="memos_list">
-            {memos.map((memo, index) =>
+            {memos &&
+             memos.map((memo, index) =>
               <MemosSingle
                 key={index}
                 memo={memo}
