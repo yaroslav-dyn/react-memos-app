@@ -19,11 +19,15 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const MemosSingleFull = ({ setToastMessage }) => {
+
+  // TODO: Optimize the form fields.
+
   const { ids } = useParams();
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [noteStatus, setStatus] = useState(false);
+  const [group, setGroup] = useState('');
   const [isAdd] = useState(ids === 'add');
   const [formatedDate, setFormatedDate] = useState('');
 
@@ -33,9 +37,9 @@ const MemosSingleFull = ({ setToastMessage }) => {
     if (success) {
       setToastMessage({ title: `Note has been ${isAdd ? 'added' : 'updated'}`, type: 'success' })
       history.push('/memos');
-    } else  {
+    } else {
       setToastMessage({ title: `Note hasn\'t been ${isAdd ? 'added' : 'updated'}`, type: 'error' });
-    } 
+    }
   }
 
   const handleSubmit = (evt) => {
@@ -44,13 +48,14 @@ const MemosSingleFull = ({ setToastMessage }) => {
       name,
       description,
       status: noteStatus,
+      group
     };
     if (isAdd) {
-      getApiResponse('/memo', 'post', submitData, false, false, true).then( response => {
+      getApiResponse('/memo', 'post', submitData, false, false, true).then(response => {
         getSuccess(response && !response.hasOwnProperty('error'))
       });
     } else {
-      getApiResponse(`/memo/${ids}`, 'put', submitData, false, false, true).then( response => {
+      getApiResponse(`/memo/${ids}`, 'put', submitData, false, false, true).then(response => {
         getSuccess(response && !response.hasOwnProperty('error'))
       });
     }
@@ -63,6 +68,7 @@ const MemosSingleFull = ({ setToastMessage }) => {
           setName(res.name);
           setDescription(res.description);
           setStatus(res.status);
+          setGroup(res.group);
           setFormatedDate(res.updatedAt);
         });
     }
@@ -99,6 +105,23 @@ const MemosSingleFull = ({ setToastMessage }) => {
           </div>
 
           <div>
+            <label className="custom-label m_preview-label"
+              htmlFor="group-select"><b>Group:</b></label>
+            <select
+              name="group-select"
+              id="group-select"
+              className="custom-input"
+              value={group}
+              onChange={e => setGroup(e.target.value)}
+              >
+              <option value="unsorted" >Unsorted</option>
+              <option value="work">Work</option>
+              <option value="common">Common</option>
+            </select>
+
+          </div>
+
+          <div>
             <div className="flex-grid adjust-center justify-s-side-in memo_status-box__time-edit">
               <div className="memo_status-box">
                 <MemoStatusesView
@@ -107,10 +130,10 @@ const MemosSingleFull = ({ setToastMessage }) => {
                 />
               </div>
               {!isAdd &&
-              <div className="flex-grid adjust-center">
-                <i className="material-icons">schedule</i>
-                {formatedDate}
-              </div>
+                <div className="flex-grid adjust-center">
+                  <i className="material-icons">schedule</i>
+                  {formatedDate}
+                </div>
               }
             </div>
           </div>
