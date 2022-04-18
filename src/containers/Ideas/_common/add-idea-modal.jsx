@@ -12,7 +12,6 @@ const mapDispatchToProps = (dispatch) => {
 
 const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
 
-
   const defaultIdeaFields = {
     group: '',
     name: '',
@@ -43,7 +42,7 @@ const addIdeaModalComponent = ({ onClose, setToastMessage }) => {
       <div className="base-modal__content add-modal__content">
 
         <div className="flex-grid justify-right">
-          <span className="material-icons" onClick={() => onClose(false)}>close</span>
+          <span className="material-icons action-icon" onClick={() => onClose(false)}>close</span>
         </div>
 
         <form className="idea-add__form" name="ideas" onSubmit={createIdea}>

@@ -84,18 +84,18 @@ const MemosSingleFull = ({ setToastMessage }) => {
             <input
               id="memo-name"
               type="text"
-              className="custom-input"
+              className="custom-input modern"
               value={name}
               onChange={e => setName(e.target.value)}
             />
           </div>
-
+          <br />
           <div>
             <label className="custom-label m_preview-label" htmlFor="memo-description">
               <b>Description:</b>
             </label>
             <textarea
-              className="custom-input area description_field"
+              className="custom-input area modern description_field"
               rows="4"
               id="memo-description"
               name="description"

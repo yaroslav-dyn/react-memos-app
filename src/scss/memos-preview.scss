@@ -4,19 +4,20 @@
 .memo_preview {
   border-radius: 3px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
-}
-.memo_preview__inner {
-  background: #fff;
-  padding: 1.4rem;
-  border-radius: 4px;
-}
-.memo_preview__controls {
-  > .action-btn {
-    margin-bottom: 8px;
-    @include reset-link(#fff);
-    text-align: center;
+  &__inner {
+    background: #fff;
+    padding: 1.4rem;
+    border-radius: 4px;
+  }
+  &__controls {
+    > .action-btn {
+      margin-bottom: 8px;
+      @include reset-link(#fff);
+      text-align: center;
+    }
   }
 }
+
 .memo_status-box {
   display: flex;
   align-items: center;
@@ -43,11 +44,11 @@
   cursor: pointer;
 }
 
-.memo-icons{
+.memo-icons {
   &.attention {
-    color:$error-text;
+    color: $error-text;
   }
   &.success {
-      color: $success-text;
+    color: $success-text;
   }
 }

@@ -6,8 +6,7 @@ import { setToastData } from '@/store/actions';
 import MemosSingle from '@/containers/Memos/parts/memo-single';
 import '@/scss/memos.scss';
 import ConfirmModal from '@/containers/System/Services/ConfirmModal';
-import SearchModule from '@/containers/System/Services/SearchModule';
-import FilterModule from '@/containers/System/Services/FilterModule';
+import MemoSettingsModule from '@/containers/Memos/_common/MemoSettingsModule';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -56,8 +55,6 @@ const MemosIndex = ({ setToastMessage }) => {
         if (res) setMemos(res);
       })
     }, 750);
-    
-
   }
 
   useEffect(() => {
@@ -69,36 +66,32 @@ const MemosIndex = ({ setToastMessage }) => {
       <section className="section_item">
 
         <br />
-        <div className="memos_controls">
 
-          <div className="flex-grid justify-s-side-in adjust-center">
-            <SearchModule
-              placeholder="Search by name"
-              onInputText={findMemo}
-            />
-            <span className="material-icons action-icon controls-settings">settings</span>
-            <FilterModule onGroupChangeValue={(val) => setGroupFilter(val)} />
-          </div>
+        <div className="memos_controls">
+          <MemoSettingsModule
+            onSearchMemo={findMemo}
+            onChangeGroupFilter={(group) => setGroupFilter(group)}
+          />
 
           <div className="memos_list">
             <Link className="action-btn mobile100" to="/memo/add">Add</Link>
           </div>
         </div>
 
-          <div className="memos_list">
-            {memos &&
+        <div className="memos_list">
+          {memos &&
             memos.filter(
               item => groupFilter !== 'all' ? item.group === groupFilter : item)
               .map((memo, index) =>
-              <MemosSingle
-                key={index}
-                memo={memo}
-                onPress={goToSingle}
-                onDelete={triggerConfirm}
-              />
-            )}
-          </div>
-          
+                <MemosSingle
+                  key={index}
+                  memo={memo}
+                  onPress={goToSingle}
+                  onDelete={triggerConfirm}
+                />
+              )}
+        </div>
+
       </section>
       {
         confirmId
@@ -112,7 +105,7 @@ const MemosIndex = ({ setToastMessage }) => {
           onConfirm={deleteMemo}
         />
       }
-    </main>
+    </main >
   );
 };//
 

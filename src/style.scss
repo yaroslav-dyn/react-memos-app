@@ -87,11 +87,18 @@ input:disabled {
   width: 100%;
   padding: 8px 16px;
   border-radius: 4px;
-}
-
-.custom-input {
-  &.area {
+  outline: none;
+  &:focus {
+    border-bottom: 1px solid var(--main-warn-color);
+  }
+   &.area {
     resize: none;
+  }
+  &.modern {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
   }
 }
 
