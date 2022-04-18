@@ -9,10 +9,10 @@ const MemoSettingsModule = ({
   onChangeGroupFilter
 }) => {
 
-  const [groupSetModal, setGroupSetModal]  = useState(false);
-  const [groups, setGroupsData]  = useState([]);
+  const [groupSetModal, setGroupSetModal] = useState(false);
+  const [groups, setGroupsData] = useState([]);
 
-  useEffect(()=> {
+  useEffect(() => {
     getApiResponse('/groups', 'GET', null, false, false, true).then(response => {
       response && setGroupsData(response);
     });
@@ -27,11 +27,15 @@ const MemoSettingsModule = ({
         />
         <span
           className="material-icons action-icon controls-settings"
-          onClick={()=> setGroupSetModal(true)}
-          >
+          onClick={() => setGroupSetModal(true)}
+        >
           settings
         </span>
-        <FilterModule onGroupChangeValue={onChangeGroupFilter} />
+        {groups && groups.length > 0 &&
+          <FilterModule
+            filterData={groups}
+            onGroupChangeValue={onChangeGroupFilter} />
+          }
       </div>
       <GroupSetModal />
     </>

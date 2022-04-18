@@ -23,8 +23,10 @@ const FiltersModule = ({
       >
         <option value="all" >All</option>
         <option value="unsorted" >Unsorted</option>
-        <option value="work">Work</option>
-        <option value="common">Common</option>
+        {filterData.map( opt => 
+          <option key={opt._id} value={opt.name}>{opt.name}</option>
+        )
+      }
       </select>
     </div>
   )

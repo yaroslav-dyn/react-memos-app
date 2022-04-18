@@ -27,9 +27,10 @@ const MemosSingleFull = ({ setToastMessage }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [noteStatus, setStatus] = useState(false);
-  const [group, setGroup] = useState('');
+  const [group, setGroup] = useState('unsorted');
   const [isAdd] = useState(ids === 'add');
   const [formatedDate, setFormatedDate] = useState('');
+  const [groupsArray, setgroupsArray] = useState([]);
 
   const history = useHistory();
 
@@ -48,8 +49,9 @@ const MemosSingleFull = ({ setToastMessage }) => {
       name,
       description,
       status: noteStatus,
-      group
+      group: group
     };
+    console.log('data', submitData);
     if (isAdd) {
       getApiResponse('/memo', 'post', submitData, false, false, true).then(response => {
         getSuccess(response && !response.hasOwnProperty('error'))
@@ -72,6 +74,7 @@ const MemosSingleFull = ({ setToastMessage }) => {
           setFormatedDate(res.updatedAt);
         });
     }
+    getApiResponse(`/groups`, 'GET', null, false, false, true).then(resp => setgroupsArray(resp))
   }, []);
 
   return (
@@ -115,8 +118,10 @@ const MemosSingleFull = ({ setToastMessage }) => {
               onChange={e => setGroup(e.target.value)}
               >
               <option value="unsorted" >Unsorted</option>
-              <option value="work">Work</option>
-              <option value="common">Common</option>
+              {groupsArray.map(opt =>
+                <option key={opt._id} value={opt.name}>{opt.name}</option>
+                )
+              }
             </select>
 
           </div>
