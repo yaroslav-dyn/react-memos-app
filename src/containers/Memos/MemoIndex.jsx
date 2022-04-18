@@ -7,6 +7,7 @@ import MemosSingle from '@/containers/Memos/parts/memo-single';
 import '@/scss/memos.scss';
 import ConfirmModal from '@/containers/System/Services/ConfirmModal';
 import SearchModule from '@/containers/System/Services/SearchModule';
+import FilterModule from '@/containers/System/Services/FilterModule';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -20,6 +21,7 @@ const MemosIndex = ({ setToastMessage }) => {
   const [memos, setMemos] = useState(null);
   let timer = null;
   const [confirmId, setConfirmId] = useState(null);
+  const [groupFilter, setGroupFilter] = useState('all');
 
   const goToSingle = (e) => {
     navigate.push(`/memo/${e}`);
@@ -54,6 +56,7 @@ const MemosIndex = ({ setToastMessage }) => {
         if (res) setMemos(res);
       })
     }, 750);
+    
 
   }
 
@@ -67,10 +70,16 @@ const MemosIndex = ({ setToastMessage }) => {
 
         <br />
         <div className="memos_controls">
-          <SearchModule
-            placeholder="Search by name"
-            onInputText={findMemo}
-          />
+
+          <div className="flex-grid justify-s-side-in adjust-center">
+            <SearchModule
+              placeholder="Search by name"
+              onInputText={findMemo}
+            />
+            <span className="material-icons action-icon controls-settings">settings</span>
+            <FilterModule onGroupChangeValue={(val) => setGroupFilter(val)} />
+          </div>
+
           <div className="memos_list">
             <Link className="action-btn mobile100" to="/memo/add">Add</Link>
           </div>
@@ -78,7 +87,9 @@ const MemosIndex = ({ setToastMessage }) => {
 
           <div className="memos_list">
             {memos &&
-             memos.map((memo, index) =>
+            memos.filter(
+              item => groupFilter !== 'all' ? item.group === groupFilter : item)
+              .map((memo, index) =>
               <MemosSingle
                 key={index}
                 memo={memo}

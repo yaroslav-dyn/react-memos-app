@@ -5,6 +5,17 @@
   &_controls {
     position: sticky;
     top: 100px;
+    .controls-settings {
+      font-size: 3rem;
+      margin-bottom: 8px;
+      color: $warning-text;
+    }
+    .search-module {
+      flex: 1;
+    }
+    .filter-module {
+      flex: 1;
+    }
   }
   &_list {
     padding: 1.2rem;
@@ -31,7 +42,7 @@
   > div {
     margin-right: 10px;
     max-height: 48px;
-    @include rewrite-desktop{
+    @include rewrite-desktop {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;

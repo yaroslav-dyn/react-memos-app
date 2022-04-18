@@ -2,7 +2,7 @@
 @import "./scss/helpers";
 //Import default styles for https://fkhadra.github.io/react-toastify
 @import "react-toastify/scss/main.scss";
-@use './scss/templates';
+@use "./scss/templates";
 
 /** General Styles **/
 :root {
@@ -89,14 +89,24 @@ input:disabled {
   border-radius: 4px;
 }
 
-.custom-input.area {
-  resize: none;
+.custom-input {
+  &.area {
+    resize: none;
+  }
+}
+
+.custom-select {
+  font-size: 1.6rem;
+  width: 100%;
+  min-height: 4rem;
+  border-radius: 6px;
+  background-color: #f6f6f6;
+  border: none;
 }
 
 .description_field {
   min-height: 35vh;
 }
-
 
 button {
   color: #333;
@@ -143,30 +153,56 @@ a.action-btn {
   color: inherit;
 }
 
-.action-btn[disabled]:hover {
-  background-color: inherit;
-  color: inherit;
-}
+.action-btn {
+  &.default,
+  &:focus {
+    background-color: #eee;
+  }
+  &[disabled] {
+    &:hover {
+      background-color: inherit;
+      color: inherit;
+    }
+  }
+  &.warn {
+    background-color: var(--main-warn-color);
+    color: #fff;
 
-.action-btn.default,
-.action-btn:focus {
-  background-color: #eee;
-}
+    &:focus {
+      background-color: var(--main-warn-color);
+      color: #fff;
+    }
 
-.action-btn.warn,
-.action-btn.warn:focus,
-.action-btn.warn[disabled],
-.action-btn.warn[disabled]:hover {
-  background-color: var(--main-warn-color);
-  color: #fff;
-}
+    &[disabled] {
+      background-color: var(--main-warn-color);
+      color: #fff;
 
-.action-btn.success,
-.action-btn.success:focus,
-.action-btn.success[disabled],
-.action-btn.success[disabled]:hover {
-  background-color: var(--main-success-color);
-  color: #fff;
+      &:hover {
+        background-color: var(--main-warn-color);
+        color: #fff;
+      }
+    }
+  }
+
+  &.success {
+    background-color: var(--main-success-color);
+    color: #fff;
+
+    &:focus {
+      background-color: var(--main-success-color);
+      color: #fff;
+    }
+
+    &[disabled] {
+      background-color: var(--main-success-color);
+      color: #fff;
+
+      &:hover {
+        background-color: var(--main-success-color);
+        color: #fff;
+      }
+    }
+  }
 }
 
 .action-btn.slave {
@@ -190,8 +226,6 @@ a.action-btn {
 }
 
 /*Main parts*/
-
-
 
 .app-wrapper {
   display: flex;
@@ -247,7 +281,6 @@ a.action-btn {
   }
 }
 
-
 /*
 Search module
 */
@@ -256,5 +289,12 @@ Search module
   .search-input {
     min-height: 5rem;
     padding: 0 2rem;
+  }
+}
+
+.filter-module {
+  padding: 0 1.2rem;
+  .group-select {
+    min-height: 5rem;
   }
 }
