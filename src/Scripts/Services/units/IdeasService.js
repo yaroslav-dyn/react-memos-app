@@ -1,4 +1,3 @@
-
 import { getApiResponse } from '@/Scripts/Services/_common/api';
 
 const getDEfaultIdeasService = async () => { 
@@ -15,7 +14,7 @@ const addIdeaService = async (postData) => {
     false,
     true
   );
-  return response || undefined
+  return response || undefined;
 };
 
 const deleteIdeaService = async (id) => {
@@ -35,4 +34,5 @@ const IdeasService = {
   deleteIdeaService,
   getDEfaultIdeasService
 }
+
 export default IdeasService

@@ -1,14 +1,23 @@
 @import "./vars.scss";
 @import "./helpers.scss";
 
+.memo-page {
+  min-height: calc(100vh - 150px);
+}
+
 .memos {
   &_controls {
     position: sticky;
     top: 100px;
+    z-index: 10;
     .controls-settings {
       font-size: 3rem;
       margin-bottom: 8px;
       color: $warning-text;
+      &.delete {
+        color: $error-text;
+        margin-right: 1.8rem;
+      }
     }
     .search-module {
       flex: 1;
@@ -19,7 +28,7 @@
   }
   &_list {
     padding: 1.2rem;
-    max-height: 70vh;
+    max-height: 65vh;
     overflow-y: auto;
     @include rewrite-mobile {
       padding-left: 1.2rem;

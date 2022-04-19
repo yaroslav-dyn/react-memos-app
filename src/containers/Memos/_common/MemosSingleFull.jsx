@@ -51,7 +51,6 @@ const MemosSingleFull = ({ setToastMessage }) => {
       status: noteStatus,
       group: group
     };
-    console.log('data', submitData);
     if (isAdd) {
       getApiResponse('/memo', 'post', submitData, false, false, true).then(response => {
         getSuccess(response && !response.hasOwnProperty('error'))

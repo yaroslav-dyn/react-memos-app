@@ -64,16 +64,13 @@ const MemosIndex = ({ setToastMessage }) => {
   return (
     <main className="container main_area main-column memo-page">
       <section className="section_item">
-
         <br />
-
         <div className="memos_controls">
           <MemoSettingsModule
             onSearchMemo={findMemo}
             onChangeGroupFilter={(group) => setGroupFilter(group)}
           />
-
-          <div className="memos_list">
+          <div className="search-module">
             <Link className="action-btn mobile100" to="/memo/add">Add</Link>
           </div>
         </div>
