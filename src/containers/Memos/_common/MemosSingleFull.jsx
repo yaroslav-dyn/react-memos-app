@@ -112,7 +112,7 @@ const MemosSingleFull = ({ setToastMessage }) => {
             <select
               name="group-select"
               id="group-select"
-              className="custom-input"
+              className="custom-select group-select"
               value={group}
               onChange={e => setGroup(e.target.value)}
               >

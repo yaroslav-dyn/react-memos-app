@@ -1,5 +1,10 @@
 import { getApiResponse } from '@/Scripts/Services/_common/api';
 
+/**
+ * Add Groups
+ * @param {Object} postData 
+ * @returns {Object | undefined}
+ */
 const addGroups = async (postData) => {
   const response = await getApiResponse(
     '/group',
@@ -12,6 +17,12 @@ const addGroups = async (postData) => {
   return response || undefined;
 };
 
+/**
+ * Updates Group
+ * @param {+} postData 
+ * @param {string} id 
+ * @returns {Object | undefined}
+ */
 const updateGroups = async (postData, id) => {
   const response = await getApiResponse(
     `/group/${id}`,
@@ -24,6 +35,11 @@ const updateGroups = async (postData, id) => {
   return response || undefined;
 };
 
+/**
+ * Delete Group
+ * @param {string} id 
+ * @returns {Object | undefined}
+ */
 const deleteGroups = async (id) => {
   const response = await getApiResponse(
     `/group/${id}`,
