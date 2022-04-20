@@ -1,8 +1,8 @@
 @import "./scss/vars";
 @import "./scss/helpers";
-
 //Import default styles for https://fkhadra.github.io/react-toastify
 @import "react-toastify/scss/main.scss";
+@use "./scss/templates";
 
 /** General Styles **/
 :root {
@@ -87,16 +87,33 @@ input:disabled {
   width: 100%;
   padding: 8px 16px;
   border-radius: 4px;
+  outline: none;
+  &:focus {
+    border-bottom: 1px solid var(--main-warn-color);
+  }
+   &.area {
+    resize: none;
+  }
+  &.modern {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
 }
 
-.custom-input.area {
-  resize: none;
+.custom-select {
+  font-size: 1.6rem;
+  width: 100%;
+  min-height: 4rem;
+  border-radius: 6px;
+  background-color: #f6f6f6;
+  border: none;
 }
 
 .description_field {
   min-height: 35vh;
 }
-
 
 button {
   color: #333;
@@ -143,30 +160,56 @@ a.action-btn {
   color: inherit;
 }
 
-.action-btn[disabled]:hover {
-  background-color: inherit;
-  color: inherit;
-}
+.action-btn {
+  &.default,
+  &:focus {
+    background-color: #eee;
+  }
+  &[disabled] {
+    &:hover {
+      background-color: inherit;
+      color: inherit;
+    }
+  }
+  &.warn {
+    background-color: var(--main-warn-color);
+    color: #fff;
 
-.action-btn.default,
-.action-btn:focus {
-  background-color: #eee;
-}
+    &:focus {
+      background-color: var(--main-warn-color);
+      color: #fff;
+    }
 
-.action-btn.warn,
-.action-btn.warn:focus,
-.action-btn.warn[disabled],
-.action-btn.warn[disabled]:hover {
-  background-color: var(--main-warn-color);
-  color: #fff;
-}
+    &[disabled] {
+      background-color: var(--main-warn-color);
+      color: #fff;
 
-.action-btn.success,
-.action-btn.success:focus,
-.action-btn.success[disabled],
-.action-btn.success[disabled]:hover {
-  background-color: var(--main-success-color);
-  color: #fff;
+      &:hover {
+        background-color: var(--main-warn-color);
+        color: #fff;
+      }
+    }
+  }
+
+  &.success {
+    background-color: var(--main-success-color);
+    color: #fff;
+
+    &:focus {
+      background-color: var(--main-success-color);
+      color: #fff;
+    }
+
+    &[disabled] {
+      background-color: var(--main-success-color);
+      color: #fff;
+
+      &:hover {
+        background-color: var(--main-success-color);
+        color: #fff;
+      }
+    }
+  }
 }
 
 .action-btn.slave {
@@ -190,31 +233,6 @@ a.action-btn {
 }
 
 /*Main parts*/
-
-.base_modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  padding: 1.2rem;
-  border-radius: 6px;
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-.base_modal__content {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  position: absolute;
-  background: #fff;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
-  top: 0;
-  left: calc(50% - 200px);
-  width: 400px;
-  min-height: 30vh;
-}
 
 .app-wrapper {
   display: flex;
@@ -270,54 +288,6 @@ a.action-btn {
   }
 }
 
-.base-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  padding: 1.2rem;
-  background-color: rgba(0, 0, 0, 0.6);
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    background: #fff;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
-    top: 0;
-    left: calc(50% - 200px);
-    width: 400px;
-    margin: 0 auto;
-    @include rewrite-mobile {
-      width: 100%;
-      left: 0;
-    }
-    min-height: 30vh;
-  }
-
-  &__controls {
-    flex: 1;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    padding: 1.4rem 0;
-  }
-
-  &__heading {
-    text-align: center;
-    color: var(--main-warn-color);
-    font-size: 2rem;
-  }
-
-  &__description {
-    text-align: center;
-    font-size: 1.8rem;
-    margin: 1.2rem 0;
-  }
-}
-
 /*
 Search module
 */
@@ -329,3 +299,9 @@ Search module
   }
 }
 
+.filter-module {
+  padding: 0 1.2rem;
+  .group-select {
+    min-height: 5rem;
+  }
+}

@@ -6,7 +6,7 @@ import { setToastData } from '@/store/actions';
 import MemosSingle from '@/containers/Memos/parts/memo-single';
 import '@/scss/memos.scss';
 import ConfirmModal from '@/containers/System/Services/ConfirmModal';
-import SearchModule from '@/containers/System/Services/SearchModule';
+import MemoSettingsModule from '@/containers/Memos/_common/MemoSettingsModule';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -20,6 +20,7 @@ const MemosIndex = ({ setToastMessage }) => {
   const [memos, setMemos] = useState(null);
   let timer = null;
   const [confirmId, setConfirmId] = useState(null);
+  const [groupFilter, setGroupFilter] = useState(null);
 
   const goToSingle = (e) => {
     navigate.push(`/memo/${e}`);
@@ -54,7 +55,6 @@ const MemosIndex = ({ setToastMessage }) => {
         if (res) setMemos(res);
       })
     }, 750);
-
   }
 
   useEffect(() => {
@@ -64,30 +64,31 @@ const MemosIndex = ({ setToastMessage }) => {
   return (
     <main className="container main_area main-column memo-page">
       <section className="section_item">
-
         <br />
         <div className="memos_controls">
-          <SearchModule
-            placeholder="Search by name"
-            onInputText={findMemo}
+          <MemoSettingsModule
+            onSearchMemo={findMemo}
+            onChangeGroupFilter={(group) => setGroupFilter(group)}
           />
-          <div className="memos_list">
+          <div className="search-module">
             <Link className="action-btn mobile100" to="/memo/add">Add</Link>
           </div>
         </div>
 
-          <div className="memos_list">
-            {memos &&
-             memos.map((memo, index) =>
-              <MemosSingle
-                key={index}
-                memo={memo}
-                onPress={goToSingle}
-                onDelete={triggerConfirm}
-              />
-            )}
-          </div>
-          
+        <div className="memos_list">
+          {memos &&
+            memos.filter(
+              item => groupFilter ? item.group === groupFilter : item)
+              .map((memo, index) =>
+                <MemosSingle
+                  key={index}
+                  memo={memo}
+                  onPress={goToSingle}
+                  onDelete={triggerConfirm}
+                />
+              )}
+        </div>
+
       </section>
       {
         confirmId
@@ -101,7 +102,7 @@ const MemosIndex = ({ setToastMessage }) => {
           onConfirm={deleteMemo}
         />
       }
-    </main>
+    </main >
   );
 };//
 

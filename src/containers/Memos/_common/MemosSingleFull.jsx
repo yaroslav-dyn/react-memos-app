@@ -19,13 +19,18 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const MemosSingleFull = ({ setToastMessage }) => {
+
+  // TODO: Optimize the form fields.
+
   const { ids } = useParams();
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [noteStatus, setStatus] = useState(false);
+  const [group, setGroup] = useState('unsorted');
   const [isAdd] = useState(ids === 'add');
   const [formatedDate, setFormatedDate] = useState('');
+  const [groupsArray, setgroupsArray] = useState([]);
 
   const history = useHistory();
 
@@ -33,9 +38,9 @@ const MemosSingleFull = ({ setToastMessage }) => {
     if (success) {
       setToastMessage({ title: `Note has been ${isAdd ? 'added' : 'updated'}`, type: 'success' })
       history.push('/memos');
-    } else  {
+    } else {
       setToastMessage({ title: `Note hasn\'t been ${isAdd ? 'added' : 'updated'}`, type: 'error' });
-    } 
+    }
   }
 
   const handleSubmit = (evt) => {
@@ -44,13 +49,14 @@ const MemosSingleFull = ({ setToastMessage }) => {
       name,
       description,
       status: noteStatus,
+      group: group
     };
     if (isAdd) {
-      getApiResponse('/memo', 'post', submitData, false, false, true).then( response => {
+      getApiResponse('/memo', 'post', submitData, false, false, true).then(response => {
         getSuccess(response && !response.hasOwnProperty('error'))
       });
     } else {
-      getApiResponse(`/memo/${ids}`, 'put', submitData, false, false, true).then( response => {
+      getApiResponse(`/memo/${ids}`, 'put', submitData, false, false, true).then(response => {
         getSuccess(response && !response.hasOwnProperty('error'))
       });
     }
@@ -63,9 +69,11 @@ const MemosSingleFull = ({ setToastMessage }) => {
           setName(res.name);
           setDescription(res.description);
           setStatus(res.status);
+          setGroup(res.group);
           setFormatedDate(res.updatedAt);
         });
     }
+    getApiResponse(`/groups`, 'GET', null, false, false, true).then(resp => setgroupsArray(resp))
   }, []);
 
   return (
@@ -78,24 +86,42 @@ const MemosSingleFull = ({ setToastMessage }) => {
             <input
               id="memo-name"
               type="text"
-              className="custom-input"
+              className="custom-input modern"
               value={name}
               onChange={e => setName(e.target.value)}
             />
           </div>
-
+          <br />
           <div>
             <label className="custom-label m_preview-label" htmlFor="memo-description">
               <b>Description:</b>
             </label>
             <textarea
-              className="custom-input area description_field"
+              className="custom-input area modern description_field"
               rows="4"
               id="memo-description"
               name="description"
               value={description || ''}
               onChange={e => setDescription(e.target.value)}
             />
+          </div>
+
+          <div>
+            <label className="custom-label m_preview-label"
+              htmlFor="group-select"><b>Group:</b></label>
+            <select
+              name="group-select"
+              id="group-select"
+              className="custom-input"
+              value={group}
+              onChange={e => setGroup(e.target.value)}
+              >
+              {groupsArray.map(opt =>
+                <option key={opt._id} value={opt.name}>{opt.name}</option>
+                )
+              }
+            </select>
+
           </div>
 
           <div>
@@ -107,10 +133,10 @@ const MemosSingleFull = ({ setToastMessage }) => {
                 />
               </div>
               {!isAdd &&
-              <div className="flex-grid adjust-center">
-                <i className="material-icons">schedule</i>
-                {formatedDate}
-              </div>
+                <div className="flex-grid adjust-center">
+                  <i className="material-icons">schedule</i>
+                  {formatedDate}
+                </div>
               }
             </div>
           </div>
