@@ -116,7 +116,6 @@ const MemosSingleFull = ({ setToastMessage }) => {
               value={group}
               onChange={e => setGroup(e.target.value)}
               >
-              <option value="unsorted" >Unsorted</option>
               {groupsArray.map(opt =>
                 <option key={opt._id} value={opt.name}>{opt.name}</option>
                 )

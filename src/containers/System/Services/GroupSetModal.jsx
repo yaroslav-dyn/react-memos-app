@@ -3,13 +3,17 @@ import ConfirmModal from '@/containers/System/Services/ConfirmModal';
 import GroupService from '@/Scripts/Services/units/GroupService';
 import { setToastData } from "@/store/actions/index";
 import { useDispatch } from 'react-redux';
+import Constant from "@/Scripts/Constants";
 
 const GroupSetModal = ({
   currentGroup,
-  onClose
+  onClose,
+  onUpdateGroup
 }) => {
 
-  const [groupItem, setGroupItem] = useState({ name: '', description: '' });
+  const defaultGroupData = { name: '', description: '', readOnly: false }
+  const [groupItem, setGroupItem] = useState(defaultGroupData);
+  const [newModalType, setCurrentModalType] = useState(false);
   const [confirmModalState, setConfirmModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -24,34 +28,76 @@ const GroupSetModal = ({
     })
   };
 
-  const deleteGroup = async(id) => {
+  const deleteGroup = async (id) => {
     const response = await GroupService.deleteGroups(id);
-    if (response) dispatch(setToastData({ title: 'Group has been deleted', type: 'success' })) 
-    else dispatch(setToastData({ title: 'Group hasn\'t been deleted', type: 'error' })) 
+    if (response) dispatch(setToastData({ title: 'Group has been deleted', type: 'success' }))
+    else dispatch(setToastData({ title: 'Group hasn\'t been deleted', type: 'error' }))
     setConfirmModal(false);
+    onClose(false);
+    onUpdateGroup();
   }
 
-  const submitGroupForm = async(e) => {
+  const submitGroupForm = async (e) => {
     e.preventDefault();
-    const {name, description, _id} = groupItem;
-    const response = await GroupService.updateGroups({name, description}, _id);
-    if (response) dispatch(setToastData({ title: 'Group has been updated', type: 'success' }))
-    else dispatch(setToastData({ title: 'Group hasn\'t been updated', type: 'error' }))
+    const { name, description, _id } = groupItem;
+    let response = null;
+    if (!newModalType) {
+      response = await GroupService.updateGroups({ name, description }, _id);
+    } else {
+      response = await GroupService.addGroups({ name, description });
+    }
+    if (response) dispatch(setToastData({ title: `Group has been ${!newModalType ? 'updated' : 'added'}`, type: 'success' }));
+    else dispatch(setToastData({ title: `Group hasn\'t been ${!newModalType ? 'updated' : 'added'}`, type: 'error' }));
     onClose(false);
+    onUpdateGroup();
+  }
+
+  const changeFormType = (e) => {
+    const isNewData = e.target.value === Constant.modalType.new
+    setCurrentModalType(isNewData)
+    if (isNewData) {
+      setGroupItem(defaultGroupData)
+    } else setGroupItem(currentGroup);
   }
 
   return (
     <div className="base-modal add-modal">
-      <div className="base-modal__content add-modal__content">
+      <div className="base-modal__content add-modal__content group-set">
 
         <div className="flex-grid justify-right">
           <span className="material-icons action-icon" onClick={() => onClose(false)}>close</span>
         </div>
 
-        <form name="Group-set-modal" onSubmit={submitGroupForm}>
+        <div className="group-set__type flex-grid">
+          <div className="row flex-grid adjust-center">
+            <input id="NEW" name='setTypeSelector'
+              type="radio"
+              checked={newModalType}
+              value={Constant.modalType.new}
+              onChange={changeFormType}
+            />
+            <label htmlFor="NEW">
+              <i className="material-icons">add_box</i>
+            </label>
+          </div>
+          <div className="row flex-grid adjust-center">
+            <input id="EDIT"
+              name='setTypeSelector'
+              type="radio"
+              checked={!newModalType}
+              value={Constant.modalType.edit}
+              onChange={changeFormType}
+            />
+            <label htmlFor="EDIT">
+              <i className="material-icons">edit</i>
+            </label>
+          </div>
+        </div>
+        <br />
+        <form name="group-set-modal" onSubmit={submitGroupForm}>
           <div>
             <label className="custom-label m_preview-label"
-              htmlFor="group-name"><b>Title:</b></label>
+              htmlFor="group-name"><b>Name:</b></label>
             <input
               id="group-name"
               type="text"
@@ -75,11 +121,17 @@ const GroupSetModal = ({
           </div>
 
           <div className="flex-grid adjust-center">
-            <i className="material-icons action-icon controls-settings delete"
-              onClick={() => setConfirmModal(true)}>
-              delete
-            </i>
-            <button className="action-btn success mobile100">Update</button>
+            {!newModalType && !currentGroup.readOnly &&
+              <i className="material-icons action-icon controls-settings delete"
+                onClick={() => setConfirmModal(true)}>
+                delete
+              </i>
+            }
+            {!currentGroup.readOnly || newModalType ?
+              <button className="action-btn success mobile100">{!newModalType ? 'Update' : 'Add'}</button>
+              :
+              <h4 className="centered-text">Default group</h4>
+            }
 
           </div>
 

@@ -22,7 +22,6 @@ const FiltersModule = ({
         onChange={e => onGroupChange(e.target.value)}
       >
         <option value="all">All</option>
-        <option value="unsorted" >Unsorted</option>
         {filterData.map( opt => 
           <option key={opt._id} value={opt._id}>{opt.name}</option>
         )

@@ -10,22 +10,28 @@ const MemoSettingsModule = ({
 }) => {
 
   const [groupStateModal, setGroupModal] = useState(false);
-  const [currentGroup, setCurrentGroup] = useState(false);
+  const [currentGroup, setCurrentGroup] = useState(null);
   const [groups, setGroupsData] = useState([]);
 
   const onChangeGroup = (groupId) => {
     const currentElement = groups.find(g => g._id === groupId)
-    console.log('currentElement', currentElement);
     if (currentElement && currentElement.hasOwnProperty('name')) {
       setCurrentGroup(currentElement);
       onChangeGroupFilter(currentElement.name);
+    } else {
+      setCurrentGroup(null);
+      onChangeGroupFilter(null);
     }
   }
 
-  useEffect(() => {
+  const getDefaultGroups = () => {
     getApiResponse('/groups', 'GET', null, false, false, true).then(response => {
       response && setGroupsData(response);
     });
+  }
+
+  useEffect(() => {
+    getDefaultGroups();
   }, [])
 
   return (
@@ -35,21 +41,23 @@ const MemoSettingsModule = ({
           placeholder="Search by name"
           onInputText={onSearchMemo}
         />
-        <span
-          className="material-icons action-icon controls-settings"
-          onClick={() => setGroupModal(true)}
-        >
-          settings
-        </span>
+        {currentGroup  &&
+          <span
+            className="material-icons action-icon controls-settings"
+            onClick={() => setGroupModal(true)}>
+            settings
+          </span>
+        }
         {groups && groups.length > 0 &&
           <FilterModule
             filterData={groups}
             onGroupChangeValue={onChangeGroup} />
-          }
+        }
       </div>
       {groupStateModal && currentGroup &&
-        <GroupSetModal 
+        <GroupSetModal
           currentGroup={currentGroup}
+          onUpdateGroup={()=> getDefaultGroups()}
           onClose={() => setGroupModal(false)}
         />
       }

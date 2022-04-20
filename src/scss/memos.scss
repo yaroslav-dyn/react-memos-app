@@ -83,3 +83,24 @@
     }
   }
 }
+
+.group-set {
+  &__type {
+    input {
+      &[name=setTypeSelector] {
+        display: none;
+        &:checked + label {
+          color: $warning-text;
+          opacity: 1;
+        }
+        + label {
+          font-size: 1.8rem;
+          color: $blue-theme;
+          opacity: 0.6;
+          cursor: pointer;
+          margin-right: 1.2rem;
+        }
+      }
+    }
+  }
+}

@@ -20,7 +20,7 @@ const MemosIndex = ({ setToastMessage }) => {
   const [memos, setMemos] = useState(null);
   let timer = null;
   const [confirmId, setConfirmId] = useState(null);
-  const [groupFilter, setGroupFilter] = useState('all');
+  const [groupFilter, setGroupFilter] = useState(null);
 
   const goToSingle = (e) => {
     navigate.push(`/memo/${e}`);
@@ -78,7 +78,7 @@ const MemosIndex = ({ setToastMessage }) => {
         <div className="memos_list">
           {memos &&
             memos.filter(
-              item => groupFilter !== 'all' ? item.group === groupFilter : item)
+              item => groupFilter ? item.group === groupFilter : item)
               .map((memo, index) =>
                 <MemosSingle
                   key={index}
