@@ -10,8 +10,12 @@
     border-radius: 4px;
   }
   &__controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     > .action-btn {
       margin-bottom: 8px;
+      margin-right: 8px;
       @include reset-link(#fff);
       text-align: center;
     }

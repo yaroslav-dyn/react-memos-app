@@ -8,10 +8,13 @@
 :root {
   --main-blue-color: #1091cb;
   --main-warn-color: darkorange;
+  --main-danger-color: darkred;
   --main-slave-color: #dedede;
   --main-success-color: limegreen;
   --special-black: #444;
 }
+
+
 
 html,
 body {
@@ -46,14 +49,13 @@ footer,
 a {
   color: var(--main-blue-color);
   text-decoration: none;
-}
+  &:hover {
+    text-decoration: underline;
+  }
 
-a:hover {
-  text-decoration: underline;
-}
-
-a:visited {
-  color: var(--main-blue-color);
+  &:visited {
+    color: var(--main-blue-color);
+  }
 }
 
 label {
@@ -91,7 +93,7 @@ input:disabled {
   &:focus {
     border-bottom: 1px solid var(--main-warn-color);
   }
-   &.area {
+  &.area {
     resize: none;
   }
   &.modern {
@@ -119,18 +121,17 @@ button {
   color: #333;
   background-color: #f4f4f4;
   outline: none;
-}
+  &:disabled {
+    color: #999;
+  }
 
-button:disabled {
-  color: #999;
-}
+  &:not(:disabled):active {
+    background-color: #ddd;
+  }
 
-button:not(:disabled):active {
-  background-color: #ddd;
-}
-
-button:focus {
-  border-color: #666;
+  &:focus {
+    border-color: #666;
+  }
 }
 
 div {
@@ -153,72 +154,30 @@ a.action-btn {
   //background: #e87650;
   //color: #51002a;
   @include reset-link(var(--main-blue-color));
-}
 
-.action-btn[disabled] {
-  opacity: 0.6;
-  color: inherit;
-}
-
-.action-btn {
-  &.default,
-  &:focus {
-    background-color: #eee;
+  /** General states **/
+  &:hover {
+    background-color: #444;
+    color: var(--main-blue-color);
   }
   &[disabled] {
+    opacity: 0.6;
+    color: inherit;
     &:hover {
       background-color: inherit;
       color: inherit;
     }
   }
-  &.warn {
-    background-color: var(--main-warn-color);
-    color: #fff;
-
-    &:focus {
-      background-color: var(--main-warn-color);
-      color: #fff;
-    }
-
-    &[disabled] {
-      background-color: var(--main-warn-color);
-      color: #fff;
-
-      &:hover {
-        background-color: var(--main-warn-color);
-        color: #fff;
-      }
-    }
-  }
-
-  &.success {
-    background-color: var(--main-success-color);
-    color: #fff;
-
-    &:focus {
-      background-color: var(--main-success-color);
-      color: #fff;
-    }
-
-    &[disabled] {
-      background-color: var(--main-success-color);
-      color: #fff;
-
-      &:hover {
-        background-color: var(--main-success-color);
-        color: #fff;
-      }
-    }
+  &:focus {
+    background-color: #eee;
   }
 }
 
-.action-btn.slave {
-  background-color: var(--main-slave-color);
-}
-
-.action-btn:hover {
-  background-color: #444;
-  color: var(--main-blue-color);
+.action-btn {
+  &.default { @include button-states(transparent, var(--special-black));}
+  &.warn { @include button-states(var(--main-warn-color), #fff)}
+  &.success {@include button-states(var(--main-success-color), #fff);}
+  &.slave {@include button-states(var(--main-slave-color), #444);}
 }
 
 /*Helpers*/

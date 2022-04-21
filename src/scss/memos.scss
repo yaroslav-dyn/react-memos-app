@@ -24,6 +24,14 @@
     }
     .filter-module {
       flex: 1;
+      .clear-filter {
+        position: absolute;
+        right: 30px;
+        font-size: 3rem;
+        margin-bottom: 8px;
+        color: $error-text;
+        cursor: pointer;
+      }
     }
   }
   &_list {
@@ -95,8 +103,7 @@
         }
         + label {
           font-size: 1.8rem;
-          color: $blue-theme;
-          opacity: 0.6;
+          color: var(--main-slave-color);
           cursor: pointer;
           margin-right: 1.2rem;
         }

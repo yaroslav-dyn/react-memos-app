@@ -130,7 +130,10 @@ const GroupSetModal = ({
             {!currentGroup.readOnly || newModalType ?
               <button className="action-btn success mobile100">{!newModalType ? 'Update' : 'Add'}</button>
               :
-              <h4 className="centered-text">Default group</h4>
+              <small className=" centered-text flex-grid adjust-center danger-text">
+                <i className="material-icons">lock</i>
+               <span> Default group</span>
+              </small>
             }
 
           </div>
