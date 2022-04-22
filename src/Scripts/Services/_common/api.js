@@ -2,9 +2,9 @@
 // eslint-disable-next-line import/extensions
 import UserService from '@/Scripts/Services/_common/userService';
 const dev = process.env.NODE_ENV !== 'production';
-const serverUrl =  'https://memo-silver-app.herokuapp.com/';
+const serverUrl = 'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';
-const apiUrl = !dev ? serverUrl : localUrl ;
+const apiUrl = !dev ? serverUrl : localUrl;
 const defaultHeaders = new Headers();
 import store from '@/store';
 import { setLoadContent, setToastData } from "@/store/actions";
@@ -14,10 +14,18 @@ const reqHeaders = new Headers();
 reqHeaders.set('Content-Type', 'application/x-www-form-urlencoded');
 
 const responseHandler = async (response, clearResponse) => {
+
   if (!response.ok) {
     const parsedRequest = await response.json();
-    if (parsedRequest.hasOwnProperty('error') && parsedRequest.error.hasOwnProperty('message'))
+    if (parsedRequest.hasOwnProperty('errors')) {
+      parsedRequest.errors.map(err => {
+        const parsedMsg = err.hasOwnProperty('msg') ? err.msg : (err.hasOwnProperty('message') && err.message || null)
+        store.dispatch(setToastData({ title: parsedMsg, type: 'error' }));
+      });
+    } else if (parsedRequest.hasOwnProperty('error') && parsedRequest.error.hasOwnProperty('message')) {
       store.dispatch(setToastData({ title: parsedRequest.error.message, type: 'error' }));
+    }
+    return 
   } else return clearResponse ? response : response.json();
 };
 
@@ -49,7 +57,7 @@ export const getApiResponse = async (
     }
     let fullUrl;
     const hasUser = UserService.getUSerFromStorage();
-    if(hasUser && isPrivate) {
+    if (hasUser && isPrivate) {
       defaultHeaders.set('Authorization', `Bearer ${hasUser}`);
       fullUrl = `${apiUrl}user${currentUrl}`;
     } else fullUrl = `${apiUrl}${currentUrl}`;
@@ -62,7 +70,7 @@ export const getApiResponse = async (
   } catch (error) {
     console.warn('error', error);
     store.dispatch(setLoadContent({ loading: false }))
-    store.dispatch(setToastData({ title: `Server error: ${error.message}`, type: 'error'}))   
+    store.dispatch(setToastData({ title: `Server error: ${error.message}`, type: 'error' }))
   }
 }
 
