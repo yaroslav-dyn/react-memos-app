@@ -5,6 +5,7 @@ import { getApiResponse } from '@/Scripts/Services/_common/api';
 import MemoStatusesView from '@/containers/Memos/parts/memo-status-view';
 import { setToastData } from '@/store/actions';
 import '@/scss/memos-preview.scss';
+import dayjs from 'dayjs';
 
 import {
   Link,
@@ -151,7 +152,7 @@ const MemosSingleFull = ({ setToastMessage }) => {
               {!isAdd &&
                 <div className="flex-grid adjust-center">
                   <i className="material-icons">schedule</i>
-                  {formatedDate}
+                  {dayjs(formatedDate).format('DD.MM.YYYY HH:mm')}
                 </div>
               }
             </div>
