@@ -64,7 +64,8 @@ const GroupSetModal = ({
     <div className="base-modal add-modal">
       <div className="base-modal__content add-modal__content group-set">
 
-        <div className="flex-grid justify-right">
+        <div className="flex-grid justify-s-side-in">
+          <small className="info-text">{newModalType ? 'Add group' : 'Edit group'}</small>
           <span className="material-icons action-icon" onClick={() => onClose(false)}>close</span>
         </div>
 
@@ -130,7 +131,7 @@ const GroupSetModal = ({
             {!currentGroup.readOnly || newModalType ?
               <button className="action-btn success mobile100">{!newModalType ? 'Update' : 'Add'}</button>
               :
-              <small className=" centered-text flex-grid adjust-center danger-text">
+              <small className="centered-text flex-grid adjust-center danger-text">
                 <i className="material-icons">lock</i>
                <span> Default group</span>
               </small>

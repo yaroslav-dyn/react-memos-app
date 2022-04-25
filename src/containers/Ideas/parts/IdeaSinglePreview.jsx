@@ -1,5 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getApiResponse } from '@/Scripts/Services/_common/api';
+
+
+const debounce = (func, wait, immediate) => {
+  let timeout;
+
+  return function executedFunction() {
+    const context = this;
+    const args = arguments;
+
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+
+    const callNow = immediate && !timeout;
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(later, wait);
+
+    if (callNow) func.apply(context, args);
+  };
+};
 
 const IdeaSinglePreview = ({ previewIdea, updateSingleIdea }) => {
 
@@ -11,6 +34,12 @@ const IdeaSinglePreview = ({ previewIdea, updateSingleIdea }) => {
       [key]: val
     });
   }
+  const changeHandler = (e) => {
+    console.log('e', currentIdea);
+  }
+
+  const onUpdate = useCallback(
+    debounce(changeHandler, 600), []);
 
   const updateIdeaContext = async (e) => {
     e.persist();
@@ -29,13 +58,14 @@ const IdeaSinglePreview = ({ previewIdea, updateSingleIdea }) => {
   return (
     <div>
       <h3> {previewIdea.name} </h3>
-      <form name="idea-form" onBlur={(e)=> updateIdeaContext(e)}>
+      <form name="idea-form">
         <textarea
           name="idea-text"
           className="custom-input area modern description_field"
           value={currentIdea.text}
-          onChange={(e) => changeCurrentData(e.target.value, 'text')}
-          >
+          onInput={(e) => changeCurrentData(e.target.value, 'text')}
+          onChange={(e)=> onUpdate(e.target.value)}
+        >
         </textarea>
       </form>
     </div>
