@@ -18,7 +18,6 @@ const MemosIndex = ({ setToastMessage }) => {
 
   const navigate = useHistory();
   const [memos, setMemos] = useState(null);
-  let timer = null;
   const [confirmId, setConfirmId] = useState(null);
   const [groupFilter, setGroupFilter] = useState(null);
 
@@ -49,12 +48,9 @@ const MemosIndex = ({ setToastMessage }) => {
   };
 
   const findMemo = (searchString) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      getApiResponse(`/memos?name=${searchString}`, 'GET', null, false, false, true).then(res => {
-        if (res) setMemos(res);
-      })
-    }, 750);
+    getApiResponse(`/memos?name=${searchString}`, 'GET', null, false, false, true).then(res => {
+      if (res) setMemos(res);
+    })
   }
 
   useEffect(() => {

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getApiResponse } from '@/Scripts/Services/_common/api';
+import { DebounceInput } from 'react-debounce-input';
 
 const IdeaSinglePreview = ({ previewIdea, updateSingleIdea }) => {
 
@@ -12,14 +13,10 @@ const IdeaSinglePreview = ({ previewIdea, updateSingleIdea }) => {
     });
   }
 
-  const updateIdeaContext = async (e) => {
-    e.persist();
-    const ideaText = e.target.value;
-    changeCurrentData(ideaText, 'text');
+  const onUpdateText = async (e) => {
     const { _id, group, name, text } = currentIdea;
     const response = await getApiResponse(`/idea/${_id}`, "PUT", { group, name, text }, false, false, true);
-    if (response) updateSingleIdea(response)
-
+    if (response) updateSingleIdea(response);
   }
 
   useEffect(() => {
@@ -29,14 +26,16 @@ const IdeaSinglePreview = ({ previewIdea, updateSingleIdea }) => {
   return (
     <div>
       <h3> {previewIdea.name} </h3>
-      <form name="idea-form" onBlur={(e)=> updateIdeaContext(e)}>
-        <textarea
+      <form name="idea-form">
+        <DebounceInput 
+          element="textarea" 
           name="idea-text"
+          debounceTimeout={1000}
           className="custom-input area modern description_field"
           value={currentIdea.text}
-          onChange={(e) => changeCurrentData(e.target.value, 'text')}
-          >
-        </textarea>
+          onInput={(e) => changeCurrentData(e.target.value, 'text')}
+          onChange={(e) => onUpdateText(e.target.value)}
+        />
       </form>
     </div>
   )

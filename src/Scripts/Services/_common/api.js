@@ -4,7 +4,8 @@ import UserService from '@/Scripts/Services/_common/userService';
 const dev = process.env.NODE_ENV !== 'production';
 const serverUrl = 'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';
-const apiUrl = !dev ? serverUrl : localUrl;
+//TODO: turn server URL
+const apiUrl = serverUrl;//!dev ? serverUrl : localUrl;
 const defaultHeaders = new Headers();
 import store from '@/store';
 import { setLoadContent, setToastData } from "@/store/actions";
@@ -28,7 +29,6 @@ const responseHandler = async (response, clearResponse) => {
     return 
   } else return clearResponse ? response : response.json();
 };
-
 
 export const getApiResponse = async (
   currentUrl,

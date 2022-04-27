@@ -31,10 +31,12 @@ const IdeasIndex = () => {
   const getCurrentGroupItem = (idea) => currentGroup ? currentGroup._id === idea._id : idea._id === ideasArray[0]._id;
 
   const updateSingleIdea = (idea) => {
-    var foundIndex = ideasArray.findIndex(x => x._id == idea._id);
-    const modifyArray = [...ideasArray];
-    modifyArray[foundIndex] = idea;
-    setIdeasArray(modifyArray);
+    // var foundIndex = ideasArray.findIndex(x => x._id == idea._id);
+    // const modifyArray = [...ideasArray];
+    // modifyArray[foundIndex] = idea;
+    // console.log('modifyArray', idea);
+    // setIdeasArray(modifyArray);
+    getDEfaultIdeas();
   }
 
   const cutchAction = (action) => {

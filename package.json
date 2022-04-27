@@ -73,6 +73,7 @@
     "dayjs": "^1.11.1",
     "prop-types": "^15.8.1",
     "react": "^16.14.0",
+    "react-debounce-input": "^3.2.5",
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.1.0",
     "react-toastify": "^8.2.0",
