@@ -21,6 +21,9 @@ const PwaPluginConfig =  new CopyPlugin({
     {
       from: path.resolve(__dirname, 'manifest.json'), to: path.resolve(__dirname, 'build/manifest.json'), 
     },
+    {
+      from: path.resolve(__dirname, 'serviceWorker.js'), to: path.resolve(__dirname, 'build/serviceWorker.js'),
+    },
     { 
       from: path.resolve(__dirname, 'pwa/'), to: path.resolve(__dirname, 'build/pwa/'),
     }
