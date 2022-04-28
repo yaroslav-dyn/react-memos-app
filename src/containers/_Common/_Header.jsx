@@ -10,7 +10,7 @@ const Header = () => (
     <div className="header__nav">
       <div className="logo">
         <Link to="/">
-          <img className="container__image" alt="react logo" src={memoLogo} />
+          <img className="container__image" alt="logo" src={memoLogo} />
         </Link>
       </div>
     </div>
