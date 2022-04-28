@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -14,6 +15,17 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 const DefinePluginConfig = new webpack.DefinePlugin({
   'process.env.NODE_ENV': JSON.stringify('production'),
 });
+
+const PwaPluginConfig =  new CopyPlugin({
+  patterns: [
+    {
+      from: path.resolve(__dirname, 'manifest.json'), to: path.resolve(__dirname, 'build/manifest.json'), 
+    },
+    { 
+      from: path.resolve(__dirname, 'pwa/'), to: path.resolve(__dirname, 'build/pwa/'),
+    }
+  ]
+})
 
 module.exports = {
   devServer: {
@@ -61,5 +73,5 @@ module.exports = {
   mode: dev ? 'development' : 'production',
   plugins: dev
     ? [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
-    : [HTMLWebpackPluginConfig, DefinePluginConfig],
+    : [HTMLWebpackPluginConfig, DefinePluginConfig, PwaPluginConfig],
 };
