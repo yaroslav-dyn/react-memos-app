@@ -15,8 +15,6 @@ import App from './App';
 import './style.scss';
 import store from './store';
 
-
-
 const root = document.getElementById('root');
 
 const render = (Component) => {
