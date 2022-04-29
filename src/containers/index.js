@@ -22,3 +22,6 @@ export { default as Settings } from './Settings/SettingsIndex';
 
 //System
 export { default as NotFound } from './System/NotFound';
+
+//Game
+export {default as Game25} from './Games/game25';

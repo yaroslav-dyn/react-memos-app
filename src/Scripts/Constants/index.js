@@ -3,8 +3,88 @@ const modalType = {
   edit: 'EDIT'
 }
 
+const gameTable = [
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'INCREASE'
+  },
+  {
+    type: 'INCREASE'
+  },
+  {
+    type: 'INCREASE'
+  },
+  {
+    type: 'INCREASE'
+  },
+  {
+    type: 'DECREASE'
+  },
+  {
+    type: 'DECREASE'
+  },
+  {
+    type: 'DECREASE'
+  },
+  {
+    type: 'PRIZE'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+  {
+    type: 'HOLD'
+  },
+]
+
+
 const Constant = {
-  modalType
+  modalType,
+  gameTable
 }
 
 export default Constant;

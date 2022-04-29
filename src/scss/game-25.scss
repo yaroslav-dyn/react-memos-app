@@ -1,0 +1,16 @@
+
+.game-field {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(5, auto);
+    align-items: center;
+    &__item {
+      padding: 1rem;
+      font-size: 1.4rem;
+      min-height: 40px;
+      min-width: 40px;
+      border: 1px solid #dedede;
+      cursor: pointer;
+    }
+
+}

@@ -38,6 +38,9 @@ const FooterComponent = ({ currentUser, setUser }) => {
     <footer className="footer main-column">
 
       <nav className={footerNavClasses}>
+        <span className="footer_nav__icon material-icons">
+          crop_portrait
+        </span>
         <Link className="footer_nav__link" to="/">
           <span className="footer_nav__icon material-icons">window</span>
         </Link>
@@ -56,6 +59,9 @@ const FooterComponent = ({ currentUser, setUser }) => {
             <NavLink className="footer_nav__link" to="/settings">
               <span className="footer_nav__icon material-icons">settings</span>
             </NavLink>
+          <NavLink className="footer_nav__link" to="/game-25">
+            <span className="footer_nav__icon material-icons">casino</span>
+          </NavLink>
           </>
         }
         {!currentUser &&
