@@ -5,7 +5,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const serverUrl = 'https://memo-silver-app.herokuapp.com/';
 const localUrl = 'http://localhost:4000/';
 //TODO: turn server URL
-const apiUrl = serverUrl;//!dev ? serverUrl : localUrl;
+const apiUrl = !dev ? serverUrl : localUrl;
 const defaultHeaders = new Headers();
 import store from '@/store';
 import { setLoadContent, setToastData } from "@/store/actions";

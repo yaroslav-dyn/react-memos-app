@@ -3,8 +3,14 @@ const modalType = {
   edit: 'EDIT'
 }
 
+const defaultGroup = {
+  name: 'unsorted',
+  id: '00000000'
+}
+
 const Constant = {
-  modalType
+  modalType,
+  defaultGroup
 }
 
 export default Constant;

@@ -11,6 +11,7 @@ import {
   Link,
   useParams,
 } from 'react-router-dom';
+import Constant from '@/Scripts/Constants';
 
 
 const mapDispatchToProps = (dispatch) => {
@@ -28,7 +29,7 @@ const MemosSingleFull = ({ setToastMessage }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [noteStatus, setStatus] = useState(false);
-  const [group, setGroup] = useState('unsorted');
+  const [group, setGroup] = useState(Constant.defaultGroup.id);
   const [isAdd] = useState(ids === 'add');
   const [formatedDate, setFormatedDate] = useState('');
   const [groupsArray, setgroupsArray] = useState([]);
@@ -77,16 +78,15 @@ const MemosSingleFull = ({ setToastMessage }) => {
 
     const setPreselectedGroup = (groups) => {
       const selectedGroup = localStorage.getItem('memoGroup');
-      if (selectedGroup) {
-        const preSelected = groups.find(g => g._id === selectedGroup);
-        preSelected && setGroup(preSelected.name)
-      } else setGroup('unsorted');
+      selectedGroup && selectedGroup !== 'all' ? setGroup(selectedGroup) : setGroup(Constant.defaultGroup.id);
     }
 
     getApiResponse(`/groups`, 'GET', null, false, false, true).then(resp => {
       setgroupsArray(resp);
       setPreselectedGroup(resp);
     })
+
+
   }, []);
 
   return (
@@ -120,7 +120,6 @@ const MemosSingleFull = ({ setToastMessage }) => {
               onChange={e => setDescription(e.target.value)}
             />
           </div>
-
           {group && 
             <div>
               <label className="custom-label m_preview-label"
@@ -133,7 +132,7 @@ const MemosSingleFull = ({ setToastMessage }) => {
                 onChange={e => setGroup(e.target.value)}
               >
                 {groupsArray.map(opt =>
-                  <option key={opt._id} value={opt.name}>{opt.name}</option>
+                  <option key={opt._id} value={opt._id}>{opt.name}</option>
                 )
                 }
               </select>

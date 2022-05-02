@@ -14,10 +14,10 @@ const MemoSettingsModule = ({
   const [groups, setGroupsData] = useState([]);
 
   const onChangeGroup = (groupId) => {
-    const currentElement = groups.find(g => g._id === groupId)
-    if (currentElement && currentElement.hasOwnProperty('name')) {
+    const currentElement = groups.find(g => g._id === groupId);
+    if (currentElement && currentElement.hasOwnProperty('_id')) {
       setCurrentGroup(currentElement);
-      onChangeGroupFilter(currentElement.name);
+      onChangeGroupFilter(currentElement._id);
     } else {
       setCurrentGroup(null);
       onChangeGroupFilter(null);
@@ -38,7 +38,7 @@ const MemoSettingsModule = ({
     <>
       <div className="flex-grid justify-s-side-in adjust-center">
         <SearchModule
-          placeholder="Search by name"
+          placeholder="Search"
           onInputText={onSearchMemo}
         />
         {currentGroup  &&

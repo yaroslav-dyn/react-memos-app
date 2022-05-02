@@ -65,7 +65,7 @@ const GroupSetModal = ({
       <div className="base-modal__content add-modal__content group-set">
 
         <div className="flex-grid justify-s-side-in">
-          <small className="info-text">{newModalType ? 'Add group' : 'Edit group'}</small>
+          <small className={newModalType ? 'success-text':'warning-text'}>{newModalType ? 'Add group' : 'Edit group'}</small>
           <span className="material-icons action-icon" onClick={() => onClose(false)}>close</span>
         </div>
 
