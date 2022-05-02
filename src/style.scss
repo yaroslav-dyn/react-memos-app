@@ -203,6 +203,7 @@ a.action-btn {
 .app-wrapper > .main-column {
   flex-grow: 1;
   box-sizing: border-box;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .api_status {
