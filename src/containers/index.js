@@ -17,8 +17,10 @@ export { default as MemosSingleFull } from './Memos/_common/MemosSingleFull';
 export { default as Ideas } from './Ideas/IdeasIndex';
 
 //Settings
-
 export { default as Settings } from './Settings/SettingsIndex';
+
+//MemoLinks
+export { default as MemoLinks } from './MemoLinks/MemoLinksIndex'
 
 //System
 export { default as NotFound } from './System/NotFound';

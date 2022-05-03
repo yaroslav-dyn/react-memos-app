@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 const App = () => { 
 
-  const loadContent = useSelector(state => state.loadContent)
+  const loadContent = useSelector(state => state.loadContent);
   
   return (
     <BrowserRouter>

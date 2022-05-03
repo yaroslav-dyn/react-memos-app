@@ -10,6 +10,7 @@
   &:focus,
   &:visited {
     color: $color;
+    text-decoration: none;
   }
 }
 
@@ -80,6 +81,9 @@
   }
   &.--success {
     color: $success-text;
+  }
+  &.--warn {
+    color: $warning-text;
   }
 }
 

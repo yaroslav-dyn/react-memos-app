@@ -62,40 +62,41 @@ const GroupSetModal = ({
 
   return (
     <div className="base-modal add-modal">
+
       <div className="base-modal__content add-modal__content group-set">
-
-        <div className="flex-grid justify-s-side-in">
-          <small className={newModalType ? 'success-text':'warning-text'}>{newModalType ? 'Add group' : 'Edit group'}</small>
-          <span className="material-icons action-icon" onClick={() => onClose(false)}>close</span>
-        </div>
-
-        <div className="group-set__type flex-grid">
-          <div className="row flex-grid adjust-center">
-            <input id="NEW" name='setTypeSelector'
-              type="radio"
-              checked={newModalType}
-              value={Constant.modalType.new}
-              onChange={changeFormType}
-            />
-            <label htmlFor="NEW">
-              <i className="material-icons">add_box</i>
-            </label>
-          </div>
-          <div className="row flex-grid adjust-center">
-            <input id="EDIT"
-              name='setTypeSelector'
-              type="radio"
-              checked={!newModalType}
-              value={Constant.modalType.edit}
-              onChange={changeFormType}
-            />
-            <label htmlFor="EDIT">
-              <i className="material-icons">edit</i>
-            </label>
-          </div>
-        </div>
-        <br />
         <form name="group-set-modal" onSubmit={submitGroupForm}>
+          <div className="flex-grid justify-s-side-in">
+            <small className={newModalType ? 'success-text' : 'warning-text'}>{newModalType ? 'Add group' : 'Edit group'}</small>
+            <span className="material-icons action-icon" onClick={() => onClose(false)}>close</span>
+          </div>
+
+          <div className="group-set__type flex-grid">
+            <div className="row flex-grid adjust-center">
+              <input id="NEW" name='setTypeSelector'
+                type="radio"
+                checked={newModalType}
+                value={Constant.modalType.new}
+                onChange={changeFormType}
+              />
+              <label htmlFor="NEW">
+                <i className="material-icons">add_box</i>
+              </label>
+            </div>
+            <div className="row flex-grid adjust-center">
+              <input id="EDIT"
+                name='setTypeSelector'
+                type="radio"
+                checked={!newModalType}
+                value={Constant.modalType.edit}
+                required
+                onChange={changeFormType}
+              />
+              <label htmlFor="EDIT">
+                <i className="material-icons">edit</i>
+              </label>
+            </div>
+          </div>
+          <br />
           <div>
             <label className="custom-label m_preview-label"
               htmlFor="group-name"><b>Name:</b></label>
@@ -104,6 +105,7 @@ const GroupSetModal = ({
               type="text"
               className="custom-input modern"
               value={groupItem.name}
+              required
               onChange={e => setGroupKey(e.target.value, 'name')}
             />
           </div>
@@ -133,7 +135,7 @@ const GroupSetModal = ({
               :
               <small className="centered-text flex-grid adjust-center danger-text">
                 <i className="material-icons">lock</i>
-               <span> Default group</span>
+                <span> Default group</span>
               </small>
             }
 
@@ -153,6 +155,7 @@ const GroupSetModal = ({
           onConfirm={(id) => deleteGroup(id)}
         />
       }
+
     </div>
   )
 };

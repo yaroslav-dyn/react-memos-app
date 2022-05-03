@@ -11,6 +11,10 @@
     position: sticky;
     z-index: 10;
     top: 0;
+    
+    &__nav {
+        flex: 1
+    }
 }
 
 .logo {
