@@ -2,26 +2,20 @@ import React, { useState, useEffect } from 'react';
 import AccountsFormItem from '@/containers/MemoLinks/parts/accountsFormItem'
 import '@/scss/memo-links.scss';
 import { getApiResponse } from '@/Scripts/Services/_common/api';
+import AccountsService from '@/Scripts/Services/units/AccountsService';
 
 const AccountsForm = ({ editStatus }) => {
 
   const [accounts, setAccounts] = useState([]);
 
   const getDefaultAccounts = () => {
-    getApiResponse(
-      '/accounts',
-      'GET',
-      null,
-      false,
-      false,
-      true
-    ).then(response => {
-      response && setAccounts(response);
-    })
+    AccountsService.getAccounts().then(response => {
+      setAccounts(response)
+    });
   }
 
   useEffect(() => {
-    getDefaultAccounts()
+    getDefaultAccounts();
   }, []);
 
   return (
@@ -32,10 +26,10 @@ const AccountsForm = ({ editStatus }) => {
           key={link.type}
           account={link}
           editStatus={editStatus}
+          onAccountUpdate={() => getDefaultAccounts()}
         />
       ))
       }
-
       <br />
       {editStatus &&
         <h4> Add new account </h4>
@@ -44,6 +38,7 @@ const AccountsForm = ({ editStatus }) => {
         account={{ type: '', value: '' }}
         editStatus={editStatus}
         isAdd={true}
+        onAccountUpdate={() => getDefaultAccounts()}
       />
     </div>
 

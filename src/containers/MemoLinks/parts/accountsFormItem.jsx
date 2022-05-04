@@ -2,56 +2,40 @@ import React, { useState, useRef } from 'react';
 import UseSetObjectValue from '@/Scripts/Hooks/UseSetObjectValue.js';
 import HelpersService from '@/Scripts/Services/_common';
 import { getApiResponse } from '@/Scripts/Services/_common/api';
+import { setToastData } from "@/store/actions/index";
+import { useDispatch } from 'react-redux';
+import AccountsService from '@/Scripts/Services/units/AccountsService';
 
-const AccountsFormItem = ({ editStatus, account, isAdd }) => {
+const AccountsFormItem = ({ editStatus, account, isAdd, onAccountUpdate }) => {
 
   const inputEl = useRef(null);
-
   const [currentAccount, setCurrentAccount] = useState(account);
+  const dispatch = useDispatch();
 
   const onChangeValue = (key, value) => {
     const accObj = UseSetObjectValue(key, value, currentAccount);
     setCurrentAccount(accObj);
   }
 
-  const saveAccount = () => {
+  const saveAccount = async () => {
     const { _id, type, value } = currentAccount;
     if (!isAdd) {
-      getApiResponse(
-        `/account/${_id}`,
-        'PUT',
-        { type, value },
-        false,
-        false,
-        true
-      ).then(result => {
-        console.log('put res', result);
-      })
+      const response = await AccountsService.updateAccounts({type, value}, _id);
+      if (response) dispatch(setToastData({ title: 'Account has been updated', type: 'success' }))
+      else dispatch(setToastData({ title: 'Account hasn\'t been updated', type: 'error' }))
     } else {
-      getApiResponse(
-        '/account',
-        'POST',
-        { type, value },
-        false,
-        false,
-        true
-      ).then(result => {
-        console.log('post res', result);
-      })
+      const response = await AccountsService.addAccount({ type, value });
+      if (response) dispatch(setToastData({ title: 'Account has been saved', type: 'success' }))
+      else dispatch(setToastData({ title: 'Account hasn\'t been saved', type: 'error' }))
     }
-
+    onAccountUpdate();
   };
-  const deleteAccount = () => {
-    getApiResponse(
-      `/account/${currentAccount._id}`,
-      'DELETE',
-      null,
-      false,
-      false,
-      true
-    ).then(result => {
-      console.log('del res', result);
-    })
+
+  const deleteAccount = async () => {
+    const response = await AccountsService.deleteAccounts(currentAccount._id);
+    if (response) dispatch(setToastData({ title: 'Account has been deleted', type: 'success' }))
+    else dispatch(setToastData({ title: 'Account hasn\'t been deleted', type: 'error' }))
+    onAccountUpdate();
   };
 
   const copyToClipBoard = () => !editStatus && HelpersService.copyToClipboard(inputEl.current, true);
@@ -94,7 +78,7 @@ const AccountsFormItem = ({ editStatus, account, isAdd }) => {
                 ref={inputEl}
                 onChange={(e) => onChangeValue('value', e.target.value)}
                 onClick={copyToClipBoard}
-                placeholder="Value"
+                placeholder="value"
               />
 
               {!editStatus &&

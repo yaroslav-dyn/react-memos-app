@@ -11,12 +11,12 @@ const MemoLinksIndex = () => {
     <main className="container main_area main-column mlinks-page">
       <section className="section_item">
         <article>
-          <h2 className="centered-text greeting-heading flex-grid justify-s-side-in adjust-center">
+          <h4 className="centered-text flex-grid justify-s-side-in adjust-center">
             <span>Links to your media</span> 
             <i className="action-icon material-symbols-outlined" onClick={() => triggerState()}>
               {!editState ? 'edit_note' : 'lock'}
             </i>
-          </h2>
+          </h4>
 
           <AccountsForm 
             editStatus={editState} 
