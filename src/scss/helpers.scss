@@ -85,6 +85,9 @@
   &.--warn {
     color: $warning-text;
   }
+  &.--accent {
+    &-red {color: $accent-red}
+  }
 }
 
 .w100 {
