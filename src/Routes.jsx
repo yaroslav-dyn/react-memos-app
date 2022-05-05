@@ -11,19 +11,37 @@ const mapStateToProps = state => {
 const Routes = ({currentUser}) => (
   <Switch>
 
-    <Route exact path="/" component={Home} />
-    <Route path="/login" component={Login} />
-    <Route path="/signup" component={SignUp} />
+    <Route exact path="/">
+      <Home />
+    </Route>
+    <Route path="/login">
+      <Login/>
+    </Route>
+    <Route path="/signup">
+      <SignUp/>
+    </Route>
 
-    <RouterGuard path="/memos" component={MemosIndex} auth={!!currentUser} />
-    <RouterGuard path="/memo/:ids" component={MemosSingleFull} auth={!!currentUser} />
-    <RouterGuard path="/memo/add" component={MemosSingleFull} auth={!!currentUser} />
+    <RouterGuard path="/memos" auth={!!currentUser}>
+      <MemosIndex />
+    </RouterGuard>
+    <RouterGuard path="/memo/:ids" auth={!!currentUser}>
+      <MemosSingleFull />
+    </RouterGuard>
+    <RouterGuard path="/memo/add" auth={!!currentUser}>
+      <MemosSingleFull />
+    </RouterGuard>
 
-    <RouterGuard path="/settings" component={Settings} auth={!!currentUser} />
+    <RouterGuard path="/settings" cauth={!!currentUser}>
+      <Settings />
+    </RouterGuard>
 
-    <RouterGuard path="/Ideas" component={Ideas} auth={!!currentUser} />
+    <RouterGuard path="/ideas" auth={!!currentUser}>
+      <Ideas />
+    </RouterGuard>
     
-    <RouterGuard path="/mlinks" component={MemoLinks} auth={!!currentUser} />
+    <RouterGuard path="/mlinks" auth={!!currentUser} >
+      <MemoLinks/>
+    </RouterGuard>
 
     <Route component={NotFound} />
 
