@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import UseSetObjectValue from '@/Scripts/Hooks/UseSetObjectValue.js';
+import UseSetObjectValue from '@/Scripts/Hooks/useSetObjectValue';
 import HelpersService from '@/Scripts/Services/_common';
 import { setToastData } from "@/store/actions/index";
 import { useDispatch } from 'react-redux';

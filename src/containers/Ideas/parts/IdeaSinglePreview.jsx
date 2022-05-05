@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { getApiResponse } from '@/Scripts/Services/_common/api';
 import { DebounceInput } from 'react-debounce-input';
-import UseSetObjectValue from '@/Scripts/Hooks/UseSetObjectValue.js'
+import UseSetObjectValue from '@/Scripts/Hooks/useSetObjectValue'
 
 const IdeaSinglePreview = ({ previewIdea, updateSingleIdea }) => {
 
