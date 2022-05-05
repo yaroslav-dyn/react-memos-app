@@ -18,7 +18,6 @@ const AccountsForm = ({ editStatus }) => {
   }, []);
 
   return (
-
     <div className='mlinks-module'>
       {accounts && accounts.map(link => (
         <AccountsFormItem
@@ -29,9 +28,9 @@ const AccountsForm = ({ editStatus }) => {
         />
       ))
       } 
-
+      <br />
       {editStatus &&
-        <h4> Add new account </h4>
+        <h4 className="mlinks-page__heading"> Add new account </h4>
       }
       <AccountsFormItem
         account={{ type: '', value: '' }}

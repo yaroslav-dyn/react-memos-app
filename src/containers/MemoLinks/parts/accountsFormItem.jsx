@@ -20,7 +20,7 @@ const AccountsFormItem = ({ editStatus, account, isAdd, onAccountUpdate }) => {
   const saveAccount = async () => {
     const { _id, type, value } = currentAccount;
     if (!isAdd) {
-      const response = await AccountsService.updateAccounts({type, value}, _id);
+      const response = await AccountsService.updateAccounts({ type, value }, _id);
       if (response) dispatch(setToastData({ title: 'Account has been updated', type: 'success' }))
       else dispatch(setToastData({ title: 'Account hasn\'t been updated', type: 'error' }))
     } else {
@@ -41,9 +41,9 @@ const AccountsFormItem = ({ editStatus, account, isAdd, onAccountUpdate }) => {
   const copyToClipBoard = () => !editStatus && HelpersService.copyToClipboard(inputEl.current, true);
 
   return (
-    <form name="mlinks-module__form">
-      
-      <div className="mlinks-module__form__item flex-grid adjust-center">
+    <form name="mlinks-module_form">
+
+      <div className="mlinks-module_form__item flex-grid">
         {/* <select
         name="accountTypes"
         id="accountTypes"
@@ -68,35 +68,36 @@ const AccountsFormItem = ({ editStatus, account, isAdd, onAccountUpdate }) => {
               placeholder="Account type"
               required
             />
+            <div className="flex-grid adjust-center flex1">
+              <div className="account_value--container">
+                <input
+                  type="text"
+                  className="custom-input account_value"
+                  value={currentAccount.value}
+                  readOnly={!editStatus}
+                  ref={inputEl}
+                  onChange={(e) => onChangeValue('value', e.target.value)}
+                  onClick={copyToClipBoard}
+                  placeholder="value"
+                />
 
-            <div className="account_value--container">
-              <input
-                type="text"
-                className="custom-input account_value"
-                value={currentAccount.value}
-                readOnly={!editStatus}
-                ref={inputEl}
-                onChange={(e) => onChangeValue('value', e.target.value)}
-                onClick={copyToClipBoard}
-                placeholder="value"
-              />
-
-              {!editStatus &&
-                <i className="material-icons action-icon copy --success hide-mobile" onClick={copyToClipBoard}>
-                  content_copy
-                </i>
-              }
-
-            </div>
-
-            {editStatus &&
-              <div className="mlinks-form__item--controls flex-grid adjust-center">
-                <i className="material-icons action-icon --success" onClick={saveAccount}>save</i>
-                {!isAdd &&
-                <i className="material-icons action-icon --accent-red" onClick={()=> setConfirmModal(true)}>delete</i>
+                {!editStatus &&
+                  <i className="material-icons action-icon copy --success" onClick={copyToClipBoard}>
+                    content_copy
+                  </i>
                 }
+
               </div>
-            }
+
+              {editStatus &&
+              <div className="mlinks-module_form__item--controls flex-grid adjust-center">
+                  <i className="material-icons action-icon --success" onClick={saveAccount}>save</i>
+                  {!isAdd &&
+                    <i className="material-icons action-icon --accent-red" onClick={() => setConfirmModal(true)}>delete</i>
+                  }
+                </div>
+              }
+            </div>
           </>
         }
       </div>
