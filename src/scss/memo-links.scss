@@ -1,0 +1,48 @@
+@import "./helpers";
+
+.mlinks-page {
+  @include rewrite-mobile {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+  .edit_icon {
+    border: 2px solid;
+    padding: 1px;
+    border-radius: 7px;
+  }
+}
+
+.mlinks-module {
+  &__form {
+    &__item {
+      margin-bottom: 1.4rem;
+      .account_type,
+      .account_value {
+        margin-bottom: 0;
+        @include rewrite-mobile {
+          font-size: 1.2rem;
+        }
+      }
+      .account_type {
+        flex-basis: 30%;
+        margin-right: 1.4rem;
+      }
+      .account_value {
+        padding-right: 30px;
+        &--container {
+          position: relative;
+          flex-basis: 70%;
+        }
+      }
+    }
+  }
+  .action-icon {
+    &.copy {
+      font-size: 3rem;
+      padding: 0 0.5rem;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}

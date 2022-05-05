@@ -75,8 +75,10 @@ textarea {
   border-radius: 2px;
 }
 
-input:disabled {
-  color: #ccc;
+input {
+  &:disabled, &:read-only {
+    color: #ccc;
+  }
 }
 
 .custom-label {
@@ -101,6 +103,10 @@ input:disabled {
     border-left: none;
     border-right: none;
     border-radius: 0;
+  }
+  &:read-only, &:disabled {
+    background-color: #F6F6F6;
+    border: none;
   }
 }
 
@@ -203,6 +209,7 @@ a.action-btn {
 .app-wrapper > .main-column {
   flex-grow: 1;
   box-sizing: border-box;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .api_status {

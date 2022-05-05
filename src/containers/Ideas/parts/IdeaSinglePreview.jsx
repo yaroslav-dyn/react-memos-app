@@ -1,16 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { getApiResponse } from '@/Scripts/Services/_common/api';
 import { DebounceInput } from 'react-debounce-input';
+import UseSetObjectValue from '@/Scripts/Hooks/UseSetObjectValue.js'
 
 const IdeaSinglePreview = ({ previewIdea, updateSingleIdea }) => {
 
   const [currentIdea, updateCurrentIdea] = useState({ text: '', name: '', group: '' });
 
   const changeCurrentData = (val, key) => {
-    updateCurrentIdea({
-      ...currentIdea,
-      [key]: val
-    });
+    const dataObj = UseSetObjectValue(key, val, currentIdea);
+    updateCurrentIdea(dataObj);
   }
 
   const onUpdateText = async (e) => {

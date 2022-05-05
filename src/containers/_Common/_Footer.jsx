@@ -38,21 +38,26 @@ const FooterComponent = ({ currentUser, setUser }) => {
     <footer className="footer main-column">
 
       <nav className={footerNavClasses}>
-        <Link className="footer_nav__link" to="/">
+        {/* <Link className="footer_nav__link" to="/">
           <span className="footer_nav__icon material-icons">window</span>
-        </Link>
-
+        </Link> */}
         {currentUser &&
           <>
             <NavLink className="footer_nav__link" to="/memos">
               <span className="footer_nav__icon material-icons">notes</span>
             </NavLink>
-            <div className="footer_nav__link accent action-icon" onClick={triggerPopover}>
-              <span className="footer_nav__icon material-icons">stream</span>
-            </div>
             <NavLink className="footer_nav__link" to="/ideas">
               <span className="footer_nav__icon material-icons">note_alt</span>
             </NavLink>
+
+            <div className="footer_nav__link accent action-icon" onClick={triggerPopover}>
+              <span className="footer_nav__icon material-icons">stream</span>
+            </div>
+
+            <NavLink className="footer_nav__link" to="/mlinks">
+              <span className="footer_nav__icon material-icons">share</span>
+            </NavLink>
+
             <NavLink className="footer_nav__link" to="/settings">
               <span className="footer_nav__icon material-icons">settings</span>
             </NavLink>

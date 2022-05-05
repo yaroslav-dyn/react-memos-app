@@ -32,14 +32,16 @@ const AccountContent = ({ currentUser, setUser, onItemAction }) => {
     <>
       {!currentUser ?
         <div className="account-content__item" onClick={goLogin}>
-          <i className="material-icons">login</i>
-          <span> Sign in </span>
+          <i className="material-icons success-text">login</i>
+          <span className='success-text'> Sign in </span>
         </div>
         :
-        <div className="account-content__item" onClick={signOut}>
-          <i className="material-icons">logout</i>
-          <span>Sign out</span>
-        </div>
+        <>
+          <div className="account-content__item" onClick={signOut}>
+            <i className="material-icons danger-text">power_settings_new</i>
+            <span className="danger-text">Sign out</span>
+          </div>
+        </>
       }
     </>
   )

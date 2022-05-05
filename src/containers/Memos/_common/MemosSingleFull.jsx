@@ -64,6 +64,11 @@ const MemosSingleFull = ({ setToastMessage }) => {
     }
   };
 
+  const setPreselectedGroup = (groups) => {
+    const selectedGroup = localStorage.getItem('memoGroup');
+    selectedGroup && selectedGroup !== 'all' ? setGroup(selectedGroup) : setGroup(Constant.defaultGroup.id);
+  }
+
   useEffect(() => {
     if (!isAdd) {
       getApiResponse(`/memo/${ids}`, 'GET', null, false, false, true)
@@ -74,16 +79,12 @@ const MemosSingleFull = ({ setToastMessage }) => {
           setGroup(res.group);
           setFormatedDate(res.updatedAt);
         });
-    }
-
-    const setPreselectedGroup = (groups) => {
-      const selectedGroup = localStorage.getItem('memoGroup');
-      selectedGroup && selectedGroup !== 'all' ? setGroup(selectedGroup) : setGroup(Constant.defaultGroup.id);
+    } else {
+      setPreselectedGroup();
     }
 
     getApiResponse(`/groups`, 'GET', null, false, false, true).then(resp => {
       setgroupsArray(resp);
-      setPreselectedGroup(resp);
     })
 
 

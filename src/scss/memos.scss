@@ -9,7 +9,7 @@
   &_controls {
     position: sticky;
     top: 100px;
-    z-index: 10;
+    z-index: 0;
     .controls-settings {
       font-size: 3rem;
       margin-bottom: 8px;
@@ -93,6 +93,13 @@
 }
 
 .group-set {
+  /**
+  TODO: crutch for visibility. 
+  Change DOM nesting for this modal
+  **/
+  top: 70px;
+  position: relative;
+  left: auto;
   &__type {
     input {
       &[name=setTypeSelector] {
