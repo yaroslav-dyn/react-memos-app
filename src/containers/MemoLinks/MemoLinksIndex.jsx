@@ -13,7 +13,7 @@ const MemoLinksIndex = () => {
         <article>
           <h4 className="centered-text flex-grid justify-s-side-in adjust-center">
             <span>Links to your media</span> 
-            <i className="action-icon material-symbols-outlined" onClick={() => triggerState()}>
+            <i className="action-icon material-symbols-outlined edit_icon" onClick={() => triggerState()}>
               {!editState ? 'edit_note' : 'lock'}
             </i>
           </h4>

@@ -1,15 +1,15 @@
 import React, { useState, useRef } from 'react';
 import UseSetObjectValue from '@/Scripts/Hooks/UseSetObjectValue.js';
 import HelpersService from '@/Scripts/Services/_common';
-import { getApiResponse } from '@/Scripts/Services/_common/api';
 import { setToastData } from "@/store/actions/index";
 import { useDispatch } from 'react-redux';
 import AccountsService from '@/Scripts/Services/units/AccountsService';
+import ConfirmModal from '@/containers/System/Services/ConfirmModal';
 
 const AccountsFormItem = ({ editStatus, account, isAdd, onAccountUpdate }) => {
-
-  const inputEl = useRef(null);
+  const [confirmModalState, setConfirmModal] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(account);
+  const inputEl = useRef(null);
   const dispatch = useDispatch();
 
   const onChangeValue = (key, value) => {
@@ -31,8 +31,8 @@ const AccountsFormItem = ({ editStatus, account, isAdd, onAccountUpdate }) => {
     onAccountUpdate();
   };
 
-  const deleteAccount = async () => {
-    const response = await AccountsService.deleteAccounts(currentAccount._id);
+  const deleteAccount = async (id) => {
+    const response = await AccountsService.deleteAccounts(id);
     if (response) dispatch(setToastData({ title: 'Account has been deleted', type: 'success' }))
     else dispatch(setToastData({ title: 'Account hasn\'t been deleted', type: 'error' }))
     onAccountUpdate();
@@ -93,13 +93,25 @@ const AccountsFormItem = ({ editStatus, account, isAdd, onAccountUpdate }) => {
               <div className="mlinks-form__item--controls flex-grid adjust-center">
                 <i className="material-icons action-icon --success" onClick={saveAccount}>save</i>
                 {!isAdd &&
-                  <i className="material-icons action-icon --accent-red" onClick={deleteAccount}>delete</i>
+                <i className="material-icons action-icon --accent-red" onClick={()=> setConfirmModal(true)}>delete</i>
                 }
               </div>
             }
           </>
         }
       </div>
+      {
+        confirmModalState
+        && <ConfirmModal
+          memoId={currentAccount._id}
+          confirmHeading="Warning!"
+          confirmText={`You want to delete ${currentAccount.type}?`}
+          cancelButtonText="cancel"
+          confirmButtonText="delete"
+          onCancel={() => setConfirmModal(false)}
+          onConfirm={(id) => deleteAccount(id)}
+        />
+      }
     </form>
   )
 

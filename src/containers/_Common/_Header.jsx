@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import memoLogo from '../../assets/img/logo.svg';
+import memoLogo from '@/assets/img/logo.svg';
 import '@/scss/header.scss';
 
 const Header = () => (
@@ -13,7 +13,6 @@ const Header = () => (
           <img className="container__image" alt="logo" src={memoLogo} />
         </Link>
       </div>
-      <Link to="/mlinks">Mlinks</Link>
     </div>
  
     <div className="api_status__container">

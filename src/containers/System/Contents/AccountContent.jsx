@@ -41,11 +41,6 @@ const AccountContent = ({ currentUser, setUser, onItemAction }) => {
             <i className="material-icons danger-text">power_settings_new</i>
             <span className="danger-text">Sign out</span>
           </div>
-
-          <Link className="account-content__item" to="/mlinks" onClick={onItemAction}>
-            <i className="material-icons">share</i>
-            <span>MemoLinks</span>
-          </Link>
         </>
       }
     </>

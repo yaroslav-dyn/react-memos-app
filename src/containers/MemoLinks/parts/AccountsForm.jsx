@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AccountsFormItem from '@/containers/MemoLinks/parts/accountsFormItem'
 import '@/scss/memo-links.scss';
-import { getApiResponse } from '@/Scripts/Services/_common/api';
 import AccountsService from '@/Scripts/Services/units/AccountsService';
 
 const AccountsForm = ({ editStatus }) => {
@@ -29,8 +28,8 @@ const AccountsForm = ({ editStatus }) => {
           onAccountUpdate={() => getDefaultAccounts()}
         />
       ))
-      }
-      <br />
+      } 
+
       {editStatus &&
         <h4> Add new account </h4>
       }
