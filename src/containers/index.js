@@ -22,5 +22,9 @@ export { default as Settings } from './Settings/SettingsIndex';
 //MemoLinks
 export { default as MemoLinks } from './MemoLinks/MemoLinksIndex'
 
+//EnergyControls
+export { default as EnergyControls } from './EnergyControls/EnergyControls'
+
 //System
 export { default as NotFound } from './System/NotFound';
+

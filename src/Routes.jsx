@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, MemosIndex, MemosSingleFull, NotFound, Login, SignUp, Settings, Ideas, MemoLinks } from './containers';
+import { Home, MemosIndex, MemosSingleFull, NotFound, Login, SignUp, Settings, Ideas, MemoLinks, EnergyControls } from './containers';
 import RouterGuard from './containers/_Common/_RouterGuard';
 import { connect } from 'react-redux';
 
@@ -38,9 +38,13 @@ const Routes = ({currentUser}) => (
     <RouterGuard path="/ideas" auth={!!currentUser}>
       <Ideas />
     </RouterGuard>
-    
+
     <RouterGuard path="/mlinks" auth={!!currentUser} >
       <MemoLinks/>
+    </RouterGuard>
+
+    <RouterGuard path="/e-controls" auth={!!currentUser} >
+      <EnergyControls/>
     </RouterGuard>
 
     <Route component={NotFound} />

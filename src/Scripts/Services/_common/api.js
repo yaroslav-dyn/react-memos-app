@@ -20,13 +20,13 @@ const responseHandler = async (response, clearResponse) => {
     const parsedRequest = await response.json();
     if (parsedRequest.hasOwnProperty('errors')) {
       parsedRequest.errors.map(err => {
-        const parsedMsg = err.hasOwnProperty('msg') ? err.msg : (err.hasOwnProperty('message') && err.message || null)
+        const parsedMsg = err.hasOwnProperty('msg') ? err.msg : (err.hasOwnProperty('message') ? err.message : null);
         store.dispatch(setToastData({ title: parsedMsg, type: 'error' }));
       });
     } else if (parsedRequest.hasOwnProperty('error') && parsedRequest.error.hasOwnProperty('message')) {
       store.dispatch(setToastData({ title: parsedRequest.error.message, type: 'error' }));
     }
-    return 
+
   } else return clearResponse ? response : response.json();
 };
 

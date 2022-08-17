@@ -37,6 +37,10 @@ const AccountContent = ({ currentUser, setUser, onItemAction }) => {
         </div>
         :
         <>
+          <Link className="account-content__item" to="/e-controls" onClick={onItemAction}>
+            <i className="material-icons info-text">bolt</i>
+            <span className="info-text">E-counter</span>
+          </Link>
           <div className="account-content__item" onClick={signOut}>
             <i className="material-icons danger-text">power_settings_new</i>
             <span className="danger-text">Sign out</span>
