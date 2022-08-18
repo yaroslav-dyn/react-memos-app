@@ -1,0 +1,16 @@
+.e_controls-page {
+  .e-controls__table {
+
+  }
+
+  .controls-table__modal {
+    width: 80vw;
+  }
+
+  .e-controls__table {
+    &--item {
+      padding: 1.2rem;
+      box-shadow: 0 0 2px 0 rgba(0,0,0,0.6);
+    }
+  }
+}

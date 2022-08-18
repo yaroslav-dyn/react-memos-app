@@ -13,9 +13,34 @@ const getEnergyControls = async () => {
   return response || undefined;
 }
 
+const getEnergyControlsRecords = async () => {
+  const response = getApiResponse(
+      '/e-controls-table',
+      'GET',
+      null,
+      false,
+      false,
+      true
+  );
+  return response || undefined;
+}
+
+const createTableRecord = async (record) => {
+  const response = getApiResponse(
+      '/e-controls-table',
+      'POST',
+      record,
+      false,
+      false,
+      true
+  );
+  return response || undefined;
+}
 
 const EnergyControlsService = {
-  getEnergyControls
+  getEnergyControls,
+  getEnergyControlsRecords,
+  createTableRecord
 }
 
 export default EnergyControlsService
