@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {setToastData} from '@/store/actions';
 import {connect} from 'react-redux';
 import EnergyControlsService from "@/Scripts/Services/units/EControlsService";
+import dayjs from 'dayjs';
 
 
 const mapDispatchToProps = (dispatch) => {
@@ -10,24 +11,23 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const addIdeaModalComponent = ({onClose, setToastMessage, energyControls}) => {
+const addIdeaModalComponent = ({onClose, energyControlsRecord, setToastMessage, energyControls, controlDate}) => {
 
-
-  const [controlsData, setControlsData] = useState({controlId: null, value: '', controlDate: ''});
-  const [energyControlsModel, setEnergyControlsModel] = useState([]);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [energyControlsModel, setEnergyControlsModel] = useState([...energyControls]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const setObjectField = (value, key, index) => {
-    const modifyArr = energyControlsModel;
+    const modifyArr = [...energyControls]
     modifyArr[index][key] = value;
-    setEnergyControlsModel(
-        modifyArr
-    )
+    setEnergyControlsModel(modifyArr);
   };
 
   useEffect(() => {
-    energyControls && setEnergyControlsModel(energyControls)
-  });
+    if(controlDate) setSelectedDate( dayjs(controlDate).format('YYYY-MM-DD') );
+    return function cleanup() {
+      setEnergyControlsModel([...energyControls])
+    }
+  },[]);
 
 
   const getControlSpec = (control) => {
@@ -47,25 +47,24 @@ const addIdeaModalComponent = ({onClose, setToastMessage, energyControls}) => {
   const createTableRecords = async (e) => {
     e.preventDefault();
 
-    console.log('track', selectedDate, energyControlsModel)
-
    energyControlsModel.forEach(controlData => {
       let sendData = {
         controlsId: controlData._id,
         controlName: controlData.name,
         controlDate: selectedDate,
-        value: controlData.value
+        value: controlData.value,
+        monthNumber: dayjs(controlDate).month()
       }
-      EnergyControlsService.createTableRecord(sendData).then(res => {
-        if (res) {
-          setToastMessage({title: `${controlsData.name} sample has been added`, type: 'success'});
-          onClose(true);
-        } else setToastMessage({title: `${controlsData.name} sample hasn't been added`, type: 'error'});
-      })
-
-    })
-
-
+      if(controlData) {
+        EnergyControlsService.createTableRecord(sendData).then(res => {
+          if (res) {
+            setToastMessage({title: `${controlData.name} sample has been added`, type: 'success'});
+            onClose(true);
+          } else setToastMessage({title: `${controlData.name} sample hasn't been added`, type: 'error'});
+        });
+        setEnergyControlsModel([...energyControls])
+      }
+    });
   };
 
   return (
@@ -85,12 +84,12 @@ const addIdeaModalComponent = ({onClose, setToastMessage, energyControls}) => {
                   type="text"
                   value={selectedDate}
                   name="text"
-                  onChange={e => setSelectedDate(e.target.value)}
+                  onChange={ (e) => setSelectedDate(e.target.value)}
                   required
               />
             </div>
 
-            <div className="flex-grid justify-s-side-in">
+            <div className="flex-grid justify-s-side-in row-mobile">
               {
                 energyControlsModel && energyControlsModel.map((control, index) => (
                     <div key={index}>
@@ -101,7 +100,7 @@ const addIdeaModalComponent = ({onClose, setToastMessage, energyControls}) => {
                             className="auth-type__input"
                             type="text"
                             value={control.value}
-                            onChange={e => setObjectField(e.target.value, 'value', index)}
+                            onChange={ (e) => setObjectField(e.target.value, 'value', index)}
                             id={control.name}
                             name={control.name}
                             required

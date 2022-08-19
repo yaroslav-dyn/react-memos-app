@@ -75,6 +75,11 @@
   .flex1 {
     flex: 1;
   }
+  &.row-mobile {
+    @media screen and (max-width: $medium-device) {
+      flex-direction: column;
+    }
+  }
 }
 
 .action-icon {
