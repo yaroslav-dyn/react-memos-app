@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {setToastData} from '@/store/actions';
-import {connect} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { setToastData } from '@/store/actions';
+import { connect } from 'react-redux';
 import EnergyControlsService from "@/Scripts/Services/units/EControlsService";
+import DatePicker from "react-datepicker";
 import dayjs from 'dayjs';
-
+import '@/scss/e-controls.scss';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -11,10 +12,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const addIdeaModalComponent = ({onClose, energyControlsRecord, setToastMessage, energyControls, controlDate}) => {
+const addIdeaModalComponent = ({ onClose, energyControlsRecord, setToastMessage, energyControls, controlDate }) => {
 
   const [energyControlsModel, setEnergyControlsModel] = useState([...energyControls]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedDate, setSelectedDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(dayjs().toDate());
 
   const setObjectField = (value, key, index) => {
     const modifyArr = [...energyControls]
@@ -23,12 +25,23 @@ const addIdeaModalComponent = ({onClose, energyControlsRecord, setToastMessage, 
   };
 
   useEffect(() => {
-    if(controlDate) setSelectedDate( dayjs(controlDate).format('YYYY-MM-DD') );
+    console.log('energyControlsRecord', energyControlsModel, energyControlsRecord);
+    if (energyControlsRecord && energyControlsRecord.length > 0) {
+      energyControlsModel.forEach(ctrl => {
+        const currentRecord = energyControlsRecord.find(rec => rec.controlsId === ctrl._id);
+        if (currentRecord) {
+          ctrl.value = currentRecord.value;
+          ctrl.recordId = currentRecord._id;
+        } 
+      })
+    }
+    if (controlDate) {
+      setStartDate(controlDate);
+    }
     return function cleanup() {
       setEnergyControlsModel([...energyControls])
     }
-  },[]);
-
+  }, []);
 
   const getControlSpec = (control) => {
     let digitStr = []
@@ -43,24 +56,31 @@ const addIdeaModalComponent = ({onClose, energyControlsRecord, setToastMessage, 
     return control.decimalCount ? [...digitStr, ',', ...decimalStr] : digitStr;
   }
 
-
   const createTableRecords = async (e) => {
     e.preventDefault();
-
-   energyControlsModel.forEach(controlData => {
+    energyControlsModel.forEach(controlData => {
       let sendData = {
         controlsId: controlData._id,
         controlName: controlData.name,
-        controlDate: selectedDate,
+        controlDate: dayjs(startDate).format("YYYY-MM-DD"),
         value: controlData.value,
-        monthNumber: dayjs(controlDate).month()
+        monthNumber: dayjs(controlDate).month(),
+        yearNumber: dayjs(controlDate).year()
       }
-      if(controlData) {
+      if (controlData && !energyControlsRecord && energyControlsRecord.length > 0) {
         EnergyControlsService.createTableRecord(sendData).then(res => {
           if (res) {
-            setToastMessage({title: `${controlData.name} sample has been added`, type: 'success'});
+            setToastMessage({ title: `${controlData.name} sample has been added`, type: 'success' });
             onClose(true);
-          } else setToastMessage({title: `${controlData.name} sample hasn't been added`, type: 'error'});
+          } else setToastMessage({ title: `${controlData.name} sample hasn't been added`, type: 'error' });
+        });
+        setEnergyControlsModel([...energyControls])
+      } else if (controlData && energyControlsRecord && energyControlsRecord.length > 0) {
+        EnergyControlsService.uodateTableRecord(sendData, controlData.recordId).then(res => {
+          if (res) {
+            setToastMessage({ title: `${controlData.name} sample has been updated`, type: 'success' });
+            onClose(true);
+          } else setToastMessage({ title: `${controlData.name} sample hasn't been updated`, type: 'error' });
         });
         setEnergyControlsModel([...energyControls])
       }
@@ -68,18 +88,18 @@ const addIdeaModalComponent = ({onClose, energyControlsRecord, setToastMessage, 
   };
 
   return (
-      <div className="base-modal add-modal">
-        <div className="base-modal__content add-modal__content controls-table__modal">
+    <div className="base-modal add-modal">
+      <div className="base-modal__content add-modal__content controls-table__modal">
 
-          <div className="flex-grid justify-right">
-            <span className="material-icons action-icon" onClick={() => onClose(false)}>close</span>
-          </div>
+        <div className="flex-grid justify-right">
+          <span className="material-icons action-icon" onClick={() => onClose(false)}>close</span>
+        </div>
 
 
-          <form className="idea-add__form" name="ideas" onSubmit={createTableRecords}>
-            <div className="row">
-              <label className="auth-type__label">Enter date</label>
-              <input
+        <form className="idea-add__form" name="ideas" onSubmit={createTableRecords}>
+          <div className="row">
+            <label className="auth-type__label">Enter date</label>
+            {/* <input
                   className="auth-type__input"
                   type="text"
                   value={selectedDate}
@@ -87,42 +107,51 @@ const addIdeaModalComponent = ({onClose, energyControlsRecord, setToastMessage, 
                   onChange={ (e) => setSelectedDate(e.target.value)}
                   required
               />
-            </div>
+ */}
+            <DatePicker
+              className="controls_picker"
+              dateFormat="MMMM, yyyy"
+              selected={startDate}
+              showMonthYearPicker
+              name="text"
+              onChange={(e) => setStartDate(e)} />
 
-            <div className="flex-grid justify-s-side-in row-mobile">
-              {
-                energyControlsModel && energyControlsModel.map((control, index) => (
-                    <div key={index}>
-                      <h4>{control.name} <span>{getControlSpec(control)}</span></h4>
-                      <div className="row">
-                        <label className="auth-type__label" htmlFor="group-name">Enter control value</label>
-                        <input
-                            className="auth-type__input"
-                            type="text"
-                            value={control.value}
-                            onChange={ (e) => setObjectField(e.target.value, 'value', index)}
-                            id={control.name}
-                            name={control.name}
-                            required
-                        />
-                      </div>
-                    </div>
+          </div>
 
-                ))
-              }
-            </div>
+          <div className="flex-grid justify-s-side-in row-mobile">
+            {
+              energyControlsModel && energyControlsModel.map((control, index) => (
+                <div key={index}>
+                  <h4>{control.name} <span>{getControlSpec(control)}</span></h4>
+                  <div className="row">
+                    <label className="auth-type__label" htmlFor="group-name">Enter control value</label>
+                    <input
+                      className="auth-type__input"
+                      type="text"
+                      value={control.value}
+                      onChange={(e) => setObjectField(e.target.value, 'value', index)}
+                      id={control.name}
+                      name={control.name}
+                      required
+                    />
+                  </div>
+                </div>
 
-            <div className="base-modal__controls">
-              <button
-                  type="submit"
-                  className="action-btn success mobile100">
-                Create Control record
-              </button>
-            </div>
-          </form>
+              ))
+            }
+          </div>
 
-        </div>
+          <div className="base-modal__controls">
+            <button
+              type="submit"
+              className="action-btn success mobile100">
+              Create Control record
+            </button>
+          </div>
+        </form>
+
       </div>
+    </div>
   )
 
 };

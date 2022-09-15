@@ -1,4 +1,5 @@
 .e_controls-page {
+
   .e-controls__table {
 
   }
@@ -20,5 +21,23 @@
         border-bottom: 1px solid #ddd;
       }
     }
+
   }
-}
+  .picker_module {
+    .react-datepicker-wrapper {
+      margin: 0 14px;
+    }
+    .controls_picker {
+      border: none;
+      text-align: center;
+      &--btn {
+        margin-top: -8px;
+        font-size: 24px;
+        color: #444
+      }
+    }
+  }
+
+  
+
+}//

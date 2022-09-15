@@ -41,7 +41,7 @@ const EControlsTable = ({controlDate, energyControls, setCurrentRecords}) => {
                   </div>
               ))
           }
-          {controlRecords.length > 0 &&
+          {controlRecords && controlRecords.length > 0 &&
             <i className="action-icon material-symbols-outlined danger-text" onClick={() => triggerConfirm(true)}>
               delete
             </i>

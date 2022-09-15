@@ -38,6 +38,18 @@ const createTableRecord = async (record) => {
   return response || undefined;
 }
 
+const uodateTableRecord = async (record, recordId) => {
+  const response = getApiResponse(
+    `/e-controls-table/${recordId}`,
+    'PUT',
+    record,
+    false,
+    false,
+    true
+  );
+  return response || undefined;
+}
+
 const deleteTableRecord = async (record) => {
   const response = getApiResponse(
       `/e-controls-table/${record._id}`,
@@ -54,6 +66,7 @@ const EnergyControlsService = {
   getEnergyControls,
   getEnergyControlsRecords,
   createTableRecord,
+  uodateTableRecord,
   deleteTableRecord
 }
 
